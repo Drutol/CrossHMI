@@ -55,7 +55,9 @@
     <Reference Include="Mono.Android" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MainActivity.cs" />
+    <Compile Include="App.cs" />
+    <Compile Include="Fragment\DashboardPageFragment.cs" />
+    <Compile Include="Activities\MainActivity.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -65,8 +67,13 @@
     <None Include="Assets\AboutAssets.txt" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\activity_main.axml">
+    <AndroidResource Include="Resources\layout\dashboard_page.xml">
+      <Generator>MSBuild:UpdateGeneratedFiles</Generator>
       <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\activity_main.xml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateGeneratedFiles</Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\values\colors.xml" />
     <AndroidResource Include="Resources\values\ic_launcher_background.xml" />
@@ -91,7 +98,42 @@
     <AndroidResource Include="Resources\mipmap-xxxhdpi\ic_launcher_round.png" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="AoLibs.Adapters.Android">
+      <Version>0.1.1</Version>
+    </PackageReference>
+    <PackageReference Include="AoLibs.Adapters.Core">
+      <Version>0.1.1</Version>
+    </PackageReference>
+    <PackageReference Include="AoLibs.Navigation.Android">
+      <Version>0.1.1</Version>
+    </PackageReference>
+    <PackageReference Include="AoLibs.Navigation.Core">
+      <Version>0.1.1</Version>
+    </PackageReference>
+    <PackageReference Include="AoLibs.Utilities.Android">
+      <Version>0.1.1</Version>
+    </PackageReference>
+    <PackageReference Include="Autofac">
+      <Version>4.8.1</Version>
+    </PackageReference>
+    <PackageReference Include="Newtonsoft.Json">
+      <Version>11.0.2</Version>
+    </PackageReference>
     <PackageReference Include="Xamarin.Android.Support.Design" Version="27.0.2" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CrossHMI.Interfaces\CrossHMI.Interfaces.csproj">
+      <Project>{62291379-e90b-4386-a061-47cb9f94c40b}</Project>
+      <Name>CrossHMI.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CrossHMI.Models\CrossHMI.Models.csproj">
+      <Project>{262d5493-306e-4b37-a365-6bc7f4c5f2f2}</Project>
+      <Name>CrossHMI.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CrossHMI.Shared\CrossHMI.Shared.csproj">
+      <Project>{3d4b875d-1e76-4efc-9eea-b25a31136488}</Project>
+      <Name>CrossHMI.Shared</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

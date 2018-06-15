@@ -12,10 +12,6 @@ Building an architecture and its implementation for given set of devices, which 
 * Type of data.
 * Distance between the data source and the user.
 
-## Thesis:
-
-Development will prove that it's possible to build unviversal cross-platform HMI for selected library sourcing the asynchronous data on mobile devices.
-
 ## Features&Limitations:
 
 * Selection of one library that will provide the data in accordance with IoT concept.
@@ -29,3 +25,10 @@ Development will prove that it's possible to build unviversal cross-platform HMI
      * AutoFac - https://github.com/autofac/Autofac
 * Implementation of mechanism allowing to select context of received data.
 * Implementation of shared configuration for all application components.
+
+## Notes:
+
+Additional NuGet packages used by this project can be obtained from following feed
+```
+https://www.myget.org/F/drutol/api/v3/index.json
+```
