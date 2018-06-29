@@ -5,15 +5,15 @@ VisualStudioVersion = 15.0.27428.2015
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrossHMI.Android", "CrossHMI.Android\CrossHMI.Android.csproj", "{4BF8A766-F123-462C-8702-859687D36C5F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrossHMI.Shared", "CrossHMI.Shared\CrossHMI.Shared.csproj", "{3D4B875D-1E76-4EFC-9EEA-B25A31136488}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CrossHMI.Shared", "CrossHMI.Shared\CrossHMI.Shared.csproj", "{3D4B875D-1E76-4EFC-9EEA-B25A31136488}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Android", "Android", "{BD020B7D-D681-4B12-B7EA-DFCD0E8A392B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{A05AEF75-0E96-4509-9518-E2E06F3D8AD7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrossHMI.Models", "CrossHMI.Models\CrossHMI.Models.csproj", "{262D5493-306E-4B37-A365-6BC7F4C5F2F2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CrossHMI.Models", "CrossHMI.Models\CrossHMI.Models.csproj", "{262D5493-306E-4B37-A365-6BC7F4C5F2F2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrossHMI.Interfaces", "CrossHMI.Interfaces\CrossHMI.Interfaces.csproj", "{62291379-E90B-4386-A061-47CB9F94C40B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CrossHMI.Interfaces", "CrossHMI.Interfaces\CrossHMI.Interfaces.csproj", "{62291379-E90B-4386-A061-47CB9F94C40B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

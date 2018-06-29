@@ -10,9 +10,13 @@
     <PackageReference Include="AoLibs.Utilities.Shared" Version="0.1.1" />
     <PackageReference Include="Autofac" Version="4.8.1" />
     <PackageReference Include="MvvmLightLibsStd10" Version="5.4.1" />
+    <PackageReference Include="UAOOI.Networking.Encoding" Version="4.0.0" />
+    <PackageReference Include="UAOOI.Networking.SemanticData" Version="4.0.0" />
+    <PackageReference Include="UAOOI.Networking.UDPMessageHandler" Version="4.0.0" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\CrossHMI.Interfaces\CrossHMI.Interfaces.csproj" />
     <ProjectReference Include="..\CrossHMI.Models\CrossHMI.Models.csproj" />
   </ItemGroup>
 

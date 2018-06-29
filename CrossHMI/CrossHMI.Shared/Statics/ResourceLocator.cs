@@ -1,4 +1,10 @@
 ﻿using Autofac;
+using CrossHMI.Shared.BL.Consumer;
+using UAOOI.Configuration.Networking;
+using UAOOI.Networking.Encoding;
+using UAOOI.Networking.SemanticData;
+using UAOOI.Networking.SemanticData.MessageHandling;
+using UAOOI.Networking.UDPMessageHandler;
 
 namespace CrossHMI.Shared.Statics
 {
@@ -8,6 +14,12 @@ namespace CrossHMI.Shared.Statics
 
         internal static void RegisterResources(this ContainerBuilder builder)
         {
+            //Library
+            builder.RegisterType<MessageHandlerFactory>().As<IMessageHandlerFactory>().SingleInstance();
+            builder.RegisterType<ConfigurationFactory>().As<IConfigurationFactory>().SingleInstance();
+            builder.RegisterType<EncodingFactoryBinarySimple>().As<IEncodingFactory>().SingleInstance();
+            builder.RegisterType<ConsumerBindingFactory>().As<IBindingFactory>().SingleInstance();
+
             builder.RegisterBuildCallback(BuildCallback);
         }
 

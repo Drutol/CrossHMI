@@ -55,6 +55,7 @@
     <Reference Include="Mono.Android" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Adapters\ConfigurationResourcesProvider.cs" />
     <Compile Include="App.cs" />
     <Compile Include="Fragment\DashboardPageFragment.cs" />
     <Compile Include="Activities\MainActivity.cs" />
@@ -134,6 +135,9 @@
       <Project>{3d4b875d-1e76-4efc-9eea-b25a31136488}</Project>
       <Name>CrossHMI.Shared</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\LibraryConfiguration.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
