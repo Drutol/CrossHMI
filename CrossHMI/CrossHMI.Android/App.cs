@@ -8,6 +8,8 @@ using AoLibs.Adapters.Android.Interfaces;
 using AoLibs.Adapters.Core.Interfaces;
 using AoLibs.Navigation.Core.Interfaces;
 using Autofac;
+using CrossHMI.Android.Adapters;
+using CrossHMI.Interfaces.Adapters;
 using CrossHMI.Models.Enums;
 using CrossHMI.Shared.Statics;
 using NavigationLib.Android.Navigation;
@@ -51,6 +53,8 @@ namespace CrossHMI.Android
             containerBuilder.RegisterType<ContextProvider>().As<IContextProvider>().SingleInstance();
             containerBuilder.RegisterType<PhotoPickerAdapter>().As<IPhotoPickerAdapter>().SingleInstance();
             containerBuilder.RegisterType<PhoneCallAdapter>().As<IPhoneCallAdapter>().SingleInstance();
+
+            containerBuilder.RegisterType<ConfigurationResourcesProvider>().As<IConfigurationResourcesProvider>().SingleInstance();
 
             containerBuilder.RegisterInstance(LifetimeInfoProvider).As<ILifecycleInfoProvider>();
 

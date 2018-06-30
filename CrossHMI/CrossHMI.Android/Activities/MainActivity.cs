@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Android.App;
 using Android.Content;
+using Android.Content.PM;
 using Android.OS;
 using Android.Support.V7.App;
 using Android.Widget;
@@ -20,7 +21,8 @@ using Newtonsoft.Json;
 
 namespace CrossHMI.Android
 {
-    [Activity(Label = "@string/app_name", Theme = "@style/AppTheme", MainLauncher = true)]
+    [Activity(Label = "@string/app_name", Theme = "@style/AppTheme", MainLauncher = true, 
+        ConfigurationChanges = ConfigChanges.Orientation | ConfigChanges.ScreenSize, LaunchMode = LaunchMode.SingleTask)]
     public class MainActivity : AppCompatActivity, IOnActivityResultProvider, IOnNewIntentProvider
     {
         private static bool _initialized;

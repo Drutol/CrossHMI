@@ -1,4 +1,6 @@
 ﻿using Autofac;
+using CrossHMI.Interfaces;
+using CrossHMI.Shared.BL;
 using CrossHMI.Shared.BL.Consumer;
 using UAOOI.Configuration.Networking;
 using UAOOI.Networking.Encoding;
@@ -10,7 +12,7 @@ namespace CrossHMI.Shared.Statics
 {
     public static class ResourceLocator
     {
-        internal static ILifetimeScope _appLifetimeScope;
+        private static ILifetimeScope _appLifetimeScope;
 
         internal static void RegisterResources(this ContainerBuilder builder)
         {
@@ -19,6 +21,9 @@ namespace CrossHMI.Shared.Statics
             builder.RegisterType<ConfigurationFactory>().As<IConfigurationFactory>().SingleInstance();
             builder.RegisterType<EncodingFactoryBinarySimple>().As<IEncodingFactory>().SingleInstance();
             builder.RegisterType<ConsumerBindingFactory>().As<IBindingFactory>().SingleInstance();
+
+            //Library Orchiestrastion
+            builder.RegisterType<NetworkEventsReceiver>().As<INetworkEventsReceiver>().SingleInstance();
 
             builder.RegisterBuildCallback(BuildCallback);
         }

@@ -1162,7 +1162,7 @@
     <MessageHandlerConfiguration i:type="MessageReaderConfiguration">
       <Name>UDP</Name>
       <Configuration>
-        <ChannelConfiguration>4840,False,239.255.255.1,True</ChannelConfiguration>
+        <ChannelConfiguration>56743,False,0.0.0.0,True</ChannelConfiguration>
       </Configuration>
       <TransportRole>Consumer</TransportRole>
       <ConsumerAssociationConfigurations>

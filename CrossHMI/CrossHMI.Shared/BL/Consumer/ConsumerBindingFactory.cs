@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Diagnostics;
 using System.Text;
 using UAOOI.Configuration.Networking.Serialization;
 using UAOOI.Networking.SemanticData;
@@ -134,7 +136,14 @@ namespace CrossHMI.Shared.BL.Consumer
 
         private IConsumerBinding AddBinding<T>(string variableName, UATypeInfo typeInfo)
         {
-            return new ConsumerBindingMonitoredValue<T>(typeInfo);
+            var monitoredValue = new ConsumerBindingMonitoredValue<T>(typeInfo);
+            monitoredValue.PropertyChanged += MonitoredValueOnPropertyChanged;
+            return monitoredValue;
+        }
+
+        private void MonitoredValueOnPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            Debug.WriteLine("dfrgrfd");
         }
     }
 }

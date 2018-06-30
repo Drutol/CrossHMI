@@ -4,6 +4,7 @@ using System.Text;
 using System.Threading.Tasks;
 using CrossHMI.Interfaces;
 using UAOOI.Configuration.Networking;
+using UAOOI.Configuration.Networking.Serialization;
 using UAOOI.Networking.SemanticData;
 using UAOOI.Networking.SemanticData.MessageHandling;
 
@@ -24,7 +25,12 @@ namespace CrossHMI.Shared.BL
 
         public async Task Initialize()
         {
-            await Task.Run(() => { Start(); });
+            await Task.Run(() =>
+            {
+                Start();
+            });
+
+           
         }
     }
 }
