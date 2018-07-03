@@ -4,8 +4,8 @@ using System.Text;
 
 namespace CrossHMI.Interfaces
 {
-    public interface INetworkDeviceEventSource<T>
+    public interface INetworkVariableUpdateSource<T>
     {
-        event EventHandler<T> NewDeviceEvent;
+        event EventHandler<T> Updated;
     }
 }

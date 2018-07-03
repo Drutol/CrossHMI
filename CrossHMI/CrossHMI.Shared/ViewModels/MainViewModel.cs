@@ -18,7 +18,6 @@ namespace CrossHMI.Shared.ViewModels
 
         public void Initialized()
         {
-            _eventsReceiver.Initialize();
             _navigationManager.Navigate(PageIndex.DashboardPage);
         }
     }

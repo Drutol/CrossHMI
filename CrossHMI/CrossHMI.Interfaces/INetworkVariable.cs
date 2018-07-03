@@ -4,8 +4,10 @@ using System.Text;
 
 namespace CrossHMI.Interfaces
 {
-    public interface INetworkDeviceProvider
+    public interface INetworkVariable
     {
-        INetworkDeviceEventSource<T> RegisterDevice<T>();
+        string Name { get; set; }
+
+        void Initialize(string raw);
     }
 }

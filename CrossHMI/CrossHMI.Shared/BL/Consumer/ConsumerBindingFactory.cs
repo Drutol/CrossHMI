@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Text;
+using CrossHMI.Interfaces;
 using UAOOI.Configuration.Networking.Serialization;
 using UAOOI.Networking.SemanticData;
 using UAOOI.Networking.SemanticData.DataRepository;
 
 namespace CrossHMI.Shared.BL.Consumer
 {
-    public class ConsumerBindingFactory : IBindingFactory
+    public class ConsumerBindingFactory : IRecordingBindingFactory
     {
         /// <summary>
         /// Gets the binding captured by an instance of the <see cref="IConsumerBinding" /> type used by the consumer to save the data in the data repository.
@@ -27,6 +28,9 @@ namespace CrossHMI.Shared.BL.Consumer
         {
             throw new NotImplementedException();
         }
+
+        public Dictionary<string, IConsumerBinding> ConsumerBindings { get; } =
+            new Dictionary<string, IConsumerBinding>();
 
         /// <summary>
         /// Helper method that creates the consumer binding.
@@ -137,13 +141,13 @@ namespace CrossHMI.Shared.BL.Consumer
         private IConsumerBinding AddBinding<T>(string variableName, UATypeInfo typeInfo)
         {
             var monitoredValue = new ConsumerBindingMonitoredValue<T>(typeInfo);
-            monitoredValue.PropertyChanged += MonitoredValueOnPropertyChanged;
+            ConsumerBindings[variableName] = monitoredValue;
+            monitoredValue.PropertyChanged += (sender, args) =>
+            {
+                Debug.WriteLine(variableName);
+            };
             return monitoredValue;
         }
 
-        private void MonitoredValueOnPropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            Debug.WriteLine("dfrgrfd");
-        }
     }
 }

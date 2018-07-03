@@ -7,8 +7,9 @@ namespace CrossHMI.Interfaces
 {
     public interface INetworkEventsReceiver
     {
-        event EventHandler<string> EventReceived;
-
         Task Initialize();
+
+        INetworkVariableUpdateSource<T> ObtainEventSourceForVariable<T,TRaw>(string variableName)
+            where T : INetworkVariable , new ();
     }
 }
