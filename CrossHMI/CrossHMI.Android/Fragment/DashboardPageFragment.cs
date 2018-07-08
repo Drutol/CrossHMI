@@ -2,8 +2,9 @@
 using Android.Views;
 using Android.Widget;
 using AoLibs.Adapters.Android.Recycler;
-using CrossHMI.Shared.Variables;
+using CrossHMI.Shared.Devices;
 using CrossHMI.Shared.ViewModels;
+using GalaSoft.MvvmLight.Helpers;
 using NavigationLib.Android.Navigation;
 
 namespace CrossHMI.Android.Fragment
@@ -14,21 +15,30 @@ namespace CrossHMI.Android.Fragment
 
         protected override void InitBindings()
         {
-            RecyclerView.SetAdapter(
-                new ObservableRecyclerAdapter<VariableUpdatedEntry, ValueViewHolder>(ViewModel.Updates, DataTemplate,
-                    ItemTemplate) {ApplyLayoutParams = true});
+            Bindings.Add(this.SetBinding(() => ViewModel.Boilers).WhenSourceChanges(() =>
+            {
+                if(ViewModel.Boilers == null)
+                    return;
+
+                RecyclerView.SetAdapter(
+                    new ObservableRecyclerAdapter<Boiler, ValueViewHolder>(ViewModel.Boilers, DataTemplate,
+                            ItemTemplate)
+                        {ApplyLayoutParams = true});
+            }));
+
+
             RecyclerView.SetLayoutManager(new LinearLayoutManager(Activity));
         }
 
         private View ItemTemplate(int viewtype)
         {
-            return LayoutInflater.Inflate(Resource.Layout.dashboard_received_data_item, null);
+            return LayoutInflater.Inflate(Resource.Layout.dashboard_boiler_item, null);
         }
 
-        private void DataTemplate(VariableUpdatedEntry item, ValueViewHolder holder, int position)
+        private void DataTemplate(Boiler item, ValueViewHolder holder, int position)
         {
-            holder.Value.Text = item.Value;
-            holder.VariableName.Text = item.Name;
+            holder.BoilerName.Text = item.Identifier;
+            holder.Position.Text = $"Lat: {item.Lat}, Lon: {item.Lon}";
         }
 
         #region Views
@@ -39,7 +49,7 @@ namespace CrossHMI.Android.Fragment
 
         #endregion
 
-        class ValueViewHolder : RecyclerView.ViewHolder
+        class ValueViewHolder : BindingViewHolderBase<Boiler>
         {
             private readonly View _view;
 
@@ -48,10 +58,29 @@ namespace CrossHMI.Android.Fragment
                 _view = view;
             }
 
-            private TextView _variableName;
+            protected override void SetBindings()
+            {
+                Bindings.Add(this.SetBinding(() => ViewModel.Toggle).WhenSourceChanges(() =>
+                {
+                    ToggleValue.Text = ViewModel.Toggle ? "ON" : "OFF";
+                }));
+
+                Bindings.Add(this.SetBinding(() => ViewModel.Value).WhenSourceChanges(() =>
+                {
+                    Value.Text = ViewModel.Value.ToString();
+                }));
+            }
+
+            private TextView _boilerName;
+            private TextView _position;
+            private TextView _toggleValue;
             private TextView _value;
 
-            public TextView VariableName => _variableName ?? (_variableName = _view.FindViewById<TextView>(Resource.Id.VariableName));
+            public TextView BoilerName => _boilerName ?? (_boilerName = _view.FindViewById<TextView>(Resource.Id.BoilerName));
+
+            public TextView Position => _position ?? (_position = _view.FindViewById<TextView>(Resource.Id.Position));
+
+            public TextView ToggleValue => _toggleValue ?? (_toggleValue = _view.FindViewById<TextView>(Resource.Id.ToggleValue));
 
             public TextView Value => _value ?? (_value = _view.FindViewById<TextView>(Resource.Id.Value));
         }

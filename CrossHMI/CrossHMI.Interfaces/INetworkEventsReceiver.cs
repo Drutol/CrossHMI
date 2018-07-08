@@ -9,7 +9,9 @@ namespace CrossHMI.Interfaces
     {
         Task Initialize();
 
-        INetworkVariableUpdateSource<T> ObtainEventSourceForVariable<T,TRaw>(string variableName)
-            where T : INetworkVariable , new ();
+        INetworkVariableUpdateSource<T> ObtainEventSourceForVariable<T>(string repository, string variableName);
+
+        INetworkDeviceUpdateSource<TDevice> ObtainEventSourceForDevice<TDevice>(string repository) 
+            where TDevice : INetworkDevice , new ();
     }
 }

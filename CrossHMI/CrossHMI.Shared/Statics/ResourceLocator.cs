@@ -19,7 +19,7 @@ namespace CrossHMI.Shared.Statics
             //Library
             builder.RegisterType<MessageHandlerFactory>().As<IMessageHandlerFactory>().SingleInstance();
             builder.RegisterType<ConfigurationFactory>().As<IConfigurationFactory>().SingleInstance();
-            builder.RegisterType<EncodingFactoryBinarySimple>().As<IEncodingFactory>().SingleInstance();
+            builder.RegisterType<EncodingFactory>().As<IEncodingFactory>().SingleInstance();
             builder.RegisterType<ConsumerBindingFactory>().As<IRecordingBindingFactory>().SingleInstance();
 
             //Library Orchiestrastion

@@ -8,6 +8,6 @@ namespace CrossHMI.Interfaces
 {
     public interface IRecordingBindingFactory : IBindingFactory
     {
-        Dictionary<string,IConsumerBinding> ConsumerBindings { get; }
+        Dictionary<string, IConsumerBinding> GetConsumerBindingsForRepository(string repository);
     }
 }

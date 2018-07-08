@@ -6,6 +6,8 @@ namespace CrossHMI.Interfaces
 {
     public interface INetworkVariableUpdateSource<T>
     {
-        event EventHandler<T> Updated;
+        string Name { get; }
+
+        event NetworkVariableUpdateEventHandler<T> Updated;
     }
 }

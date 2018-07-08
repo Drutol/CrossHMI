@@ -8,6 +8,6 @@ namespace CrossHMI.Interfaces
     {
         string Name { get; set; }
 
-        void Initialize(string raw);
+        void Parse(string raw);
     }
 }
