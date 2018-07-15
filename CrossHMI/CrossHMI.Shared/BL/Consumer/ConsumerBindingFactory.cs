@@ -82,16 +82,10 @@ namespace CrossHMI.Shared.BL.Consumer
         private IConsumerBinding AddBinding<T>(string repositoryGroup, string variableName, UATypeInfo typeInfo)
         {
             var monitoredValue = new ConsumerBindingMonitoredValue<T>(typeInfo);
-            monitoredValue.PropertyChanged += MonitoredValueOnPropertyChanged;
             if(!ConsumerBindings.ContainsKey(repositoryGroup))
                 ConsumerBindings[repositoryGroup] = new Dictionary<string, IConsumerBinding>();
             ConsumerBindings[repositoryGroup][variableName] = monitoredValue;
             return monitoredValue;
-        }
-
-        private void MonitoredValueOnPropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            
         }
     }
 }

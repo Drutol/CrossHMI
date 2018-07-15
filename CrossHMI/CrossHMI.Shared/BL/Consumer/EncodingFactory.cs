@@ -21,157 +21,97 @@ namespace CrossHMI.Shared.BL.Consumer
 
         public IUAEncoder UAEncoder { get; } = new Encoder();
 
-        class Decoder : IUADecoder
+        class Decoder : UABinaryDecoder
         {
-            public Guid ReadGuid(IBinaryDecoder decoder)
+            public override IDataValue ReadDataValue(IBinaryDecoder decoder)
             {
                 throw new NotImplementedException();
             }
 
-            public DateTime ReadDateTime(IBinaryDecoder decoder)
+            public override IDiagnosticInfo ReadDiagnosticInfo(IBinaryDecoder decoder)
             {
                 throw new NotImplementedException();
             }
 
-            public byte[] ReadByteString(IBinaryDecoder decoder)
+            public override IExpandedNodeId ReadExpandedNodeId(IBinaryDecoder decoder)
             {
                 throw new NotImplementedException();
             }
 
-            public string ReadString(IBinaryDecoder decoder)
+            public override IExtensionObject ReadExtensionObject(IBinaryDecoder decoder)
             {
                 throw new NotImplementedException();
             }
 
-            public IDataValue ReadDataValue(IBinaryDecoder decoder)
+            public override ILocalizedText ReadLocalizedText(IBinaryDecoder decoder)
             {
                 throw new NotImplementedException();
             }
 
-            public IDiagnosticInfo ReadDiagnosticInfo(IBinaryDecoder decoder)
+            public override INodeId ReadNodeId(IBinaryDecoder decoder)
             {
                 throw new NotImplementedException();
             }
 
-            public IExpandedNodeId ReadExpandedNodeId(IBinaryDecoder decoder)
+            public override IQualifiedName ReadQualifiedName(IBinaryDecoder decoder)
             {
                 throw new NotImplementedException();
             }
 
-            public IExtensionObject ReadExtensionObject(IBinaryDecoder decoder)
+            public override XmlElement ReadXmlElement(IBinaryDecoder decoder)
             {
                 throw new NotImplementedException();
             }
 
-            public ILocalizedText ReadLocalizedText(IBinaryDecoder decoder)
-            {
-                throw new NotImplementedException();
-            }
-
-            public INodeId ReadNodeId(IBinaryDecoder decoder)
-            {
-                throw new NotImplementedException();
-            }
-
-            public IQualifiedName ReadQualifiedName(IBinaryDecoder decoder)
-            {
-                throw new NotImplementedException();
-            }
-
-            public XmlElement ReadXmlElement(IBinaryDecoder decoder)
-            {
-                throw new NotImplementedException();
-            }
-
-            public IStatusCode ReadStatusCode(IBinaryDecoder decoder)
-            {
-                throw new NotImplementedException();
-            }
-
-            public IVariant ReadVariant(IBinaryDecoder decoder)
-            {
-                throw new NotImplementedException();
-            }
-
-            public Array ReadArray<type>(IBinaryDecoder decoder, Func<type> readValue, bool arrayDimensionsPresents)
+            public override IStatusCode ReadStatusCode(IBinaryDecoder decoder)
             {
                 throw new NotImplementedException();
             }
         }
 
-        class Encoder : IUAEncoder
+        class Encoder : UABinaryEncoder
         {
-            public void Write(IBinaryEncoder encoder, DateTime value)
+            public override void Write(IBinaryEncoder encoder, IDataValue value)
             {
                 throw new NotImplementedException();
             }
 
-            public void Write(IBinaryEncoder encoder, byte[] value)
+            public override void Write(IBinaryEncoder encoder, IDiagnosticInfo value)
             {
                 throw new NotImplementedException();
             }
 
-            public void Write(IBinaryEncoder encoder, IDataValue value)
+            public override void Write(IBinaryEncoder encoder, IExpandedNodeId value)
             {
                 throw new NotImplementedException();
             }
 
-            public void Write(IBinaryEncoder encoder, IDiagnosticInfo value)
+            public override void Write(IBinaryEncoder encoder, IExtensionObject value)
             {
                 throw new NotImplementedException();
             }
 
-            public void Write(IBinaryEncoder encoder, IExpandedNodeId value)
+            public override void Write(IBinaryEncoder encoder, ILocalizedText value)
             {
                 throw new NotImplementedException();
             }
 
-            public void Write(IBinaryEncoder encoder, IExtensionObject value)
+            public override void Write(IBinaryEncoder encoder, INodeId value)
             {
                 throw new NotImplementedException();
             }
 
-            public void Write(IBinaryEncoder encoder, ILocalizedText value)
+            public override void Write(IBinaryEncoder encoder, IQualifiedName value)
             {
                 throw new NotImplementedException();
             }
 
-            public void Write(IBinaryEncoder encoder, INodeId value)
+            public override void Write(IBinaryEncoder encoder, XmlElement value)
             {
                 throw new NotImplementedException();
             }
 
-            public void Write(IBinaryEncoder encoder, IQualifiedName value)
-            {
-                throw new NotImplementedException();
-            }
-
-            public void Write(IBinaryEncoder encoder, XmlElement value)
-            {
-                throw new NotImplementedException();
-            }
-
-            public void Write(IBinaryEncoder encoder, IStatusCode value)
-            {
-                throw new NotImplementedException();
-            }
-
-            public void Write(IBinaryEncoder encoder, IVariant value)
-            {
-                throw new NotImplementedException();
-            }
-
-            public void Write(IBinaryEncoder encoder, Guid value)
-            {
-                throw new NotImplementedException();
-            }
-
-            public void Write(IBinaryEncoder encoder, string value)
-            {
-                throw new NotImplementedException();
-            }
-
-            public void WriteArray<type>(IBinaryEncoder encoder, Array value, Action<type> writeValue, BuiltInType builtInType)
+            public override void Write(IBinaryEncoder encoder, IStatusCode value)
             {
                 throw new NotImplementedException();
             }

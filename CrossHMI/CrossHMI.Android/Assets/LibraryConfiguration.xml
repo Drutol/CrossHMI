@@ -118,6 +118,11 @@
           <DataSetWriterId>1</DataSetWriterId>
           <PublisherId>d80d81dd-96e6-4560-850e-154f9181307c</PublisherId>
         </ConsumerAssociationConfiguration>
+        <ConsumerAssociationConfiguration>
+          <AssociationName>B2</AssociationName>
+          <DataSetWriterId>1</DataSetWriterId>
+          <PublisherId>d80d81dd-96e6-4560-850e-154f9181307c</PublisherId>
+        </ConsumerAssociationConfiguration>
       </ConsumerAssociationConfigurations>
     </MessageHandlerConfiguration>
   </MessageHandlers>
