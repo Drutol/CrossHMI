@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Text;
-
-namespace CrossHMI.Interfaces
+﻿namespace CrossHMI.Interfaces.Networking
 {
     public interface INetworkDeviceUpdateSource<T> : INetworkDeviceUpdateSourceBase
         where T : INetworkDevice, new ()

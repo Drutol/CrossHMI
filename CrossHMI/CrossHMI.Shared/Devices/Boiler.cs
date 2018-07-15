@@ -1,4 +1,5 @@
 ﻿using CrossHMI.Interfaces;
+using CrossHMI.Interfaces.Networking;
 using GalaSoft.MvvmLight;
 using Newtonsoft.Json.Linq;
 

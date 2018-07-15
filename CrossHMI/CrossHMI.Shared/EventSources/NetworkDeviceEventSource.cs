@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Text;
 using AoLibs.Adapters.Core.Interfaces;
 using CrossHMI.Interfaces;
+using CrossHMI.Interfaces.Networking;
 
 namespace CrossHMI.Shared.EventSources
 {

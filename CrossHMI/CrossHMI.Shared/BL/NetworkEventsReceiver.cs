@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AoLibs.Adapters.Core.Interfaces;
 using CrossHMI.Interfaces;
+using CrossHMI.Interfaces.Networking;
 using CrossHMI.Shared.BL.Consumer;
 using CrossHMI.Shared.EventSources;
 using UAOOI.Configuration.Networking;

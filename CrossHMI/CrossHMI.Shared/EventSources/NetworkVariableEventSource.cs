@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
 using CrossHMI.Interfaces;
+using CrossHMI.Interfaces.Networking;
 using UAOOI.Networking.SemanticData.DataRepository;
 
 namespace CrossHMI.Shared.EventSources

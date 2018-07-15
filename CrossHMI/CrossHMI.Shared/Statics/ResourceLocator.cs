@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using CrossHMI.Interfaces;
+using CrossHMI.Interfaces.Networking;
 using CrossHMI.Shared.BL;
 using CrossHMI.Shared.BL.Consumer;
 using UAOOI.Configuration.Networking;

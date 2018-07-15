@@ -1,5 +1,6 @@
 ﻿using AoLibs.Navigation.Core.Interfaces;
 using CrossHMI.Interfaces;
+using CrossHMI.Interfaces.Networking;
 using CrossHMI.Models.Enums;
 using GalaSoft.MvvmLight;
 

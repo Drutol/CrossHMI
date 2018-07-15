@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using AoLibs.Adapters.Core.Interfaces;
 using CrossHMI.Interfaces;
+using CrossHMI.Interfaces.Networking;
 using CrossHMI.Models;
 using CrossHMI.Shared.Devices;
 using GalaSoft.MvvmLight;

@@ -16,4 +16,8 @@
     <PackageReference Include="UAOOI.Networking.SemanticData" Version="4.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\CrossHMI.Models\CrossHMI.Models.csproj" />
+  </ItemGroup>
+
 </Project>

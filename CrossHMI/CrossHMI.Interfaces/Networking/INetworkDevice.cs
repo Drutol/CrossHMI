@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace CrossHMI.Interfaces
+﻿namespace CrossHMI.Interfaces.Networking
 {
     public interface INetworkDevice
     {

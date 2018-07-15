@@ -58,6 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Adapters\ConfigurationResourcesProvider.cs" />
+    <Compile Include="Adapters\GpsAdapter.cs" />
     <Compile Include="App.cs" />
     <Compile Include="Fragment\DashboardPageFragment.cs" />
     <Compile Include="Activities\MainActivity.cs" />
