@@ -5,64 +5,37 @@ using Newtonsoft.Json.Linq;
 
 namespace CrossHMI.Shared.Devices
 {
-    public class Boiler : ViewModelBase, INetworkDevice
+    public class Boiler : NetworkDeviceBase
     {
-        private int _value;
-        private bool _toggle;
         public string Identifier { get; set; }
 
         public double Lat { get; set; }
         public double Lon { get; set; }
 
-        public bool Toggle
+        [AutoMap] public double CCX001_ControlOut { get; set; }
+        [AutoMap] public double CCX001_Input1 { get; set; }
+        [AutoMap] public double CCX001_Input2 { get; set; }
+        [AutoMap] public double CCX001_Input3 { get; set; }
+        [AutoMap] public double DrumX001_LIX001_Output { get; set; }
+        [AutoMap] public double FCX001_ControlOut { get; set; }
+        [AutoMap] public double FCX001_Measurement { get; set; }
+        [AutoMap] public double FCX001_SetPoint { get; set; }
+        [AutoMap] public double PipeX001_FTX001_Output { get; set; }
+        [AutoMap] public double PipeX001_ValveX001_Input { get; set; }
+        [AutoMap] public double LCX001_ControlOut { get; set; }
+        [AutoMap] public double LCX001_Measurement { get; set; }
+        [AutoMap] public double LCX001_SetPoint { get; set; }
+        [AutoMap] public double PipeX002_FTX002_Output { get; set; }
+        [AutoMap] public uint Simulation_UpdateRate { get; set; }
+
+        public override void AssignRepository(string repository)
         {
-            get => _toggle;
-            set
-            {
-                _toggle = value;
-                RaisePropertyChanged();
-            }
-        }
+            //var data = JObject.Parse(repository);
 
-        public int Value
-        {
-            get => _value;
-            set
-            {
-                _value = value;
-                RaisePropertyChanged();
-            }
-        }
+            //Lat = data["Lat"].Value<double>();
+            //Lon = data["Lon"].Value<double>();
 
-        public void AssignRepository(string repository)
-        {
-            var data = JObject.Parse(repository);
-
-            Lat = data["Lat"].Value<double>();
-            Lon = data["Lon"].Value<double>();
-
-            Identifier = data["Id"].Value<string>();
-        }
-
-        public void ProcessPropertyUpdate<T>(string variableName, T value)
-        {
-            switch (value)
-            {
-                case bool b:
-                    if (variableName == "BoolToggle")
-                        Toggle = b;
-                    break;
-                case int i:
-                    if (variableName == "ValueInt32")
-                        Value = i;
-                    break;
-            }
-        }
-
-        public void DefineVariables(INetworkDeviceDefinitionBuilder builder)
-        {
-            builder.Define<bool>("BoolToggle")
-                .Define<int>("ValueInt32");
+            //Identifier = data["Id"].Value<string>();
         }
     }
 }

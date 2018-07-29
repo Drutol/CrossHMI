@@ -15,8 +15,10 @@ namespace CrossHMI.Shared.ViewModels
 {
     public class DashboardViewModel : ViewModelBase
     {
-        private const string Repository1 = "{\"Id\": \"Boiler1\",\"Lat\": 55.68399,\"Lon\": 16.29569}";
-        private const string Repository2 = "{\"Id\": \"Boiler2\",\"Lat\": 45.68399,\"Lon\": 22.29569}";
+        private const string Repository1 = "BoilersArea_Boiler #1";
+        private const string Repository2 = "BoilersArea_Boiler #2";
+        private const string Repository3 = "BoilersArea_Boiler #3";
+        private const string Repository4 = "BoilersArea_Boiler #4";
 
         private readonly INetworkEventsReceiver _networkEventsReceiver;
         private readonly IDispatcherAdapter _dispatcherAdapter;
@@ -36,6 +38,8 @@ namespace CrossHMI.Shared.ViewModels
 
             _updateSources.Add(_networkEventsReceiver.ObtainEventSourceForDevice<Boiler>(Repository1));
             _updateSources.Add(_networkEventsReceiver.ObtainEventSourceForDevice<Boiler>(Repository2));
+            _updateSources.Add(_networkEventsReceiver.ObtainEventSourceForDevice<Boiler>(Repository3));
+            _updateSources.Add(_networkEventsReceiver.ObtainEventSourceForDevice<Boiler>(Repository4));
 
             Boilers = new ObservableCollection<Boiler>(_updateSources.Select(source => source.Device));
         }

@@ -60,14 +60,14 @@ namespace CrossHMI.Android.Fragment
 
             protected override void SetBindings()
             {
-                Bindings.Add(this.SetBinding(() => ViewModel.Toggle).WhenSourceChanges(() =>
+                Bindings.Add(this.SetBinding(() => ViewModel.CCX001_ControlOut).WhenSourceChanges(() =>
                 {
-                    ToggleValue.Text = ViewModel.Toggle ? "ON" : "OFF";
+                    ToggleValue.Text = ViewModel.CCX001_ControlOut.ToString();
                 }));
 
-                Bindings.Add(this.SetBinding(() => ViewModel.Value).WhenSourceChanges(() =>
+                Bindings.Add(this.SetBinding(() => ViewModel.CCX001_Input2).WhenSourceChanges(() =>
                 {
-                    Value.Text = ViewModel.Value.ToString();
+                    Value.Text = ViewModel.CCX001_Input2.ToString();
                 }));
             }
 
