@@ -2,7 +2,7 @@
     "docs": [
         {
             "location": "/",
-            "text": "CrossHMI\n\n\nSubject\n\n\nThis project is meant to prove how vaiable is it to push Human-Machine-Interfaces from huge monitoring systems into small, mobile devices. Achieving such feat would allow to make monitoring easier and more versatile depending on the given circumstances..\n\n\nGoal\n\n\nThe goal is to provide mobile application that is able to gather data from nearby devices, which are emitting various data. This data shall be presented in human-readable form taking into consideration localisation of both device and mobile HMI.\n\n\nScope\n\n\n\n\nBuilding cross-platform mobile application using Xamarin.\n\n\nIncorporating \nOPC-UA-OOI\n library to handle data acquistion.\n\n\nBuilding layer of abstraction on top of mentioned library so it's more feasible to use with MVVM pattern.\n\n\nPresenting the data to the user in appropriate graphical way.\n\n\nCorelating geographical position of the user with the postion of the device in order to present most relevant data first.\n\n\n\n\nRelated work\n\n\nThis project is using \nOPC-UA-OOI\n library.",
+            "text": "CrossHMI\n\n\nSubject\n\n\nThis project is meant to prove how vaiable is it to push Human-Machine-Interfaces from huge monitoring systems into small, mobile devices. Achieving such feat would allow to make monitoring easier and more versatile depending on the given circumstances. In other words we are dealing with reactive visualization of asynchronous data on mobile devices.\n\n\nGoal\n\n\nThe goal is to provide mobile application that is able to gather data from nearby devices, which are emitting various data. This data shall be presented in human-readable form taking into consideration localisation of both device and mobile HMI as well as the semantics represented by the type of data.\n\n\nScope\n\n\n\n\nBuilding cross-platform mobile application using Xamarin.\n\n\nIncorporating \nOPC-UA-OOI\n library to handle data acquistion.\n\n\nBuilding layer of abstraction on top of mentioned library so it's more feasible to use with MVVM pattern.\n\n\nPresenting the data to the user in appropriate graphical way.\n\n\nCorelating geographical position of the user with the postion of the device in order to present most relevant data first.\n\n\n\n\nRelated work\n\n\nThis project is using \nOPC-UA-OOI\n library.",
             "title": "Home"
         },
         {
@@ -12,12 +12,12 @@
         },
         {
             "location": "/#subject",
-            "text": "This project is meant to prove how vaiable is it to push Human-Machine-Interfaces from huge monitoring systems into small, mobile devices. Achieving such feat would allow to make monitoring easier and more versatile depending on the given circumstances..",
+            "text": "This project is meant to prove how vaiable is it to push Human-Machine-Interfaces from huge monitoring systems into small, mobile devices. Achieving such feat would allow to make monitoring easier and more versatile depending on the given circumstances. In other words we are dealing with reactive visualization of asynchronous data on mobile devices.",
             "title": "Subject"
         },
         {
             "location": "/#goal",
-            "text": "The goal is to provide mobile application that is able to gather data from nearby devices, which are emitting various data. This data shall be presented in human-readable form taking into consideration localisation of both device and mobile HMI.",
+            "text": "The goal is to provide mobile application that is able to gather data from nearby devices, which are emitting various data. This data shall be presented in human-readable form taking into consideration localisation of both device and mobile HMI as well as the semantics represented by the type of data.",
             "title": "Goal"
         },
         {
