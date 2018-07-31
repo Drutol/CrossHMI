@@ -1,0 +1,21 @@
+:root {
+    --section-header-size: 1.8rem;
+    --section-inner-left-margin : 2rem;
+}
+
+/*
+    Header
+*/
+
+.md-header {
+    background: #9600a3 !important;
+    background-image: linear-gradient(120deg, #9600a3, #ffae00) !important;
+}
+
+/*
+    Navmenu
+*/
+
+/*
+    Other
+*/

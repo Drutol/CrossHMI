@@ -229,3 +229,5 @@ MALClient.Dekstop/BundleArtifacts/
 MALClient.Android/Resources/Resource.Designer.cs
 MALClient.XShared/Secrets.cs
 /CrossHMI/CrossHMI.Tools.ModelBuilder
+
+site/
