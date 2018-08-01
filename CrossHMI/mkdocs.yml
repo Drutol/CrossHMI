@@ -2,6 +2,7 @@ site_name: CrossHMI
 
 pages:
   - Home: index.md
+  - About: about.md
 
 extra_css:
     - css/extra.css

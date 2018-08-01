@@ -2,7 +2,7 @@
     "docs": [
         {
             "location": "/",
-            "text": "CrossHMI\n\n\nSubject\n\n\nThis project is meant to prove how vaiable is it to push Human-Machine-Interfaces from huge monitoring systems into small, mobile devices. Achieving such feat would allow to make monitoring easier and more versatile depending on the given circumstances. In other words we are dealing with reactive visualization of asynchronous data on mobile devices.\n\n\nGoal\n\n\nThe goal is to provide mobile application that is able to gather data from nearby devices, which are emitting various data. This data shall be presented in human-readable form taking into consideration localisation of both device and mobile HMI as well as the semantics represented by the type of data.\n\n\nScope\n\n\n\n\nBuilding cross-platform mobile application using Xamarin.\n\n\nIncorporating \nOPC-UA-OOI\n library to handle data acquistion.\n\n\nBuilding layer of abstraction on top of mentioned library so it's more feasible to use with MVVM pattern.\n\n\nPresenting the data to the user in appropriate graphical way.\n\n\nCorelating geographical position of the user with the postion of the device in order to present most relevant data first.\n\n\n\n\nRelated work\n\n\nThis project is using \nOPC-UA-OOI\n library.",
+            "text": "CrossHMI\n\n\nSubject\n\n\nThis project is meant to prove how vaiable is it to push Human-Machine-Interfaces from huge monitoring systems into small, mobile devices. Achieving such feat would allow to make monitoring easier and more versatile depending on the given circumstances. In other words we are dealing with reactive visualization of asynchronous data on mobile devices.\n\n\nGoal\n\n\nThe goal is to provide mobile application that is able to gather data from nearby devices, which are emitting various data. This data shall be presented in human-readable form taking into consideration localisation of both device and mobile HMI as well as the semantics represented by the type of data.\n\n\nScope\n\n\n\n\nBuilding cross-platform mobile application using Xamarin.\n\n\nIncorporating \nOPC-UA-OOI\n library to handle data acquistion.\n\n\nBuilding layer of abstraction on top of mentioned library so it's more feasible to use with MVVM pattern.\n\n\nPresenting the data to the user in appropriate graphical way.\n\n\nCorelating geographical position of the user with the postion of the device in order to present most relevant data first.\n\n\n\n\nRelated work\n\n\nNone yet.",
             "title": "Home"
         },
         {
@@ -27,8 +27,23 @@
         },
         {
             "location": "/#related-work",
-            "text": "This project is using  OPC-UA-OOI  library.",
+            "text": "None yet.",
             "title": "Related work"
+        },
+        {
+            "location": "/about/",
+            "text": "About\n\n\nProject is now hosted on GitHub in private reposiotry due to certain circumstances. It will be open-sourced at some point in the future.\n\n\nAuthor: Piotr Szymczak\n\n\n\n\nContact e-mail: \ndev(dot)pszymczak(at)poczta(dot)fm\n\n\n\n\nMy \nGitHub profile\n.\n\n\n\n\nYou can also find me on \nLinkedIn\n!",
+            "title": "About"
+        },
+        {
+            "location": "/about/#about",
+            "text": "Project is now hosted on GitHub in private reposiotry due to certain circumstances. It will be open-sourced at some point in the future.",
+            "title": "About"
+        },
+        {
+            "location": "/about/#author-piotr-szymczak",
+            "text": "Contact e-mail:  dev(dot)pszymczak(at)poczta(dot)fm   My  GitHub profile .   You can also find me on  LinkedIn !",
+            "title": "Author: Piotr Szymczak"
         }
     ]
 }

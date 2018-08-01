@@ -18,4 +18,4 @@ The goal is to provide mobile application that is able to gather data from nearb
 
 ## Related work
 
-This project is using [OPC-UA-OOI](https://github.com/mpostol/OPC-UA-OOI) library.
+None yet.
