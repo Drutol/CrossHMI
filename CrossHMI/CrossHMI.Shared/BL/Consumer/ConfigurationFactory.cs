@@ -6,15 +6,19 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Xml;
 using CrossHMI.Interfaces.Adapters;
+using CrossHMI.Interfaces.Networking;
+using CrossHMI.Shared.Configuration;
 using UAOOI.Configuration.Networking;
 using UAOOI.Configuration.Networking.Serialization;
 using UAOOI.Configuration.Networking.Serializers;
 
 namespace CrossHMI.Shared.BL.Consumer
 {
-    public class ConfigurationFactory : ConfigurationFactoryBase
+    public class ConfigurationFactory : ConfigurationFactoryBase<BoilersConfigurationData> , INetworkConfigurationProvider<BoilersConfigurationData>
     {
         private readonly IConfigurationResourcesProvider _configurationResourcesProvider;
+
+        public BoilersConfigurationData CurrentConfiguration { get; private set; }
 
         public ConfigurationFactory(IConfigurationResourcesProvider configurationResourcesProvider)
         {
@@ -22,18 +26,22 @@ namespace CrossHMI.Shared.BL.Consumer
             Loader = ConfigurationLoader;
         }
 
-        private ConfigurationData ConfigurationLoader()
+        private BoilersConfigurationData ConfigurationLoader()
         {
             return ConfigurationDataFactoryIO.Load(DataLoader, RaiseEvents);
         }
 
-        private ConfigurationData DataLoader()
+        private BoilersConfigurationData DataLoader()
         {
             using (var reader =
                 new XmlTextReader(_configurationResourcesProvider.ObtainLibraryConfigurationXML()))
             {
-                return new DataContractSerializer(typeof(ConfigurationData))
-                        .ReadObject(reader, false) as ConfigurationData;
+                var configuration = new DataContractSerializer(typeof(BoilersConfigurationData))
+                    .ReadObject(reader, false) as BoilersConfigurationData;
+
+                CurrentConfiguration = configuration;
+
+                return configuration;
             }
         }
 
@@ -45,5 +53,6 @@ namespace CrossHMI.Shared.BL.Consumer
 
         public override event EventHandler<EventArgs> OnAssociationConfigurationChange;
         public override event EventHandler<EventArgs> OnMessageHandlerConfigurationChange;
+    
     }
 }

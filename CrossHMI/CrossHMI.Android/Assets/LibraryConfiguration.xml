@@ -661,4 +661,28 @@
       </ConsumerAssociationConfigurations>
     </MessageHandlerConfiguration>
   </MessageHandlers>
+  <RepositoryExtensions>
+[
+  {
+    "Repository": "BoilersArea_Boiler #1",
+    "Lat": 51.68399,
+    "Lon": 19.29569
+  },
+  {
+    "Repository": "BoilersArea_Boiler #2",
+    "Lat": 51.68399,
+    "Lon": 19.29569
+  },  
+  {
+    "Repository": "BoilersArea_Boiler #3",
+    "Lat": 51.68399,
+    "Lon": 19.29569
+  }, 
+  {
+    "Repository": "BoilersArea_Boiler #4",
+    "Lat": 51.68399,
+    "Lon": 19.29569
+  }
+]
+  </RepositoryExtensions>
 </ConfigurationData>

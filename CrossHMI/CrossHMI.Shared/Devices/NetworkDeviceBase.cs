@@ -11,9 +11,9 @@ namespace CrossHMI.Shared.Devices
 {
     public abstract class NetworkDeviceBase : ViewModelBase, INetworkDevice
     {
-        protected class AutoMapAttribute : Attribute
+        protected class ProcessVariableAttribute : Attribute
         {
-            public AutoMapAttribute([CallerMemberName] string configurationPropertyName = null)
+            public ProcessVariableAttribute([CallerMemberName] string configurationPropertyName = null)
             {
                 ConfigurationPropertyName = configurationPropertyName;
             }
@@ -23,20 +23,20 @@ namespace CrossHMI.Shared.Devices
             public bool RaisePropertyChanged { get; set; } = true;
         }
 
-        private Dictionary<Type, Dictionary<string, (AutoMapAttribute Attribute,PropertyInfo Property)>> _propertyMappings =
-            new Dictionary<Type, Dictionary<string, (AutoMapAttribute Attribute, PropertyInfo Property)>>();
+        private Dictionary<Type, Dictionary<string, (ProcessVariableAttribute Attribute,PropertyInfo Property)>> _propertyMappings =
+            new Dictionary<Type, Dictionary<string, (ProcessVariableAttribute Attribute, PropertyInfo Property)>>();
 
         public NetworkDeviceBase()
         {
             var type = this.GetType();
 
             foreach (var property in type.GetProperties().Where(info =>
-                info.CustomAttributes.Any(data => data.AttributeType == typeof(AutoMapAttribute))))
+                info.CustomAttributes.Any(data => data.AttributeType == typeof(ProcessVariableAttribute))))
             {
-                var attr = property.GetCustomAttribute<AutoMapAttribute>();
+                var attr = property.GetCustomAttribute<ProcessVariableAttribute>();
 
                 if(!_propertyMappings.ContainsKey(property.PropertyType))
-                    _propertyMappings[property.PropertyType] = new Dictionary<string, (AutoMapAttribute attribute, PropertyInfo property)>();
+                    _propertyMappings[property.PropertyType] = new Dictionary<string, (ProcessVariableAttribute attribute, PropertyInfo property)>();
 
                 _propertyMappings[property.PropertyType][attr.ConfigurationPropertyName] = (attr,property);
             }
@@ -56,13 +56,13 @@ namespace CrossHMI.Shared.Devices
             }           
         }
 
-        public virtual void DefineVariables(INetworkDeviceDefinitionBuilder builder)
+        public virtual void DefineDevice(INetworkDeviceDefinitionBuilder builder)
         {
             foreach (var typeMappings in _propertyMappings)
             {
                 var method = builder
                     .GetType()
-                    .GetMethod(nameof(builder.Define))?
+                    .GetMethod(nameof(builder.DefineVariable))?
                     .MakeGenericMethod(typeMappings.Key);
                 foreach (var propertyMapping in typeMappings.Value)
                 {

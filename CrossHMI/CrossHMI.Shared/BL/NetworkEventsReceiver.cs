@@ -8,6 +8,7 @@ using AoLibs.Adapters.Core.Interfaces;
 using CrossHMI.Interfaces;
 using CrossHMI.Interfaces.Networking;
 using CrossHMI.Shared.BL.Consumer;
+using CrossHMI.Shared.Configuration;
 using CrossHMI.Shared.EventSources;
 using UAOOI.Configuration.Networking;
 using UAOOI.Configuration.Networking.Serialization;
@@ -17,15 +18,22 @@ using UAOOI.Networking.SemanticData.MessageHandling;
 
 namespace CrossHMI.Shared.BL
 {
-    public class NetworkEventsReceiver : DataManagementSetup, INetworkEventsReceiver
+    public partial class NetworkEventsReceiver : DataManagementSetup, INetworkEventsReceiver
     {
         private readonly IRecordingBindingFactory _recordingBindingFactory;
+        private readonly INetworkConfigurationProvider<BoilersConfigurationData> _configurationProvider;
         private readonly IDispatcherAdapter _dispatcherAdapter;
 
-        public NetworkEventsReceiver(IRecordingBindingFactory bindingFactory, IConfigurationFactory configurationFactory,
-            IMessageHandlerFactory messageHandlerFactory, IEncodingFactory encodingFactory, IDispatcherAdapter dispatcherAdapter)
+        public NetworkEventsReceiver(
+            IRecordingBindingFactory bindingFactory,
+            IConfigurationFactory configurationFactory,
+            INetworkConfigurationProvider<BoilersConfigurationData> configurationProvider,
+            IMessageHandlerFactory messageHandlerFactory, 
+            IEncodingFactory encodingFactory,
+            IDispatcherAdapter dispatcherAdapter)
         {
             _recordingBindingFactory = bindingFactory;
+            _configurationProvider = configurationProvider;
             _dispatcherAdapter = dispatcherAdapter;
 
             BindingFactory = bindingFactory;
@@ -57,35 +65,6 @@ namespace CrossHMI.Shared.BL
             source.Device = new NetworkDeviceDefinitionBuilder<TDevice>(this, source, repository).Build();
                          
             return source;
-        }
-
-        class NetworkDeviceDefinitionBuilder<TDevice> : INetworkDeviceDefinitionBuilder where TDevice : INetworkDevice, new ()
-        {
-            private readonly INetworkEventsReceiver _parent;
-            private readonly INetworkDeviceUpdateSourceBase _deviceUpdateSource;
-            private readonly string _repository;
-
-            public NetworkDeviceDefinitionBuilder(INetworkEventsReceiver parent,
-                INetworkDeviceUpdateSourceBase deviceUpdateSource, string repository)
-            {
-                _parent = parent;
-                _deviceUpdateSource = deviceUpdateSource;
-                _repository = repository;
-            }
-
-            public INetworkDeviceDefinitionBuilder Define<T>(string variableName)
-            {
-                _deviceUpdateSource.RegisterNetworkVariable(_parent.ObtainEventSourceForVariable<T>(_repository,variableName));
-                return this;
-            }
-
-            public TDevice Build()
-            {
-                var device = Activator.CreateInstance<TDevice>();
-                device.AssignRepository(_repository);
-                device.DefineVariables(this);
-                return device;
-            }
         }       
     }
 }

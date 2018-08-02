@@ -5,6 +5,6 @@
         void AssignRepository(string repository);
         void ProcessPropertyUpdate<T>(string variableName, T value);
 
-        void DefineVariables(INetworkDeviceDefinitionBuilder builder);
+        void DefineDevice(INetworkDeviceDefinitionBuilder builder);
     }
 }

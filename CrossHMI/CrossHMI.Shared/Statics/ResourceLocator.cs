@@ -3,6 +3,7 @@ using CrossHMI.Interfaces;
 using CrossHMI.Interfaces.Networking;
 using CrossHMI.Shared.BL;
 using CrossHMI.Shared.BL.Consumer;
+using CrossHMI.Shared.Configuration;
 using UAOOI.Configuration.Networking;
 using UAOOI.Networking.Encoding;
 using UAOOI.Networking.SemanticData;
@@ -18,10 +19,22 @@ namespace CrossHMI.Shared.Statics
         internal static void RegisterResources(this ContainerBuilder builder)
         {
             //Library
-            builder.RegisterType<MessageHandlerFactory>().As<IMessageHandlerFactory>().SingleInstance();
-            builder.RegisterType<ConfigurationFactory>().As<IConfigurationFactory>().SingleInstance();
-            builder.RegisterType<EncodingFactory>().As<IEncodingFactory>().SingleInstance();
-            builder.RegisterType<ConsumerBindingFactory>().As<IRecordingBindingFactory>().SingleInstance();
+            builder.RegisterType<MessageHandlerFactory>()
+                .As<IMessageHandlerFactory>()
+                .SingleInstance();
+
+            builder.RegisterType<ConfigurationFactory>()
+                .As<IConfigurationFactory>()
+                .As<INetworkConfigurationProvider<BoilersConfigurationData>>()
+                .SingleInstance();
+
+            builder.RegisterType<EncodingFactory>()
+                .As<IEncodingFactory>()
+                .SingleInstance();
+
+            builder.RegisterType<ConsumerBindingFactory>()
+                .As<IRecordingBindingFactory>()
+                .SingleInstance();
 
             //Library Orchiestrastion
             builder.RegisterType<NetworkEventsReceiver>().As<INetworkEventsReceiver>().SingleInstance();
