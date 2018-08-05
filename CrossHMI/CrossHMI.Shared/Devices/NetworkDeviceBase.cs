@@ -6,6 +6,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using CrossHMI.Interfaces.Networking;
 using GalaSoft.MvvmLight;
+using UAOOI.Configuration.Networking.Serialization;
 
 namespace CrossHMI.Shared.Devices
 {
@@ -23,7 +24,7 @@ namespace CrossHMI.Shared.Devices
             public bool RaisePropertyChanged { get; set; } = true;
         }
 
-        private Dictionary<Type, Dictionary<string, (ProcessVariableAttribute Attribute,PropertyInfo Property)>> _propertyMappings =
+        private readonly Dictionary<Type, Dictionary<string, (ProcessVariableAttribute Attribute,PropertyInfo Property)>> _propertyMappings =
             new Dictionary<Type, Dictionary<string, (ProcessVariableAttribute Attribute, PropertyInfo Property)>>();
 
         public NetworkDeviceBase()
@@ -56,7 +57,8 @@ namespace CrossHMI.Shared.Devices
             }           
         }
 
-        public virtual void DefineDevice(INetworkDeviceDefinitionBuilder builder)
+        public virtual void DefineDevice<TConfiguration>(INetworkDeviceDefinitionBuilder<TConfiguration> builder) 
+            where TConfiguration : ConfigurationData
         {
             foreach (var typeMappings in _propertyMappings)
             {

@@ -37,7 +37,7 @@ namespace CrossHMI.Android.Fragment
 
         private void DataTemplate(Boiler item, ValueViewHolder holder, int position)
         {
-            holder.BoilerName.Text = item.Identifier;
+            holder.BoilerName.Text = item.Repository;
             holder.Position.Text = $"Lat: {item.Lat}, Lon: {item.Lon}";
         }
 

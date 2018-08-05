@@ -1,6 +1,6 @@
 ﻿namespace CrossHMI.Interfaces.Networking
 {
-    public interface INetworkDeviceUpdateSource<T> : INetworkDeviceUpdateSourceBase
+    public interface INetworkDeviceUpdateSource<out T> : INetworkDeviceUpdateSourceBase
         where T : INetworkDevice, new ()
     {
         T Device { get; }

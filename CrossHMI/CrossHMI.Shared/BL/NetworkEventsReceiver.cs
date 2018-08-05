@@ -18,16 +18,17 @@ using UAOOI.Networking.SemanticData.MessageHandling;
 
 namespace CrossHMI.Shared.BL
 {
-    public partial class NetworkEventsReceiver : DataManagementSetup, INetworkEventsReceiver
+    public partial class NetworkEventsReceiver<TConfiguration> : DataManagementSetup, INetworkEventsReceiver 
+        where TConfiguration : ConfigurationData, new()
     {
         private readonly IRecordingBindingFactory _recordingBindingFactory;
-        private readonly INetworkConfigurationProvider<BoilersConfigurationData> _configurationProvider;
+        private readonly INetworkConfigurationProvider<TConfiguration> _configurationProvider;
         private readonly IDispatcherAdapter _dispatcherAdapter;
 
         public NetworkEventsReceiver(
             IRecordingBindingFactory bindingFactory,
             IConfigurationFactory configurationFactory,
-            INetworkConfigurationProvider<BoilersConfigurationData> configurationProvider,
+            INetworkConfigurationProvider<TConfiguration> configurationProvider,
             IMessageHandlerFactory messageHandlerFactory, 
             IEncodingFactory encodingFactory,
             IDispatcherAdapter dispatcherAdapter)

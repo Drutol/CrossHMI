@@ -6,9 +6,9 @@ using Newtonsoft.Json.Linq;
 
 namespace CrossHMI.Shared.Devices
 {
-    public class Boiler : NetworkDeviceBase
+    public class Boiler : NetworkDeviceBaseWithConfiguration<BoilersConfigurationData>
     {
-        public string Identifier { get; set; }
+        public string Repository { get; set; }
 
         public double Lat { get; set; }
         public double Lon { get; set; }
@@ -31,14 +31,14 @@ namespace CrossHMI.Shared.Devices
 
         public override void AssignRepository(string repository)
         {
-
+            Repository = repository;
         }
 
-        public override void DefineDevice(INetworkDeviceDefinitionBuilder builder)
+        public override void DefineDevice(INetworkDeviceDefinitionBuilder<BoilersConfigurationData> builder)
         {
             base.DefineDevice(builder);
 
-            builder.DefineConfigurationExtenstion<BoilersConfigurationData, BoilerRepositoryDetails>(
+            builder.DefineConfigurationExtenstion(
                 data => data.RepositoriesDetails,
                 ExtenstionAssigned);
         }

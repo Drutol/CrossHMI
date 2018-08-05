@@ -37,7 +37,9 @@ namespace CrossHMI.Shared.Statics
                 .SingleInstance();
 
             //Library Orchiestrastion
-            builder.RegisterType<NetworkEventsReceiver>().As<INetworkEventsReceiver>().SingleInstance();
+            builder.RegisterType<NetworkEventsReceiver<BoilersConfigurationData>>()
+                .As<INetworkEventsReceiver>()
+                .SingleInstance();
 
             builder.RegisterBuildCallback(BuildCallback);
         }

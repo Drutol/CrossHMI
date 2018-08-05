@@ -4,14 +4,14 @@ using UAOOI.Configuration.Networking.Serialization;
 
 namespace CrossHMI.Interfaces.Networking
 {
-    public interface INetworkDeviceDefinitionBuilder
+    public interface INetworkDeviceDefinitionBuilder<out TConfiguration> where TConfiguration : ConfigurationData
     {
-        INetworkDeviceDefinitionBuilder DefineVariable<T>(string variableName);
+        INetworkDeviceDefinitionBuilder<TConfiguration> DefineVariable<T>(string variableName);
 
-        INetworkDeviceDefinitionBuilder DefineConfigurationExtenstion<TConfiguration, TExtension>(
-            Func<TConfiguration, IEnumerable<TExtension>> extensionSelector, 
+        INetworkDeviceDefinitionBuilder<TConfiguration> DefineConfigurationExtenstion<TExtension>(
+            Func<TConfiguration, IEnumerable<TExtension>> extensionSelector,
             Action<TExtension> extenstionAssigned)
-            where TExtension : class, IAdditonalRepositoryDataDescriptor 
-            where TConfiguration : ConfigurationData;
+            where TExtension : class, IAdditonalRepositoryDataDescriptor;
+
     }
 }
