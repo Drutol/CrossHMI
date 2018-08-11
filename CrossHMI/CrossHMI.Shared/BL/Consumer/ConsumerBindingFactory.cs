@@ -11,21 +11,28 @@ using UAOOI.Networking.SemanticData.DataRepository;
 
 namespace CrossHMI.Shared.BL.Consumer
 {
+    /// <summary>
+    /// Class responsible for creating bindings for every variable in every repository as requested by library.
+    /// </summary>
     public class ConsumerBindingFactory : IRecordingBindingFactory
     {
         private Dictionary<string, Dictionary<string, IConsumerBinding>> ConsumerBindings { get; } =
             new Dictionary<string, Dictionary<string, IConsumerBinding>>();
 
+
+        /// <inheritdoc />
         IConsumerBinding IBindingFactory.GetConsumerBinding(string repositoryGroup, string processValueName, UATypeInfo fieldTypeInfo)
         {
             return GetConsumerBinding(repositoryGroup, processValueName, fieldTypeInfo);
         }
 
+        /// <inheritdoc />
         IProducerBinding IBindingFactory.GetProducerBinding(string repository, string processValueName, UATypeInfo fieldTypeInfo)
         {
             throw new NotImplementedException();
         }
 
+        /// <inheritdoc />
         public Dictionary<string, IConsumerBinding> GetConsumerBindingsForRepository(string repository)
         {
             if (ConsumerBindings.ContainsKey(repository))

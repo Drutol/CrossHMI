@@ -10,24 +10,19 @@ using UAOOI.Configuration.Networking.Serialization;
 
 namespace CrossHMI.Shared.Devices
 {
+    /// <summary>
+    /// Base utility class for final model classes. Provides functionality of automatically defining marked properties.
+    /// </summary>
     public abstract class NetworkDeviceBase : ViewModelBase, INetworkDevice
     {
-        public class ProcessVariableAttribute : Attribute
-        {
-            public ProcessVariableAttribute([CallerMemberName] string configurationPropertyName = null)
-            {
-                ConfigurationPropertyName = configurationPropertyName;
-            }
-
-            public string ConfigurationPropertyName { get; set; }
-            public bool AutoDefine { get; set; } = true;
-            public bool RaisePropertyChanged { get; set; } = true;
-        }
-
         private readonly Dictionary<Type, Dictionary<string, (ProcessVariableAttribute Attribute,PropertyInfo Property)>> _propertyMappings =
             new Dictionary<Type, Dictionary<string, (ProcessVariableAttribute Attribute, PropertyInfo Property)>>();
 
-        public NetworkDeviceBase()
+        /// <summary>
+        /// Base constructor that via reflection scans all properties for <see cref="ProcessVariableAttribute"/>
+        /// and build a map of them to aoutomate the definition process.
+        /// </summary>
+        protected NetworkDeviceBase()
         {
             var type = this.GetType();
 
@@ -43,8 +38,10 @@ namespace CrossHMI.Shared.Devices
             }
         }
 
+        /// <inheritdoc />
         public abstract void AssignRepository(string repository);
 
+        /// <inheritdoc />
         public virtual void ProcessPropertyUpdate<T>(string variableName, T value)
         {
             if (_propertyMappings.ContainsKey(typeof(T)) && _propertyMappings[typeof(T)].ContainsKey(variableName))
@@ -57,6 +54,7 @@ namespace CrossHMI.Shared.Devices
             }           
         }
 
+        /// <inheritdoc />
         public virtual void DefineDevice<TConfiguration>(INetworkDeviceDefinitionBuilder<TConfiguration> builder) 
             where TConfiguration : ConfigurationData
         {
@@ -74,6 +72,35 @@ namespace CrossHMI.Shared.Devices
                     }
                 }
             }
+        }
+
+        /// <summary>
+        /// Used as a marker for variables that are meant to be used in definition process.
+        /// </summary>
+        public class ProcessVariableAttribute : Attribute
+        {
+            /// <summary>
+            /// Initializes new <see cref="ProcessVariableAttribute"/>
+            /// with default configuration variable name being the one used by the actual caller property.
+            /// </summary>
+            /// <param name="configurationPropertyName">The name of the variable found in configuration file.</param>
+            public ProcessVariableAttribute([CallerMemberName] string configurationPropertyName = null)
+            {
+                ConfigurationPropertyName = configurationPropertyName;
+            }
+
+            /// <summary>
+            /// The name of the variable defined in configuration.
+            /// </summary>
+            public string ConfigurationPropertyName { get; }
+            /// <summary>
+            /// Determines whether this variable should be automatically defined in <see cref="INetworkDeviceDefinitionBuilder{TConfiguration}"/>
+            /// </summary>
+            public bool AutoDefine { get; set; } = true;
+            /// <summary>
+            /// Determines wheter newly received values should trigger <see cref="ObservableObject.PropertyChanged"/>
+            /// </summary>
+            public bool RaisePropertyChanged { get; set; } = true;
         }
     }
 }

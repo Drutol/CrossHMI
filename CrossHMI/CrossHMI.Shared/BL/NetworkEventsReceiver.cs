@@ -18,6 +18,7 @@ using UAOOI.Networking.SemanticData.MessageHandling;
 
 namespace CrossHMI.Shared.BL
 {
+    /// <inheritdoc cref="INetworkEventsReceiver"/>
     public partial class NetworkEventsReceiver<TConfiguration> : DataManagementSetup, INetworkEventsReceiver 
         where TConfiguration : ConfigurationData, new()
     {
@@ -25,6 +26,15 @@ namespace CrossHMI.Shared.BL
         private readonly INetworkConfigurationProvider<TConfiguration> _configurationProvider;
         private readonly IDispatcherAdapter _dispatcherAdapter;
 
+        /// <summary>
+        /// Creates new instance of <see cref="NetworkEventsReceiver{TConfiguration}"/>
+        /// </summary>
+        /// <param name="bindingFactory">Binding factory.</param>
+        /// <param name="configurationFactory">Configuration factory.</param>
+        /// <param name="configurationProvider">Configuration provider.</param>
+        /// <param name="messageHandlerFactory">Message handler facory.</param>
+        /// <param name="encodingFactory">Encoding factory.</param>
+        /// <param name="dispatcherAdapter">Dispatcher adapter.</param>
         public NetworkEventsReceiver(
             IRecordingBindingFactory bindingFactory,
             IConfigurationFactory configurationFactory,
@@ -43,6 +53,7 @@ namespace CrossHMI.Shared.BL
             EncodingFactory = encodingFactory;
         }
 
+        /// <inheritdoc />
         public async Task Initialize()
         {
             await Task.Run(() =>
@@ -51,13 +62,7 @@ namespace CrossHMI.Shared.BL
             });         
         }
 
-        public INetworkVariableUpdateSource<T> ObtainEventSourceForVariable<T>(string repository, string variableName)
-        {
-            var repositoryBindings = _recordingBindingFactory.GetConsumerBindingsForRepository(repository);
-            var valueMonitor = repositoryBindings.First(pair => pair.Key.Equals(variableName)).Value;
-            return new NetworkVariableEventSource<T>(valueMonitor, variableName);
-        }
-
+        /// <inheritdoc />
         public INetworkDeviceUpdateSource<TDevice> ObtainEventSourceForDevice<TDevice>(string repository)
             where TDevice : INetworkDevice, new()
         {
@@ -66,6 +71,13 @@ namespace CrossHMI.Shared.BL
             source.Device = new NetworkDeviceDefinitionBuilder<TDevice>(this, source, repository).Build();
                          
             return source;
-        }       
+        }
+
+        private INetworkVariableUpdateSource<T> ObtainEventSourceForVariable<T>(string repository, string variableName)
+        {
+            var repositoryBindings = _recordingBindingFactory.GetConsumerBindingsForRepository(repository);
+            var valueMonitor = repositoryBindings.First(pair => pair.Key.Equals(variableName)).Value;
+            return new NetworkVariableEventSource<T>(valueMonitor, variableName);
+        }
     }
 }

@@ -28,7 +28,7 @@ namespace CrossHMI.Shared.Statics
                 .As<INetworkConfigurationProvider<BoilersConfigurationData>>()
                 .SingleInstance();
 
-            builder.RegisterType<EncodingFactory>()
+            builder.RegisterType<EncodingFactoryBinarySimple>()
                 .As<IEncodingFactory>()
                 .SingleInstance();
 

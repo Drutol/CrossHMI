@@ -10,11 +10,23 @@ namespace CrossHMI.Shared.BL
 {
     public partial class NetworkEventsReceiver<TConfiguration>
     {
+        /// <summary>
+        /// Interface for objects representing registration of an extension.
+        /// </summary>
         interface IExtensionDeclaration
         {
+            /// <summary>
+            /// Used to find proper extension object and pass
+            /// it to undrelying device via provided callback delegate.
+            /// </summary>
             void Assign();
         }
 
+        /// <summary>
+        /// Builder that allows the model class in question
+        /// define itself without exposing unnecessary information.
+        /// </summary>
+        /// <typeparam name="TDevice"></typeparam>
         class NetworkDeviceDefinitionBuilder<TDevice> : INetworkDeviceDefinitionBuilder<TConfiguration>
             where TDevice : INetworkDevice, new()
         {
@@ -24,6 +36,12 @@ namespace CrossHMI.Shared.BL
 
             private readonly List<IExtensionDeclaration> _extensionDeclarations = new List<IExtensionDeclaration>();
 
+            /// <summary>
+            /// Creates new instance of <see cref="NetworkDeviceDefinitionBuilder{TDevice}"/>
+            /// </summary>
+            /// <param name="parent">Parent <see cref="NetworkEventsReceiver{TConfiguration}"/></param>
+            /// <param name="deviceUpdateSource">The device update source.</param>
+            /// <param name="repository">The repository associated with the device.</param>
             public NetworkDeviceDefinitionBuilder(NetworkEventsReceiver<TConfiguration> parent,
                 INetworkDeviceUpdateSourceBase deviceUpdateSource, string repository)
             {
@@ -32,25 +50,28 @@ namespace CrossHMI.Shared.BL
                 _repository = repository;
             }
 
+            /// <inheritdoc />
             public INetworkDeviceDefinitionBuilder<TConfiguration> DefineVariable<T>(string variableName)
             {
                 _deviceUpdateSource.RegisterNetworkVariable(_parent.ObtainEventSourceForVariable<T>(_repository, variableName));
                 return this;
             }
 
+            /// <inheritdoc />
             public INetworkDeviceDefinitionBuilder<TConfiguration> DefineConfigurationExtenstion<TExtension>(
                 Func<TConfiguration, IEnumerable<TExtension>> extensionSelector,
                 Action<TExtension> extenstionAssigned)
                 where TExtension : class, IAdditonalRepositoryDataDescriptor
             {
-                _extensionDeclarations.Add(new ExtensionDeclaration<TExtension>(this)
-                {
-                    Selector = extensionSelector,
-                    AssignDelegate = extenstionAssigned,
-                });
+                _extensionDeclarations.Add(
+                    new ExtensionDeclaration<TExtension>(this, extensionSelector, extenstionAssigned));
                 return this;
             }
 
+            /// <summary>
+            /// Instantinates and defines the device.
+            /// </summary>
+            /// <returns></returns>
             public TDevice Build()
             {
                 var device = Activator.CreateInstance<TDevice>();
@@ -70,28 +91,42 @@ namespace CrossHMI.Shared.BL
                 return device;
             }
 
+            /// <summary>
+            /// Helper class for storing data about extensions passed to builer while defining the model.
+            /// </summary>
+            /// <typeparam name="TExtension"></typeparam>
             class ExtensionDeclaration<TExtension> : IExtensionDeclaration
                 where TExtension : class, IAdditonalRepositoryDataDescriptor
             {
                 private readonly NetworkDeviceDefinitionBuilder<TDevice> _parent;
+                private readonly Func<TConfiguration, IEnumerable<object>> _extensionSelector;
+                private readonly Action<TExtension> _extenstionAssigned;
 
-                public ExtensionDeclaration(NetworkDeviceDefinitionBuilder<TDevice> parent)
+                /// <summary>
+                /// Creates new <see cref="ExtensionDeclaration{TExtension}"/> instance.
+                /// </summary>
+                /// <param name="parent">Parent <see cref="NetworkDeviceDefinitionBuilder{TDevice}"/></param>
+                /// <param name="extensionSelector">Selector of extensions collection.</param>
+                /// <param name="extenstionAssigned">Callback for when the extension is found.</param>
+                public ExtensionDeclaration(NetworkDeviceDefinitionBuilder<TDevice> parent,
+                    Func<TConfiguration, IEnumerable<object>> extensionSelector,
+                    Action<TExtension> extenstionAssigned)
                 {
                     _parent = parent;
+                    _extensionSelector = extensionSelector;
+                    _extenstionAssigned = extenstionAssigned;
                 }
 
-                public Func<TConfiguration, IEnumerable<TExtension>> Selector { get; set; }
-                public Action<TExtension> AssignDelegate { get; set; }
-
+                /// <inheritdoc />
                 public void Assign()
                 {
                     var extensions =
-                        Selector(_parent._parent._configurationProvider.CurrentConfiguration as TConfiguration)
+                        _extensionSelector(_parent._parent._configurationProvider.CurrentConfiguration as TConfiguration)
                             .Cast<IAdditonalRepositoryDataDescriptor>();
                     var assignedExtension =
                         extensions.FirstOrDefault(descriptor => descriptor.Repository.Equals(_parent._repository));
 
-                    AssignDelegate(assignedExtension as TExtension);
+                    _extenstionAssigned(assignedExtension as TExtension);
                 }
             }
         }

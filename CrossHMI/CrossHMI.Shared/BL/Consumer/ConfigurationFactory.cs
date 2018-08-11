@@ -14,12 +14,20 @@ using UAOOI.Configuration.Networking.Serializers;
 
 namespace CrossHMI.Shared.BL.Consumer
 {
+    /// <summary>
+    /// Class responsible for loading and propagating configuration of the library.
+    /// </summary>
     public class ConfigurationFactory : ConfigurationFactoryBase<BoilersConfigurationData> , INetworkConfigurationProvider<BoilersConfigurationData>
     {
         private readonly IConfigurationResourcesProvider _configurationResourcesProvider;
 
+        /// <inheritdoc />
         public BoilersConfigurationData CurrentConfiguration { get; private set; }
 
+        /// <summary>
+        /// Creates new instaince of <see cref="ConfigurationFactory"/>
+        /// </summary>
+        /// <param name="configurationResourcesProvider">The provider of raw configuration asset.</param>
         public ConfigurationFactory(IConfigurationResourcesProvider configurationResourcesProvider)
         {
             _configurationResourcesProvider = configurationResourcesProvider;
@@ -45,13 +53,17 @@ namespace CrossHMI.Shared.BL.Consumer
             }
         }
 
+        /// <inheritdoc />
         protected override void RaiseEvents()
         {
             OnAssociationConfigurationChange?.Invoke(this,EventArgs.Empty);
             OnMessageHandlerConfigurationChange?.Invoke(this,EventArgs.Empty);
         }
 
+        /// <inheritdoc />
         public override event EventHandler<EventArgs> OnAssociationConfigurationChange;
+
+        /// <inheritdoc />
         public override event EventHandler<EventArgs> OnMessageHandlerConfigurationChange;
     
     }
