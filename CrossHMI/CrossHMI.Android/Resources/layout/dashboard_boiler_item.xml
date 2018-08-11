@@ -1,20 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent" android:paddingBottom="8dp"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="#f6f6f6"
     android:orientation="vertical">
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:clipToPadding="false"
-        android:paddingBottom="2dp">
+        android:paddingBottom="4dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#e6e6e6" android:elevation="2dp"
+            android:background="#e6e6e6"
+            android:elevation="4dp"
             android:orientation="horizontal"
             android:padding="8dp">
 
@@ -38,71 +41,52 @@
         </LinearLayout>
     </FrameLayout>
 
-
-    <LinearLayout android:background="#f6f6f6"
+    <me.itangqi.waveloadingview.WaveLoadingView
+        android:id="@+id/WaveView"
         android:layout_width="match_parent"
-        android:layout_marginTop="-2dp"
+        android:layout_height="100dp"
+        android:layout_margin="8dp"
+        app:wlv_borderColor="#2f2f2f"
+        app:wlv_borderWidth="7dp"
+        app:wlv_progressValue="33"
+        app:wlv_round_rectangle="true"
+        app:wlv_shapeType="rectangle"
+        app:wlv_waveAmplitude="50"
+        app:wlv_waveColor="#176bfd"
+        tools:managedTypeName="WaveLoadingControl" />
+
+    <LinearLayout
+        android:id="@+id/PropertiesListView"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp">
+        android:orientation="vertical"
+        android:paddingTop="8dp" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clipToPadding="false"
+        android:paddingTop="4dp">
 
         <FrameLayout
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1">
+            android:background="#d6d6d6"
+            android:elevation="4dp"
+            android:paddingBottom="4dp"
+            android:paddingEnd="8dp"
+            android:paddingTop="4dp">
 
-            <LinearLayout
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:orientation="vertical">
+                android:layout_gravity="end"
+                android:drawableEnd="@drawable/icon_arrow_right"
+                android:drawableTint="#262626"
+                android:gravity="center"
+                android:text="Tap to see details"
+                android:textColor="#262626" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="CCX001_ControlOut" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="4dp"
-                    android:id="@+id/ToggleValue"
-                    android:textColor="#000"
-                    android:textSize="26dp"
-                    tools:text="ON" />
-            </LinearLayout>
         </FrameLayout>
-
-        <FrameLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="CCX001_Input2" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:id="@+id/Value"
-                    android:layout_marginTop="4dp"
-                    android:textColor="#000"
-                    android:textSize="26dp"
-                    tools:text="123" />
-            </LinearLayout>
-        </FrameLayout>
-
-    </LinearLayout>
-
+    </FrameLayout>
 </LinearLayout>

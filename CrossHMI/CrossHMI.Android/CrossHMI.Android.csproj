@@ -126,6 +126,10 @@
     <PackageReference Include="Xamarin.Android.Support.Design" Version="27.0.2" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CrossHMI.Android.Binding.WaveLoading\CrossHMI.Android.Binding.WaveLoading.csproj">
+      <Project>{b60b6040-0bd0-4d9b-8d11-d970859d2143}</Project>
+      <Name>CrossHMI.Android.Binding.WaveLoading</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CrossHMI.Interfaces\CrossHMI.Interfaces.csproj">
       <Project>{62291379-e90b-4386-a061-47cb9f94c40b}</Project>
       <Name>CrossHMI.Interfaces</Name>
@@ -146,6 +150,15 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\dashboard_boiler_item.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\icon_arrow_right.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\dashboard_boiler_item_property.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\values\fonts.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

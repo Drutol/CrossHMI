@@ -12,7 +12,7 @@ namespace CrossHMI.Shared.Devices
 {
     public abstract class NetworkDeviceBase : ViewModelBase, INetworkDevice
     {
-        protected class ProcessVariableAttribute : Attribute
+        public class ProcessVariableAttribute : Attribute
         {
             public ProcessVariableAttribute([CallerMemberName] string configurationPropertyName = null)
             {
