@@ -47,7 +47,10 @@ namespace CrossHMI.Shared.Devices
             if (_propertyMappings.ContainsKey(typeof(T)) && _propertyMappings[typeof(T)].ContainsKey(variableName))
             {
                 var mapping = _propertyMappings[typeof(T)][variableName];
-                                      
+
+                if (!mapping.Attribute.AutoDefine)
+                    return;
+
                 mapping.Property.SetValue(this, value);
                 if(mapping.Attribute.RaisePropertyChanged)
                     RaisePropertyChanged(mapping.Property.Name);

@@ -18,8 +18,8 @@ using UAOOI.Networking.SemanticData.MessageHandling;
 
 namespace CrossHMI.Shared.BL
 {
-    /// <inheritdoc cref="INetworkEventsReceiver"/>
-    public partial class NetworkEventsReceiver<TConfiguration> : DataManagementSetup, INetworkEventsReceiver 
+    /// <inheritdoc cref="INetworkEventsManager"/>
+    public partial class NetworkEventsManager<TConfiguration> : DataManagementSetup, INetworkEventsManager 
         where TConfiguration : ConfigurationData, new()
     {
         private readonly IRecordingBindingFactory _recordingBindingFactory;
@@ -27,7 +27,7 @@ namespace CrossHMI.Shared.BL
         private readonly IDispatcherAdapter _dispatcherAdapter;
 
         /// <summary>
-        /// Creates new instance of <see cref="NetworkEventsReceiver{TConfiguration}"/>
+        /// Creates new instance of <see cref="NetworkEventsManager{TConfiguration}"/>
         /// </summary>
         /// <param name="bindingFactory">Binding factory.</param>
         /// <param name="configurationFactory">Configuration factory.</param>
@@ -35,7 +35,7 @@ namespace CrossHMI.Shared.BL
         /// <param name="messageHandlerFactory">Message handler facory.</param>
         /// <param name="encodingFactory">Encoding factory.</param>
         /// <param name="dispatcherAdapter">Dispatcher adapter.</param>
-        public NetworkEventsReceiver(
+        public NetworkEventsManager(
             IRecordingBindingFactory bindingFactory,
             IConfigurationFactory configurationFactory,
             INetworkConfigurationProvider<TConfiguration> configurationProvider,

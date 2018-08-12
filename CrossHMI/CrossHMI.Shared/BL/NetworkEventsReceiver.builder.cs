@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using CrossHMI.Interfaces;
@@ -8,7 +9,7 @@ using UAOOI.Configuration.Networking.Serialization;
 
 namespace CrossHMI.Shared.BL
 {
-    public partial class NetworkEventsReceiver<TConfiguration>
+    public partial class NetworkEventsManager<TConfiguration>
     {
         /// <summary>
         /// Interface for objects representing registration of an extension.
@@ -27,27 +28,34 @@ namespace CrossHMI.Shared.BL
         /// define itself without exposing unnecessary information.
         /// </summary>
         /// <typeparam name="TDevice"></typeparam>
-        class NetworkDeviceDefinitionBuilder<TDevice> : INetworkDeviceDefinitionBuilder<TConfiguration>
+        internal class NetworkDeviceDefinitionBuilder<TDevice> : INetworkDeviceDefinitionBuilder<TConfiguration>
             where TDevice : INetworkDevice, new()
         {
-            private readonly NetworkEventsReceiver<TConfiguration> _parent;
+            private static Func<TDevice> DefaultDeviceFactory { get; set; } = Activator.CreateInstance<TDevice>;
+
+            private readonly NetworkEventsManager<TConfiguration> _parent;
             private readonly INetworkDeviceUpdateSourceBase _deviceUpdateSource;
             private readonly string _repository;
 
+            private Func<TDevice> _deviceInstanceFactory;
             private readonly List<IExtensionDeclaration> _extensionDeclarations = new List<IExtensionDeclaration>();
 
             /// <summary>
             /// Creates new instance of <see cref="NetworkDeviceDefinitionBuilder{TDevice}"/>
             /// </summary>
-            /// <param name="parent">Parent <see cref="NetworkEventsReceiver{TConfiguration}"/></param>
+            /// <param name="parent">Parent <see cref="NetworkEventsManager{TConfiguration}"/></param>
             /// <param name="deviceUpdateSource">The device update source.</param>
             /// <param name="repository">The repository associated with the device.</param>
-            public NetworkDeviceDefinitionBuilder(NetworkEventsReceiver<TConfiguration> parent,
-                INetworkDeviceUpdateSourceBase deviceUpdateSource, string repository)
+            /// <param name="deviceInstanceFactory">Delegate that will be used to instatninate bare device class instance. By default <see cref="Activator.CreateInstance{T}"/> is used.</param>
+            public NetworkDeviceDefinitionBuilder(NetworkEventsManager<TConfiguration> parent,
+                INetworkDeviceUpdateSourceBase deviceUpdateSource,
+                string repository,
+                Func<TDevice> deviceInstanceFactory = null)
             {
                 _parent = parent;
                 _deviceUpdateSource = deviceUpdateSource;
                 _repository = repository;
+                _deviceInstanceFactory = deviceInstanceFactory ?? DefaultDeviceFactory;
             }
 
             /// <inheritdoc />
@@ -74,7 +82,7 @@ namespace CrossHMI.Shared.BL
             /// <returns></returns>
             public TDevice Build()
             {
-                var device = Activator.CreateInstance<TDevice>();
+                var device = _deviceInstanceFactory();
                 device.AssignRepository(_repository);
                 if (typeof(INetworkDeviceWithConfiguration<TConfiguration>).IsAssignableFrom(typeof(TDevice)))
                 {
@@ -90,6 +98,16 @@ namespace CrossHMI.Shared.BL
 
                 return device;
             }
+
+            #region TestInstrumentation
+
+            [Conditional("DEBUG")]
+            internal static void OverrideDefaultDeviceFactory(Func<TDevice> factory)
+            {
+                DefaultDeviceFactory = factory;
+            }
+
+            #endregion
 
             /// <summary>
             /// Helper class for storing data about extensions passed to builer while defining the model.

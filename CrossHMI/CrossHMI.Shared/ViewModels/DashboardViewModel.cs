@@ -23,28 +23,28 @@ namespace CrossHMI.Shared.ViewModels
         private const string Repository3 = "BoilersArea_Boiler #3";
         private const string Repository4 = "BoilersArea_Boiler #4";
 
-        private readonly INetworkEventsReceiver _networkEventsReceiver;
+        private readonly INetworkEventsManager _networkEventsManager;
         private ObservableCollection<Boiler> _boilers;
         private readonly List<INetworkDeviceUpdateSource<Boiler>> _updateSources = new List<INetworkDeviceUpdateSource<Boiler>>();
 
         /// <summary>
         /// Creates new instance of <see cref="DashboardViewModel"/>
         /// </summary>
-        /// <param name="networkEventsReceiver">Network events receiver.</param>
-        public DashboardViewModel(INetworkEventsReceiver networkEventsReceiver)
+        /// <param name="networkEventsManager">Network events receiver.</param>
+        public DashboardViewModel(INetworkEventsManager networkEventsManager)
         {
-            _networkEventsReceiver = networkEventsReceiver;
+            _networkEventsManager = networkEventsManager;
             Initialize();
         }
 
         private async void Initialize()
         {
-            await _networkEventsReceiver.Initialize();
+            await _networkEventsManager.Initialize();
 
-            _updateSources.Add(_networkEventsReceiver.ObtainEventSourceForDevice<Boiler>(Repository1));
-            _updateSources.Add(_networkEventsReceiver.ObtainEventSourceForDevice<Boiler>(Repository2));
-            _updateSources.Add(_networkEventsReceiver.ObtainEventSourceForDevice<Boiler>(Repository3));
-            _updateSources.Add(_networkEventsReceiver.ObtainEventSourceForDevice<Boiler>(Repository4));
+            _updateSources.Add(_networkEventsManager.ObtainEventSourceForDevice<Boiler>(Repository1));
+            _updateSources.Add(_networkEventsManager.ObtainEventSourceForDevice<Boiler>(Repository2));
+            _updateSources.Add(_networkEventsManager.ObtainEventSourceForDevice<Boiler>(Repository3));
+            _updateSources.Add(_networkEventsManager.ObtainEventSourceForDevice<Boiler>(Repository4));
 
             Boilers = new ObservableCollection<Boiler>(_updateSources.Select(source => source.Device));
         }

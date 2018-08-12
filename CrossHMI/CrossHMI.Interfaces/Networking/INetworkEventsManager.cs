@@ -6,7 +6,7 @@ namespace CrossHMI.Interfaces.Networking
     /// Root class that initializes the library and abstraction layer of itself.
     /// Allows to create <see cref="INetworkDevice"/> instances.
     /// </summary>
-    public interface INetworkEventsReceiver
+    public interface INetworkEventsManager
     {
         /// <summary>
         /// Initializes the underlying library.
