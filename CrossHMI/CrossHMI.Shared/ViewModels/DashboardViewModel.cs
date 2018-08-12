@@ -13,6 +13,9 @@ using UAOOI.Networking.UDPMessageHandler.Diagnostic;
 
 namespace CrossHMI.Shared.ViewModels
 {
+    /// <summary>
+    /// ViewModel class for dashboard page presenting a list of all boilers defined.
+    /// </summary>
     public class DashboardViewModel : ViewModelBase
     {
         private const string Repository1 = "BoilersArea_Boiler #1";
@@ -21,14 +24,16 @@ namespace CrossHMI.Shared.ViewModels
         private const string Repository4 = "BoilersArea_Boiler #4";
 
         private readonly INetworkEventsReceiver _networkEventsReceiver;
-        private readonly IDispatcherAdapter _dispatcherAdapter;
         private ObservableCollection<Boiler> _boilers;
         private readonly List<INetworkDeviceUpdateSource<Boiler>> _updateSources = new List<INetworkDeviceUpdateSource<Boiler>>();
 
-        public DashboardViewModel(INetworkEventsReceiver networkEventsReceiver, IDispatcherAdapter dispatcherAdapter)
+        /// <summary>
+        /// Creates new instance of <see cref="DashboardViewModel"/>
+        /// </summary>
+        /// <param name="networkEventsReceiver">Network events receiver.</param>
+        public DashboardViewModel(INetworkEventsReceiver networkEventsReceiver)
         {
             _networkEventsReceiver = networkEventsReceiver;
-            _dispatcherAdapter = dispatcherAdapter;
             Initialize();
         }
 
@@ -44,6 +49,9 @@ namespace CrossHMI.Shared.ViewModels
             Boilers = new ObservableCollection<Boiler>(_updateSources.Select(source => source.Device));
         }
 
+        /// <summary>
+        /// Gets the collection of all boilers.
+        /// </summary>
         public ObservableCollection<Boiler> Boilers
         {
             get => _boilers;

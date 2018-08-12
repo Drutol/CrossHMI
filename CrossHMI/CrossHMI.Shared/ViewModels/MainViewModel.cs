@@ -6,17 +6,25 @@ using GalaSoft.MvvmLight;
 
 namespace CrossHMI.Shared.ViewModels
 {
+    /// <summary>
+    /// MainViewModel not being tied with any page. Acts as an always present ViewModel in background.
+    /// </summary>
     public class MainViewModel : ViewModelBase
     {
         private readonly INavigationManager<PageIndex> _navigationManager;
-        private readonly INetworkEventsReceiver _eventsReceiver;
 
-        public MainViewModel(INavigationManager<PageIndex> navigationManager, INetworkEventsReceiver eventsReceiver)
+        /// <summary>
+        /// Creates new <see cref="MainViewModel"/> intance.
+        /// </summary>
+        /// <param name="navigationManager"></param>
+        public MainViewModel(INavigationManager<PageIndex> navigationManager)
         {
             _navigationManager = navigationManager;
-            _eventsReceiver = eventsReceiver;
         }
 
+        /// <summary>
+        /// Called upon initialization of the platform the application is currently running on.
+        /// </summary>
         public void Initialized()
         {
             _navigationManager.Navigate(PageIndex.DashboardPage);

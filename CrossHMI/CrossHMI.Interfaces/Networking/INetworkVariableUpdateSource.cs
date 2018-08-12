@@ -3,7 +3,7 @@
 namespace CrossHMI.Interfaces.Networking
 {
     /// <summary>
-    /// Interface of component meant to wrap <see cref="IConsumerBinding"/> exposing an event with update information.
+    /// Component meant to wrap <see cref="IConsumerBinding"/> exposing an event with update information.
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public interface INetworkVariableUpdateSource<T>

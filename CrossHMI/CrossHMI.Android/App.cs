@@ -70,7 +70,7 @@ namespace CrossHMI.Android
             {
                 try
                 {
-                    using (var scope = ViewModelLocator.ObtainScope())
+                    using (var scope = ResourceLocator.ObtainScope())
                     {
                         return scope.Resolve<TViewModel>();
                     }
