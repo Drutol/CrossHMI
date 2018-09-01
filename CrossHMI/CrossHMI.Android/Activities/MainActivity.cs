@@ -47,7 +47,8 @@ namespace CrossHMI.Android
             var pageDefinitions = new Dictionary<PageIndex, IPageProvider<NavigationFragmentBase>>
             {
                 //cached
-                {PageIndex.DashboardPage, new CachedPageProvider<DashboardPageFragment>()}
+                {PageIndex.DashboardPage, new CachedPageProvider<DashboardPageFragment>()},
+                {PageIndex.BoilderDetailsPage, new CachedPageProvider<BoilderDetailsPageFragment>()}
             };
 
             var manager = new NavigationManager<PageIndex>(SupportFragmentManager, RootView, pageDefinitions);

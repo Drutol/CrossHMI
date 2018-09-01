@@ -2,6 +2,7 @@
 {
     public enum PageIndex
     {
-        DashboardPage
+        DashboardPage,
+        BoilderDetailsPage
     }
 }

@@ -1,4 +1,6 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
 using CrossHMI.Interfaces;
 using CrossHMI.Interfaces.Networking;
 using CrossHMI.Shared.Configuration;
@@ -12,15 +14,21 @@ namespace CrossHMI.Shared.Devices
     /// </summary>
     public class Boiler : NetworkDeviceBaseWithConfiguration<BoilersConfigurationData>
     {
+        private bool _isAnyValueThresholdExeeded;
+        private readonly Dictionary<string,bool> _thresholdExceeded = new Dictionary<string, bool>();
+        private Dictionary<string, double> _thresholds = new Dictionary<string, double>();
         /// <summary>
         /// Gets the repository of the device.
         /// </summary>
         public string Repository { get; private set; }
 
         /// <summary>
-        /// Gets or
+        /// Gets or sets Latitude.
         /// </summary>
         public double Lat { get; private set; }
+        /// <summary>
+        /// Gets or sets Longitude.
+        /// </summary>
         public double Lon { get; private set; }
 
         //InputPipe
@@ -43,8 +51,32 @@ namespace CrossHMI.Shared.Devices
         [ProcessVariable] public double CCX001_Input1 { get; private set; }
         [ProcessVariable] public double CCX001_Input2 { get; private set; }
         [ProcessVariable] public double CCX001_Input3 { get; private set; }
-        //Metadata
-        //[ProcessVariable] public uint Simulation_UpdateRate { get; set; }
+
+
+        public bool IsAnyValueThresholdExeeded
+        {
+            get => _isAnyValueThresholdExeeded;
+            set
+            {
+                _isAnyValueThresholdExeeded = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public override void ProcessPropertyUpdate<T>(string variableName, T value)
+        {
+            base.ProcessPropertyUpdate(variableName, value);
+
+            if (!_thresholds.ContainsKey(variableName))
+                return;
+
+            if (value is double d)
+            {
+                _thresholdExceeded[variableName] = d > _thresholds[variableName];
+            }
+
+            IsAnyValueThresholdExeeded = _thresholdExceeded.Any(pair => pair.Value);
+        }
 
         /// <inheritdoc />
         public override void AssignRepository(string repository)
@@ -66,6 +98,12 @@ namespace CrossHMI.Shared.Devices
         {
             Lat = extension.Lat;
             Lon = extension.Lon;
+
+            _thresholds = extension.ValueThresholds;
+            foreach (var threshold in _thresholds)
+            {
+                _thresholdExceeded.Add(threshold.Key, false);
+            }
         }
     }
 }

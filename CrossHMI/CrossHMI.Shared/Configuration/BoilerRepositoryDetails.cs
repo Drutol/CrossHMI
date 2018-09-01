@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 using CrossHMI.Interfaces;
 
@@ -20,5 +21,9 @@ namespace CrossHMI.Shared.Configuration
         /// Gets or sets the longitude.
         /// </summary>
         public double Lon { get; set; }
+        /// <summary>
+        /// Gets or sets value thresholds.
+        /// </summary>
+        public Dictionary<string,double> ValueThresholds { get; set; }
     }
 }

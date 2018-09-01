@@ -4,11 +4,15 @@ using System.Diagnostics.Tracing;
 using System.Linq;
 using System.Reflection;
 using AoLibs.Adapters.Core.Interfaces;
+using AoLibs.Navigation.Core.Interfaces;
 using CrossHMI.Interfaces;
 using CrossHMI.Interfaces.Networking;
 using CrossHMI.Models;
+using CrossHMI.Models.Enums;
 using CrossHMI.Shared.Devices;
+using CrossHMI.Shared.NavArgs;
 using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
 using UAOOI.Networking.UDPMessageHandler.Diagnostic;
 
 namespace CrossHMI.Shared.ViewModels
@@ -24,16 +28,22 @@ namespace CrossHMI.Shared.ViewModels
         private const string Repository4 = "BoilersArea_Boiler #4";
 
         private readonly INetworkEventsManager _networkEventsManager;
+        private readonly INavigationManager<PageIndex> _navigationManager;
         private ObservableCollection<Boiler> _boilers;
-        private readonly List<INetworkDeviceUpdateSource<Boiler>> _updateSources = new List<INetworkDeviceUpdateSource<Boiler>>();
+
+        private readonly List<INetworkDeviceUpdateSource<Boiler>> _updateSources =
+            new List<INetworkDeviceUpdateSource<Boiler>>();
 
         /// <summary>
         /// Creates new instance of <see cref="DashboardViewModel"/>
         /// </summary>
         /// <param name="networkEventsManager">Network events receiver.</param>
-        public DashboardViewModel(INetworkEventsManager networkEventsManager)
+        /// <param name="navigationManager"></param>
+        public DashboardViewModel(INetworkEventsManager networkEventsManager,
+            INavigationManager<PageIndex> navigationManager)
         {
             _networkEventsManager = networkEventsManager;
+            _navigationManager = navigationManager;
             Initialize();
         }
 
@@ -61,5 +71,10 @@ namespace CrossHMI.Shared.ViewModels
                 RaisePropertyChanged();
             }
         }
+
+        public RelayCommand<Boiler> NavigateToBoilerDetailsCommand => new RelayCommand<Boiler>(boiler =>
+        {
+            _navigationManager.Navigate(PageIndex.BoilderDetailsPage, new BoilderDetailsNavArgs {Boiler = boiler});
+        });
     }
 }

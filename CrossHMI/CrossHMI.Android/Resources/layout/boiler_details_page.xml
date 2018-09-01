@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#f6f6f6"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clipToPadding="false"
+        android:paddingBottom="4dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#e6e6e6"
+            android:elevation="4dp"
+            android:orientation="horizontal"
+            android:padding="8dp">
+
+            <TextView
+                android:id="@+id/BoilerName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#444"
+                tools:text="BoilerName" />
+
+            <TextView
+                android:id="@+id/Position"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textAlignment="center"
+                android:textColor="#000"
+                tools:text="BoilerPosition" />
+        </LinearLayout>
+    </FrameLayout>
+
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.constraint.Guideline
+            android:id="@+id/_FSetPointGuidelineVertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent=".31" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/_FSetPointGuidelineHorizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent=".75" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/_LSetPointGuidelineVertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent=".34" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/_LSetPointGuidelineHorizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent=".52" />
+
+
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:src="@drawable/boiler_pdi"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/FSetPoint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@string/font_family_light"
+            android:text="=123"
+            android:textColor="#000"
+            android:textSize="8sp"
+            app:layout_constraintBottom_toBottomOf="@id/_FSetPointGuidelineHorizontal"
+            app:layout_constraintLeft_toRightOf="@id/_FSetPointGuidelineVertical" />
+
+        <TextView
+            android:id="@+id/LSetPoint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@string/font_family_light"
+            android:text="=123"
+            android:textColor="#000"
+            android:textSize="8sp"
+            app:layout_constraintBottom_toBottomOf="@id/_LSetPointGuidelineHorizontal"
+            app:layout_constraintLeft_toRightOf="@id/_LSetPointGuidelineVertical" />
+
+        <me.itangqi.waveloadingview.WaveLoadingView
+            android:id="@+id/WaveView"
+            android:layout_width="43dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="160dp"
+            android:layout_marginTop="94dp"
+            android:alpha=".3"
+            app:layout_constraintStart_toStartOf="@+id/imageView"
+            app:layout_constraintTop_toTopOf="@+id/imageView"
+            app:wlv_borderColor="#2f2f2f"
+            app:wlv_borderWidth="7dp"
+            app:wlv_progressValue="33"
+            app:wlv_round_rectangle="true"
+            app:wlv_shapeType="rectangle"
+            app:wlv_waveAmplitude="50"
+            app:wlv_waveColor="#176bfd"
+            tools:managedTypeName="WaveLoadingControl" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="20dp" />
+
+    </android.support.constraint.ConstraintLayout>
+
+    <include
+        android:id="@+id/PipeX001_FTX001_Output"
+        layout="@layout/boiler_property"
+        tools:managedTypeName="LinearLayout"
+        tools:skipRecursion="true" />
+
+    <include
+        android:id="@+id/PipeX001_ValveX001_Input"
+        layout="@layout/boiler_property"
+        tools:managedTypeName="LinearLayout"
+        tools:skipRecursion="true" />
+
+    <include
+        android:id="@+id/DrumX001_LIX001_Output"
+        layout="@layout/boiler_property"
+        tools:managedTypeName="LinearLayout"
+        tools:skipRecursion="true" />
+
+    <include
+        android:id="@+id/PipeX002_FTX002_Output"
+        layout="@layout/boiler_property"
+        tools:managedTypeName="LinearLayout"
+        tools:skipRecursion="true" />
+
+    <include
+        android:id="@+id/FCX001_ControlOut"
+        layout="@layout/boiler_property"
+        tools:managedTypeName="LinearLayout"
+        tools:skipRecursion="true" />
+
+    <include
+        android:id="@+id/FCX001_Measurement"
+        layout="@layout/boiler_property"
+        tools:managedTypeName="LinearLayout"
+        tools:skipRecursion="true" />
+
+    <include
+        android:id="@+id/FCX001_SetPoint"
+        layout="@layout/boiler_property"
+        tools:managedTypeName="LinearLayout"
+        tools:skipRecursion="true" />
+
+    <include
+        android:id="@+id/LCX001_ControlOut"
+        layout="@layout/boiler_property"
+        tools:managedTypeName="LinearLayout"
+        tools:skipRecursion="true" />
+
+    <include
+        android:id="@+id/LCX001_Measurement"
+        layout="@layout/boiler_property"
+        tools:managedTypeName="LinearLayout"
+        tools:skipRecursion="true" />
+
+    <include
+        android:id="@+id/LCX001_SetPoint"
+        layout="@layout/boiler_property"
+        tools:managedTypeName="LinearLayout"
+        tools:skipRecursion="true" />
+
+    <include
+        android:id="@+id/CCX001_ControlOut"
+        layout="@layout/boiler_property"
+        tools:managedTypeName="LinearLayout"
+        tools:skipRecursion="true" />
+
+    <include
+        android:id="@+id/CCX001_Input1"
+        layout="@layout/boiler_property"
+        tools:managedTypeName="LinearLayout"
+        tools:skipRecursion="true" />
+
+    <include
+        android:id="@+id/CCX001_Input2"
+        layout="@layout/boiler_property"
+        tools:managedTypeName="LinearLayout"
+        tools:skipRecursion="true" />
+
+    <include
+        android:id="@+id/CCX001_Input3"
+        layout="@layout/boiler_property"
+        tools:managedTypeName="LinearLayout"
+        tools:skipRecursion="true" />
+
+</LinearLayout>

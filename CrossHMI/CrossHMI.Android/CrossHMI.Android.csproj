@@ -60,6 +60,7 @@
     <Compile Include="Adapters\ConfigurationResourcesProvider.cs" />
     <Compile Include="Adapters\GpsAdapter.cs" />
     <Compile Include="App.cs" />
+    <Compile Include="Fragment\BoilderDetailsPageFragment.cs" />
     <Compile Include="Fragment\DashboardPageFragment.cs" />
     <Compile Include="Activities\MainActivity.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
@@ -123,7 +124,16 @@
     <PackageReference Include="Newtonsoft.Json">
       <Version>11.0.2</Version>
     </PackageReference>
+    <PackageReference Include="Xamarin.Android.Support.Annotations">
+      <Version>27.0.2.1</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Android.Support.Constraint.Layout">
+      <Version>1.1.2</Version>
+    </PackageReference>
     <PackageReference Include="Xamarin.Android.Support.Design" Version="27.0.2" />
+    <PackageReference Include="Xamarin.Android.Support.v7.CardView">
+      <Version>27.0.2.1</Version>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CrossHMI.Android.Binding.WaveLoading\CrossHMI.Android.Binding.WaveLoading.csproj">
@@ -155,10 +165,19 @@
     <AndroidResource Include="Resources\drawable\icon_arrow_right.xml" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\dashboard_boiler_item_property.xml" />
+    <AndroidResource Include="Resources\layout\boiler_property.xml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\values\fonts.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\boiler.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\boiler_pdi.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\boiler_details_page.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

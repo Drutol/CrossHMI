@@ -25,6 +25,7 @@ namespace CrossHMI.Shared.Statics
 
             builder.RegisterType<MainViewModel>().SingleInstance();
             builder.RegisterType<DashboardViewModel>().SingleInstance();
+            builder.RegisterType<BoilderDetailsViewModel>().SingleInstance();
         }
 
         private static void BuildCallback(IContainer container)
