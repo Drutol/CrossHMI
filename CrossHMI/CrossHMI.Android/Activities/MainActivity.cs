@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Android;
 using Android.App;
 using Android.Content;
 using Android.Content.PM;
@@ -61,10 +62,21 @@ namespace CrossHMI.Android
                 messageBoxProvider.HideLoadingPopupRequest += MessageBoxProviderOnHideLoadingPopupRequest;
             }
 
+            RequestPermissions(new[] {Manifest.Permission.AccessCoarseLocation, Manifest.Permission.AccessFineLocation},
+                12);
+
             _viewModel = ViewModelLocator.MainViewModel;
             _viewModel.Initialized();
 
             _initialized = true;
+        }
+
+        public override void OnBackPressed()
+        {
+            if (!App.Current.NavigationManager.OnBackRequested())
+            {
+                MoveTaskToBack(true);
+            }
         }
 
         private void MessageBoxProviderOnHideLoadingPopupRequest(object sender, EventArgs e)
@@ -76,7 +88,6 @@ namespace CrossHMI.Android
         {
             throw new NotImplementedException();
         }
-
 
         protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)
         {

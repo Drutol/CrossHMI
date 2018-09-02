@@ -665,8 +665,8 @@
     [
     {
     "Repository": "BoilersArea_Boiler #1",
-    "Lat": 51.68399,
-    "Lon": 19.29569,
+    "Lat": 52.68399,
+    "Lon": 12.29569,
     "ValueThresholds" : {
     "PipeX001_FTX001_Output": 0.7,
     "PipeX001_ValveX001_Input": 0.7,
@@ -680,8 +680,8 @@
     },
     {
     "Repository": "BoilersArea_Boiler #2",
-    "Lat": 51.68399,
-    "Lon": 19.29569,
+    "Lat": 54.68399,
+    "Lon": 17.29569,
     "ValueThresholds" : {
     "PipeX001_FTX001_Output": 0.7,
     "PipeX001_ValveX001_Input": 0.7,
@@ -695,8 +695,8 @@
     },
     {
     "Repository": "BoilersArea_Boiler #3",
-    "Lat": 51.68399,
-    "Lon": 19.29569,
+    "Lat": 50.68399,
+    "Lon": 18.29569,
     "ValueThresholds" : {
     "PipeX001_FTX001_Output": 0.7,
     "PipeX001_ValveX001_Input": 0.7,
@@ -710,8 +710,8 @@
     },
     {
     "Repository": "BoilersArea_Boiler #4",
-    "Lat": 51.68399,
-    "Lon": 19.29569,
+    "Lat": 59.68399,
+    "Lon": 18.29569,
     "ValueThresholds" : {
     "PipeX001_FTX001_Output": 0.7,
     "PipeX001_ValveX001_Input": 0.7,
