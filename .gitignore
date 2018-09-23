@@ -231,3 +231,4 @@ MALClient.XShared/Secrets.cs
 /CrossHMI/CrossHMI.Tools.ModelBuilder
 
 site/
+CrossHMI/CrossHMI.Android/Resources/values/secrets.xml

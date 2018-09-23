@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
+using Android.Graphics;
 using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
@@ -72,8 +73,21 @@ namespace CrossHMI.Android.Fragment
 
             protected override void SetBindings()
             {
-
+                Bindings.Add(this.SetBinding(() => ViewModel.IsAnyValueThresholdExeeded).WhenSourceChanges(() =>
+                {
+                    if (ViewModel.IsAnyValueThresholdExeeded)
+                    {
+                        Status.Text = "Warning";
+                        Status.SetTextColor(Color.OrangeRed);
+                    }
+                    else
+                    {
+                        Status.Text = "All OK";
+                        Status.SetTextColor(Color.ParseColor("#98c926"));
+                    }
+                }));
             }
+
             private ImageView _image;
             private TextView _title;
             private TextView _status;
@@ -87,7 +101,5 @@ namespace CrossHMI.Android.Fragment
 
             public CardView CardView => _cardView ?? (_cardView = _view.FindViewById<CardView>(Resource.Id.CardView));
         }
-
-
     }
 }

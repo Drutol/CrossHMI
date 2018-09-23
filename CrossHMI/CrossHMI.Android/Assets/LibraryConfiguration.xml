@@ -668,14 +668,7 @@
     "Lat": 52.68399,
     "Lon": 12.29569,
     "ValueThresholds" : {
-    "PipeX001_FTX001_Output": 0.7,
-    "PipeX001_ValveX001_Input": 0.7,
-    "DrumX001_LIX001_Output": 0.7,
-    "FCX001_ControlOut": 0.7,
-    "FCX001_Measurement": 0.7,
-    "LCX001_ControlOut": 0.7,
-    "LCX001_Measurement": 0.7,
-    "CCX001_ControlOut": 0.7
+    "DrumX001_LIX001_Output": 50,
     }
     },
     {
@@ -683,14 +676,7 @@
     "Lat": 54.68399,
     "Lon": 17.29569,
     "ValueThresholds" : {
-    "PipeX001_FTX001_Output": 0.7,
-    "PipeX001_ValveX001_Input": 0.7,
-    "DrumX001_LIX001_Output": 0.7,
-    "FCX001_ControlOut": 0.7,
-    "FCX001_Measurement": 0.7,
-    "LCX001_ControlOut": 0.7,
-    "LCX001_Measurement": 0.7,
-    "CCX001_ControlOut": 0.7
+    "DrumX001_LIX001_Output": 60,
     }
     },
     {
@@ -698,14 +684,7 @@
     "Lat": 50.68399,
     "Lon": 18.29569,
     "ValueThresholds" : {
-    "PipeX001_FTX001_Output": 0.7,
-    "PipeX001_ValveX001_Input": 0.7,
-    "DrumX001_LIX001_Output": 0.7,
-    "FCX001_ControlOut": 0.7,
-    "FCX001_Measurement": 0.7,
-    "LCX001_ControlOut": 0.7,
-    "LCX001_Measurement": 0.7,
-    "CCX001_ControlOut": 0.7
+    "DrumX001_LIX001_Output": 70,
     }
     },
     {
@@ -713,14 +692,7 @@
     "Lat": 59.68399,
     "Lon": 18.29569,
     "ValueThresholds" : {
-    "PipeX001_FTX001_Output": 0.7,
-    "PipeX001_ValveX001_Input": 0.7,
-    "DrumX001_LIX001_Output": 0.7,
-    "FCX001_ControlOut": 0.7,
-    "FCX001_Measurement": 0.7,
-    "LCX001_ControlOut": 0.7,
-    "LCX001_Measurement": 0.7,
-    "CCX001_ControlOut": 0.7
+    "DrumX001_LIX001_Output": 80,
     }
     }
     ]

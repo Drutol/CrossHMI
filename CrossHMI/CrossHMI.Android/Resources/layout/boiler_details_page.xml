@@ -46,6 +46,97 @@
             </LinearLayout>
         </FrameLayout>
 
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="75dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <ProgressBar
+                        android:id="@+id/InputPipeProgressBar"
+                        style="@style/ProgressBarVertical"
+                        android:layout_width="12dip"
+                        android:layout_height="100dp"
+                        android:progress="55"
+                        android:progressTint="#325fd9" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:fontFamily="@string/font_family_light"
+                        android:text="InputPipe"
+                        android:textSize="@dimen/FontSizeSemiNormal"
+                        android:textStyle="italic" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <me.itangqi.waveloadingview.WaveLoadingView
+                        android:id="@+id/WaveViewUpper"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        app:wlv_borderColor="#2f2f2f"
+                        app:wlv_borderWidth="7dp"
+                        app:wlv_progressValue="33"
+                        app:wlv_round_rectangle="true"
+                        app:wlv_shapeType="rectangle"
+                        app:wlv_waveAmplitude="50"
+                        app:wlv_waveColor="#176bfd"
+                        tools:managedTypeName="WaveLoadingControl" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:fontFamily="@string/font_family_light"
+                        android:text="Drum level"
+                        android:textSize="@dimen/FontSizeSemiNormal"
+                        android:textStyle="italic" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="75dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <ProgressBar
+                        android:id="@+id/OutputPipeProgressBar"
+                        style="@style/ProgressBarVertical"
+                        android:max="1000"
+                        android:layout_width="12dip"
+                        android:layout_height="100dp"
+                        android:progress="55"
+                        android:progressTint="#00a6ff" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:fontFamily="@string/font_family_light"
+                        android:text="OutputPipe"
+                        android:textSize="@dimen/FontSizeSemiNormal"
+                        android:textStyle="italic" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </FrameLayout>
+
+
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -78,6 +169,34 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 app:layout_constraintGuide_percent=".52" />
+
+            <android.support.constraint.Guideline
+                android:id="@+id/_ValveInputGuidelineVertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent=".18" />
+
+            <android.support.constraint.Guideline
+                android:id="@+id/_ValveInputGuidelineHorizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent=".99" />
+
+            <android.support.constraint.Guideline
+                android:id="@+id/_FTMeasurementGuidelineVertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent=".65" />
+
+            <android.support.constraint.Guideline
+                android:id="@+id/_FTMeasurementGuidelineHorizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent=".88" />
 
             <android.support.constraint.Guideline
                 android:id="@+id/_WaveViewGuidelineVertical"
@@ -137,21 +256,43 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@string/font_family_light"
-                android:text="=123"
+                android:text="123"
                 android:textColor="#000"
                 android:textSize="11sp"
                 app:layout_constraintBottom_toBottomOf="@id/_LSetPointGuidelineHorizontal"
                 app:layout_constraintLeft_toRightOf="@id/_LSetPointGuidelineVertical" />
+
+            <TextView
+                android:id="@+id/ValveInput"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@string/font_family_light"
+                android:text="ValveInput = 123"
+                android:textColor="#000"
+                android:textSize="11sp"
+                app:layout_constraintBottom_toBottomOf="@id/_ValveInputGuidelineHorizontal"
+                app:layout_constraintLeft_toRightOf="@id/_ValveInputGuidelineVertical" />
+
+            <TextView
+                android:id="@+id/FTMeasurement"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@string/font_family_light"
+                android:text="=123"
+                android:textColor="#000"
+                android:textSize="11sp"
+                app:layout_constraintBottom_toBottomOf="@id/_FTMeasurementGuidelineHorizontal"
+                app:layout_constraintLeft_toRightOf="@id/_FTMeasurementGuidelineVertical" />
 
             <me.itangqi.waveloadingview.WaveLoadingView
                 android:id="@+id/WaveView"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:alpha=".3"
-                app:layout_constraintLeft_toRightOf="@id/_WaveViewGuidelineVertical"
-                app:layout_constraintTop_toBottomOf="@id/_WaveViewGuidelineHorizontal"
-                app:layout_constraintRight_toLeftOf="@id/_WaveViewGuidelineVerticalEnd"
                 app:layout_constraintBottom_toTopOf="@id/_WaveViewGuidelineHorizontalEnd"
+                app:layout_constraintLeft_toRightOf="@id/_WaveViewGuidelineVertical"
+                app:layout_constraintRight_toLeftOf="@id/_WaveViewGuidelineVerticalEnd"
+                app:layout_constraintTop_toBottomOf="@id/_WaveViewGuidelineHorizontal"
                 app:wlv_borderColor="#2f2f2f"
                 app:wlv_borderWidth="7dp"
                 app:wlv_progressValue="33"
@@ -162,6 +303,8 @@
                 tools:managedTypeName="WaveLoadingControl" />
 
         </android.support.constraint.ConstraintLayout>
+
+        <!--region includes-->
 
         <include
             android:id="@+id/PipeX001_FTX001_Output"
@@ -246,6 +389,8 @@
             layout="@layout/boiler_property"
             tools:managedTypeName="LinearLayout"
             tools:skipRecursion="true" />
+
+        <!--endregion-->
 
         <FrameLayout
             android:layout_width="match_parent"

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using CrossHMI.Interfaces;
@@ -10,7 +11,7 @@ using Newtonsoft.Json.Linq;
 namespace CrossHMI.Shared.Devices
 {
     /// <summary>
-    /// Model class representing the boiler repository. This class can be treated as ViewModel with implemented <see cref="INotifyPropertyChanged"/> events.
+    /// Model class representing the boiler repository. This class can be treated as ViewModel with implemented <see cref="INotifyPropertyChanged"/>.
     /// </summary>
     public class Boiler : NetworkDeviceBaseWithConfiguration<BoilersConfigurationData>
     {
@@ -30,6 +31,11 @@ namespace CrossHMI.Shared.Devices
         /// Gets or sets Longitude.
         /// </summary>
         public double Lon { get; private set; }
+
+        /// <summary>
+        /// Fired whenever value of given property exceeds or gets back to desired level again.
+        /// </summary>
+        public event EventHandler<(string Property, bool ExceedsThreshold)> PropertyThresholdStatusChanged; 
 
         //InputPipe
         [ProcessVariable] public double PipeX001_FTX001_Output { get; private set; }
@@ -72,7 +78,11 @@ namespace CrossHMI.Shared.Devices
 
             if (value is double d)
             {
+                var previousState = _thresholdExceeded[variableName];
                 _thresholdExceeded[variableName] = d > _thresholds[variableName];
+
+                if (previousState != _thresholdExceeded[variableName])
+                    PropertyThresholdStatusChanged?.Invoke(this, (variableName, _thresholdExceeded[variableName]));
             }
 
             IsAnyValueThresholdExeeded = _thresholdExceeded.Any(pair => pair.Value);
