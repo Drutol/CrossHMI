@@ -25,5 +25,9 @@ namespace CrossHMI.Shared.Configuration
         /// Gets or sets value thresholds.
         /// </summary>
         public Dictionary<string,double> ValueThresholds { get; set; }
+        /// <summary>
+        /// Notes attached to given boiler.
+        /// </summary>
+        public string Notes { get; set; }
     }
 }

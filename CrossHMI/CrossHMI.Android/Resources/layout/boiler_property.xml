@@ -32,11 +32,19 @@
     </FrameLayout>
 
 
-    <FrameLayout
+    <LinearLayout
         android:layout_weight=".3"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="#fff">
+
+        <ImageView
+            android:id="@+id/IconWarning"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            android:layout_gravity="center"
+            android:src="@drawable/icon_warning"/>
 
         <TextView android:layout_gravity="center"
             android:id="@+id/PropertyValue"
@@ -46,5 +54,5 @@
             android:textColor="@color/TextColour"
             android:textSize="22sp"
             tools:text="56.435" />
-    </FrameLayout>
+    </LinearLayout>
 </LinearLayout>

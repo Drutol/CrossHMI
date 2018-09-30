@@ -69,6 +69,8 @@ namespace CrossHMI.Shared.Devices
             }
         }
 
+        public string Notes { get; set; }
+
         public override void ProcessPropertyUpdate<T>(string variableName, T value)
         {
             base.ProcessPropertyUpdate(variableName, value);
@@ -108,6 +110,7 @@ namespace CrossHMI.Shared.Devices
         {
             Lat = extension.Lat;
             Lon = extension.Lon;
+            Notes = extension.Notes;
 
             _thresholds = extension.ValueThresholds;
             foreach (var threshold in _thresholds)

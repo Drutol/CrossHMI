@@ -667,6 +667,7 @@
     "Repository": "BoilersArea_Boiler #1",
     "Lat": 52.68399,
     "Lon": 12.29569,
+    "Notes": "Keys to the boiler room can be found in the reception room.",
     "ValueThresholds" : {
     "DrumX001_LIX001_Output": 50,
     }
@@ -675,6 +676,7 @@
     "Repository": "BoilersArea_Boiler #2",
     "Lat": 54.68399,
     "Lon": 17.29569,
+    "Notes": "The boiler room is accessible only via elevator.",
     "ValueThresholds" : {
     "DrumX001_LIX001_Output": 60,
     }
@@ -683,6 +685,7 @@
     "Repository": "BoilersArea_Boiler #3",
     "Lat": 50.68399,
     "Lon": 18.29569,
+    "Notes": "Call number 123456789 to obtain keypad password for boiler room.",
     "ValueThresholds" : {
     "DrumX001_LIX001_Output": 70,
     }
@@ -691,6 +694,7 @@
     "Repository": "BoilersArea_Boiler #4",
     "Lat": 59.68399,
     "Lon": 18.29569,
+    "Notes": "Keys to the boiler room can be found in the reception room.",
     "ValueThresholds" : {
     "DrumX001_LIX001_Output": 80,
     }

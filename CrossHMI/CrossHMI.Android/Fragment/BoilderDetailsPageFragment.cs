@@ -137,6 +137,10 @@ namespace CrossHMI.Android.Fragment
                     this.SetBinding(() => ViewModel.Boiler.PipeX002_FTX002_Output,
                         () => FTMeasurement.Text).ConvertSourceToTarget(ConvertPropertyValue));
 
+                Bindings.Add(
+                    this.SetBinding(() => ViewModel.Boiler.DrumX001_LIX001_Output,
+                        () => WaveViewLabel.Text).ConvertSourceToTarget(d => $"{d:N0}%"));
+
                 #endregion
 
                 #region UpperDashboardBindings
@@ -153,9 +157,14 @@ namespace CrossHMI.Android.Fragment
                     this.SetBinding(() => ViewModel.Boiler.PipeX002_FTX002_Output,
                         () => OutputPipeProgressBar.Progress).ConvertSourceToTarget(d => (int)d*1000));
 
+                Bindings.Add(
+                    this.SetBinding(() => ViewModel.Boiler.DrumX001_LIX001_Output,
+                        () => WaveViewUpperLabel.Text).ConvertSourceToTarget(d => $"{d:N0}%"));
+
                 #endregion
 
-                BoilerName.Text = ViewModel.Boiler.Repository;           
+                BoilerName.Text = ViewModel.Boiler.Repository;
+                BoilerNotes.Text = ViewModel.Boiler.Notes;
 
                 var map = await _mapTaskCompletionSource.Task;
 
@@ -191,10 +200,12 @@ namespace CrossHMI.Android.Fragment
 
         private void PreviouslyDisplayedBoilerOnPropertyThresholdStatusChanged(object sender, (string Property, bool ExceedsThreshold) e)
         {
-            if (e.Property == "DrumX001_LIX001_Output")
+            if (e.Property == nameof(Boiler.DrumX001_LIX001_Output))
             {
                 DrumX001_LIX001_Output.FindViewById<TextView>(Resource.Id.PropertyValue)
                     .SetTextColor(e.ExceedsThreshold ? Color.OrangeRed : Color.Black);
+                DrumX001_LIX001_Output.FindViewById(Resource.Id.IconWarning).Visibility =
+                    e.ExceedsThreshold ? ViewStates.Visible : ViewStates.Invisible;
             }
         }
 
@@ -245,12 +256,14 @@ namespace CrossHMI.Android.Fragment
         private TextView _position;
         private ProgressBar _inputPipeProgressBar;
         private WaveLoadingControl _waveViewUpper;
+        private TextView _waveViewUpperLabel;
         private ProgressBar _outputPipeProgressBar;
         private TextView _fSetPoint;
         private TextView _lSetPoint;
         private TextView _valveInput;
         private TextView _fTMeasurement;
         private WaveLoadingControl _waveView;
+        private TextView _waveViewLabel;
         private LinearLayout _pipeX001_FTX001_Output;
         private LinearLayout _pipeX001_ValveX001_Input;
         private LinearLayout _drumX001_LIX001_Output;
@@ -265,18 +278,21 @@ namespace CrossHMI.Android.Fragment
         private LinearLayout _cCX001_Input1;
         private LinearLayout _cCX001_Input2;
         private LinearLayout _cCX001_Input3;
+        private TextView _boilerNotes;
         private CustomMap _mapView;
 
         public TextView BoilerName => _boilerName ?? (_boilerName = FindViewById<TextView>(Resource.Id.BoilerName));
         public TextView Position => _position ?? (_position = FindViewById<TextView>(Resource.Id.Position));
         public ProgressBar InputPipeProgressBar => _inputPipeProgressBar ?? (_inputPipeProgressBar = FindViewById<ProgressBar>(Resource.Id.InputPipeProgressBar));
         public WaveLoadingControl WaveViewUpper => _waveViewUpper ?? (_waveViewUpper = FindViewById<WaveLoadingControl>(Resource.Id.WaveViewUpper));
+        public TextView WaveViewUpperLabel => _waveViewUpperLabel ?? (_waveViewUpperLabel = FindViewById<TextView>(Resource.Id.WaveViewUpperLabel));
         public ProgressBar OutputPipeProgressBar => _outputPipeProgressBar ?? (_outputPipeProgressBar = FindViewById<ProgressBar>(Resource.Id.OutputPipeProgressBar));
         public TextView FSetPoint => _fSetPoint ?? (_fSetPoint = FindViewById<TextView>(Resource.Id.FSetPoint));
         public TextView LSetPoint => _lSetPoint ?? (_lSetPoint = FindViewById<TextView>(Resource.Id.LSetPoint));
         public TextView ValveInput => _valveInput ?? (_valveInput = FindViewById<TextView>(Resource.Id.ValveInput));
         public TextView FTMeasurement => _fTMeasurement ?? (_fTMeasurement = FindViewById<TextView>(Resource.Id.FTMeasurement));
         public WaveLoadingControl WaveView => _waveView ?? (_waveView = FindViewById<WaveLoadingControl>(Resource.Id.WaveView));
+        public TextView WaveViewLabel => _waveViewLabel ?? (_waveViewLabel = FindViewById<TextView>(Resource.Id.WaveViewLabel));
         public LinearLayout PipeX001_FTX001_Output => _pipeX001_FTX001_Output ?? (_pipeX001_FTX001_Output = FindViewById<LinearLayout>(Resource.Id.PipeX001_FTX001_Output));
         public LinearLayout PipeX001_ValveX001_Input => _pipeX001_ValveX001_Input ?? (_pipeX001_ValveX001_Input = FindViewById<LinearLayout>(Resource.Id.PipeX001_ValveX001_Input));
         public LinearLayout DrumX001_LIX001_Output => _drumX001_LIX001_Output ?? (_drumX001_LIX001_Output = FindViewById<LinearLayout>(Resource.Id.DrumX001_LIX001_Output));
@@ -291,6 +307,7 @@ namespace CrossHMI.Android.Fragment
         public LinearLayout CCX001_Input1 => _cCX001_Input1 ?? (_cCX001_Input1 = FindViewById<LinearLayout>(Resource.Id.CCX001_Input1));
         public LinearLayout CCX001_Input2 => _cCX001_Input2 ?? (_cCX001_Input2 = FindViewById<LinearLayout>(Resource.Id.CCX001_Input2));
         public LinearLayout CCX001_Input3 => _cCX001_Input3 ?? (_cCX001_Input3 = FindViewById<LinearLayout>(Resource.Id.CCX001_Input3));
+        public TextView BoilerNotes => _boilerNotes ?? (_boilerNotes = FindViewById<TextView>(Resource.Id.BoilerNotes));
         public CustomMap MapView => _mapView ?? (_mapView = FindViewById<CustomMap>(Resource.Id.MapView));
 
         #endregion

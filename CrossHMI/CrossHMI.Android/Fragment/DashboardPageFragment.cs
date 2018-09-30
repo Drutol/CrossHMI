@@ -39,7 +39,7 @@ namespace CrossHMI.Android.Fragment
 
         private BoilerViewHolder HolderFactory(ViewGroup parent, int viewtype, View view)
         {
-            return new BoilerViewHolder( view);
+            return new BoilerViewHolder(view);
         }
 
         private View ItemTemplate(int viewtype)
