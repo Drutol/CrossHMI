@@ -670,6 +670,7 @@
     "Notes": "Keys to the boiler room can be found in the reception room.",
     "ValueThresholds" : {
     "DrumX001_LIX001_Output": 50,
+    "PipeX001_ValveX001_Input": 80
     }
     },
     {
@@ -679,6 +680,7 @@
     "Notes": "The boiler room is accessible only via elevator.",
     "ValueThresholds" : {
     "DrumX001_LIX001_Output": 60,
+    "PipeX001_ValveX001_Input": 85
     }
     },
     {
@@ -688,6 +690,7 @@
     "Notes": "Call number 123456789 to obtain keypad password for boiler room.",
     "ValueThresholds" : {
     "DrumX001_LIX001_Output": 70,
+    "PipeX001_ValveX001_Input": 90
     }
     },
     {
@@ -697,6 +700,7 @@
     "Notes": "Keys to the boiler room can be found in the reception room.",
     "ValueThresholds" : {
     "DrumX001_LIX001_Output": 80,
+    "PipeX001_ValveX001_Input": 95
     }
     }
     ]

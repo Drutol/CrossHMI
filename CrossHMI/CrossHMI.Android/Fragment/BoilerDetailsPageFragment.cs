@@ -11,7 +11,9 @@ using Android.Graphics;
 using Android.OS;
 using Android.Runtime;
 using Android.Views;
+using Android.Views.Animations;
 using Android.Widget;
+using AoLibs.Utilities.Android;
 using CrossHMI.Android.Views;
 using CrossHMI.Shared.Devices;
 using CrossHMI.Shared.NavArgs;
@@ -22,7 +24,7 @@ using NavigationLib.Android.Navigation;
 
 namespace CrossHMI.Android.Fragment
 {
-    public class BoilderDetailsPageFragment : FragmentBase<BoilderDetailsViewModel>, IOnMapReadyCallback
+    public class BoilerDetailsPageFragment : FragmentBase<BoilerDetailsViewModel>, IOnMapReadyCallback
     {
         private readonly List<Binding> _propertyBindings = new List<Binding>();
         private readonly TaskCompletionSource<GoogleMap> _mapTaskCompletionSource = new TaskCompletionSource<GoogleMap>();
@@ -35,13 +37,14 @@ namespace CrossHMI.Android.Fragment
         public override void NavigatedTo()
         {
             ViewModel.NavigatedTo(NavigationArguments as BoilderDetailsNavArgs);
-            base.NavigatedTo();
+
+            if (RootView != null && !(NavigationArguments as BoilderDetailsNavArgs).Boiler.Equals(ViewModel.Boiler))
+                ScrollView.ScrollTo(0, 0);
         }
 
         public override void NavigatedFrom()
         {
             ClearPropertyBindings();
-            base.NavigatedFrom();
         }
 
         private void ClearPropertyBindings()
@@ -131,7 +134,7 @@ namespace CrossHMI.Android.Fragment
 
                 Bindings.Add(
                     this.SetBinding(() => ViewModel.Boiler.PipeX001_ValveX001_Input,
-                        () => ValveInput.Text).ConvertSourceToTarget(d => $"ValveInput = {d:N2}"));
+                        () => ValveInput.Text).ConvertSourceToTarget(d => $"Valve Input = {d:N2}"));
 
                 Bindings.Add(
                     this.SetBinding(() => ViewModel.Boiler.PipeX002_FTX002_Output,
@@ -155,7 +158,7 @@ namespace CrossHMI.Android.Fragment
 
                 Bindings.Add(
                     this.SetBinding(() => ViewModel.Boiler.PipeX002_FTX002_Output,
-                        () => OutputPipeProgressBar.Progress).ConvertSourceToTarget(d => (int)d*1000));
+                        () => OutputPipeProgressBar.Progress).ConvertSourceToTarget(d => (int) (d * 1000)));
 
                 Bindings.Add(
                     this.SetBinding(() => ViewModel.Boiler.DrumX001_LIX001_Output,
@@ -196,15 +199,63 @@ namespace CrossHMI.Android.Fragment
 
             MapView.OnCreate(null);
             MapView.GetMapAsync(this);
+            NavigateButton.SetOnClickCommand(ViewModel.LaunchNavigationCommand);
         }
 
         private void PreviouslyDisplayedBoilerOnPropertyThresholdStatusChanged(object sender, (string Property, bool ExceedsThreshold) e)
         {
             if (e.Property == nameof(Boiler.DrumX001_LIX001_Output))
             {
-                DrumX001_LIX001_Output.FindViewById<TextView>(Resource.Id.PropertyValue)
+                SetThresholdState(DrumX001_LIX001_Output);
+
+                if (e.ExceedsThreshold)
+                {
+                    WaveView.Animation = CreateWarningAnimation();
+                    WaveView.Animation.Start();
+
+                    WaveView.Alpha = 1;
+                    WaveView.WaveColor= Color.OrangeRed;
+                }
+                else
+                {
+                    WaveView.Alpha = .3f;
+                    WaveView.WaveColor = Color.ParseColor("#176bfd");
+                }
+            }
+            else if(e.Property == nameof(Boiler.PipeX001_ValveX001_Input))
+            {
+                SetThresholdState(PipeX001_ValveX001_Input);
+
+                if (e.ExceedsThreshold)
+                {
+                    ValveInput.Animation = CreateWarningAnimation();
+                    ValveInput.Animation.Start();
+
+                    ValveInput.SetTextColor(Color.OrangeRed);
+                }
+                else
+                {
+                    ValveInput.ClearAnimation();
+                    ValveInput.SetTextColor(Color.Black);
+                }
+            }
+
+            AlphaAnimation CreateWarningAnimation()
+            {
+                return new AlphaAnimation(1, .5f)
+                {
+                    RepeatCount = Animation.Infinite,
+                    FillBefore = true,
+                    FillAfter = false,
+                    Duration = 800,
+                };
+            }
+
+            void SetThresholdState(View layout)
+            {
+                layout.FindViewById<TextView>(Resource.Id.PropertyValue)
                     .SetTextColor(e.ExceedsThreshold ? Color.OrangeRed : Color.Black);
-                DrumX001_LIX001_Output.FindViewById(Resource.Id.IconWarning).Visibility =
+                layout.FindViewById(Resource.Id.IconWarning).Visibility =
                     e.ExceedsThreshold ? ViewStates.Visible : ViewStates.Invisible;
             }
         }
@@ -280,6 +331,8 @@ namespace CrossHMI.Android.Fragment
         private LinearLayout _cCX001_Input3;
         private TextView _boilerNotes;
         private CustomMap _mapView;
+        private Button _navigateButton;
+        private ScrollView _scrollView;
 
         public TextView BoilerName => _boilerName ?? (_boilerName = FindViewById<TextView>(Resource.Id.BoilerName));
         public TextView Position => _position ?? (_position = FindViewById<TextView>(Resource.Id.Position));
@@ -309,6 +362,8 @@ namespace CrossHMI.Android.Fragment
         public LinearLayout CCX001_Input3 => _cCX001_Input3 ?? (_cCX001_Input3 = FindViewById<LinearLayout>(Resource.Id.CCX001_Input3));
         public TextView BoilerNotes => _boilerNotes ?? (_boilerNotes = FindViewById<TextView>(Resource.Id.BoilerNotes));
         public CustomMap MapView => _mapView ?? (_mapView = FindViewById<CustomMap>(Resource.Id.MapView));
+        public Button NavigateButton => _navigateButton ?? (_navigateButton = FindViewById<Button>(Resource.Id.NavigateButton));
+        public ScrollView ScrollView => _scrollView ?? (_scrollView = FindViewById<ScrollView>(Resource.Id.ScrollView));
 
         #endregion
 
@@ -323,7 +378,6 @@ namespace CrossHMI.Android.Fragment
             {
                 //location permission not granted
             }
-
         }
     }
 }

@@ -49,7 +49,7 @@ namespace CrossHMI.Android
             {
                 //cached
                 {PageIndex.DashboardPage, new CachedPageProvider<DashboardPageFragment>()},
-                {PageIndex.BoilderDetailsPage, new CachedPageProvider<BoilderDetailsPageFragment>()}
+                {PageIndex.BoilderDetailsPage, new CachedPageProvider<BoilerDetailsPageFragment>()}
             };
 
             var manager = new NavigationManager<PageIndex>(SupportFragmentManager, RootView, pageDefinitions);

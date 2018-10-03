@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="#f6f6f6"
+    android:id="@+id/ScrollView"
     android:orientation="vertical">
 
     <LinearLayout
@@ -133,7 +134,7 @@
                         android:layout_width="12dip"
                         android:layout_height="100dp"
                         android:max="1000"
-                        android:progress="55"
+                        android:progress="555"
                         android:progressTint="#00a6ff" />
 
                     <TextView
@@ -167,7 +168,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_percent=".76" />
+                app:layout_constraintGuide_percent=".74" />
 
             <android.support.constraint.Guideline
                 android:id="@+id/_LSetPointGuidelineVertical"
@@ -188,7 +189,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                app:layout_constraintGuide_percent=".18" />
+                app:layout_constraintGuide_percent=".19" />
 
             <android.support.constraint.Guideline
                 android:id="@+id/_ValveInputGuidelineHorizontal"
@@ -209,35 +210,35 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_percent=".86" />
+                app:layout_constraintGuide_percent=".84" />
 
             <android.support.constraint.Guideline
                 android:id="@+id/_WaveViewGuidelineVertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                app:layout_constraintGuide_percent=".435" />
+                app:layout_constraintGuide_percent=".439" />
 
             <android.support.constraint.Guideline
                 android:id="@+id/_WaveViewGuidelineVerticalEnd"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                app:layout_constraintGuide_percent=".575" />
+                app:layout_constraintGuide_percent=".573" />
 
             <android.support.constraint.Guideline
                 android:id="@+id/_WaveViewGuidelineHorizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_percent=".61" />
+                app:layout_constraintGuide_percent=".622" />
 
             <android.support.constraint.Guideline
                 android:id="@+id/_WaveViewGuidelineHorizontalEnd"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_percent=".93" />
+                app:layout_constraintGuide_percent=".918" />
 
 
             <!--endregion-->
@@ -282,7 +283,7 @@
                 android:fontFamily="@string/font_family_light"
                 android:text="ValveInput = 123"
                 android:textColor="#000"
-                android:textSize="11sp"
+                android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="@id/_ValveInputGuidelineHorizontal"
                 app:layout_constraintLeft_toRightOf="@id/_ValveInputGuidelineVertical" />
 
@@ -301,7 +302,7 @@
                 android:id="@+id/WaveView"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:alpha=".3"
+                android:alpha="1"
                 app:layout_constraintBottom_toTopOf="@id/_WaveViewGuidelineHorizontalEnd"
                 app:layout_constraintLeft_toRightOf="@id/_WaveViewGuidelineVertical"
                 app:layout_constraintRight_toLeftOf="@id/_WaveViewGuidelineVerticalEnd"
@@ -309,6 +310,7 @@
                 app:wlv_borderColor="#2f2f2f"
                 app:wlv_borderWidth="7dp"
                 app:wlv_progressValue="33"
+                app:wlv_round_rectangle_x_and_y="19"
                 app:wlv_round_rectangle="true"
                 app:wlv_shapeType="rectangle"
                 app:wlv_waveAmplitude="50"
@@ -472,6 +474,12 @@
             android:id="@+id/MapView"
             android:layout_width="match_parent"
             android:layout_height="300dp" />
+
+        <Button
+            android:id="@+id/NavigateButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Navigate"/>
 
     </LinearLayout>
 
