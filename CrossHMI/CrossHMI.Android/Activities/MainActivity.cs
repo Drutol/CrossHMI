@@ -14,6 +14,7 @@ using AoLibs.Navigation.Core.Interfaces;
 using AoLibs.Navigation.Core.PageProviders;
 using Autofac;
 using CrossHMI.Android.Fragment;
+using CrossHMI.Interfaces.Adapters;
 using CrossHMI.Models.Enums;
 using CrossHMI.Shared.Statics;
 using CrossHMI.Shared.ViewModels;
@@ -26,14 +27,15 @@ namespace CrossHMI.Android
         ConfigurationChanges = ConfigChanges.Orientation | ConfigChanges.ScreenSize, LaunchMode = LaunchMode.SingleTask)]
     public class MainActivity : AppCompatActivity, IOnActivityResultProvider, IOnNewIntentProvider
     {
-        private static bool _initialized;
         private MainViewModel _viewModel;
+        private ILogAdapter<MainActivity> _logger;
 
         private EventHandler<Intent> _activityNewIntentEventHandler;
         private EventHandler<(int RequestCode, Result ResultCode, Intent Data)> _activityResultEventHandler;
 
         public MainActivity()
         {
+            _logger = ResourceLocator.GetLogger<MainActivity>();
             Instance = this;
         }
 
@@ -54,7 +56,7 @@ namespace CrossHMI.Android
 
             var manager = new NavigationManager<PageIndex>(SupportFragmentManager, RootView, pageDefinitions);
             App.Current.NavigationManager = manager;
-
+            _logger.LogDebug("Created navigation manager.");
             using (var scope = ResourceLocator.ObtainScope())
             {
                 var messageBoxProvider = scope.Resolve<IMessageBoxProvider>() as MessageBoxProvider;
@@ -64,11 +66,9 @@ namespace CrossHMI.Android
 
             RequestPermissions(new[] {Manifest.Permission.AccessCoarseLocation, Manifest.Permission.AccessFineLocation},
                 12);
-
+            _logger.LogDebug("Requested location permissions.");
             _viewModel = ViewModelLocator.MainViewModel;
             _viewModel.Initialized();
-
-            _initialized = true;
         }
 
         public override void OnBackPressed()

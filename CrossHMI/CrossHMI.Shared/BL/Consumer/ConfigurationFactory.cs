@@ -20,6 +20,7 @@ namespace CrossHMI.Shared.BL.Consumer
     public class ConfigurationFactory : ConfigurationFactoryBase<BoilersConfigurationData> , INetworkConfigurationProvider<BoilersConfigurationData>
     {
         private readonly IConfigurationResourcesProvider _configurationResourcesProvider;
+        private readonly ILogAdapter<ConfigurationFactory> _logger;
 
         /// <inheritdoc />
         public BoilersConfigurationData CurrentConfiguration { get; private set; }
@@ -28,27 +29,32 @@ namespace CrossHMI.Shared.BL.Consumer
         /// Creates new instaince of <see cref="ConfigurationFactory"/>
         /// </summary>
         /// <param name="configurationResourcesProvider">The provider of raw configuration asset.</param>
-        public ConfigurationFactory(IConfigurationResourcesProvider configurationResourcesProvider)
+        public ConfigurationFactory(IConfigurationResourcesProvider configurationResourcesProvider,
+            ILogAdapter<ConfigurationFactory> logger)
         {
             _configurationResourcesProvider = configurationResourcesProvider;
+            _logger = logger;
             Loader = ConfigurationLoader;
         }
 
         private BoilersConfigurationData ConfigurationLoader()
         {
+            _logger.LogDebug("Configuration data has been requested.");
             return ConfigurationDataFactoryIO.Load(DataLoader, RaiseEvents);
         }
 
         private BoilersConfigurationData DataLoader()
         {
+            _logger.LogDebug($"Loading data from registered adapter.");
             using (var reader =
                 new XmlTextReader(_configurationResourcesProvider.ObtainLibraryConfigurationXML()))
             {
+                _logger.LogDebug($"Deserializing XML configuration.");
                 var configuration = new DataContractSerializer(typeof(BoilersConfigurationData))
                     .ReadObject(reader, false) as BoilersConfigurationData;
 
                 CurrentConfiguration = configuration;
-
+                _logger.LogDebug($"Configuration successfully deserialized.");
                 return configuration;
             }
         }

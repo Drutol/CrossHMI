@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using CrossHMI.Interfaces;
+using CrossHMI.Interfaces.Adapters;
 using CrossHMI.Interfaces.Networking;
 using CrossHMI.Shared.BL;
 using CrossHMI.Shared.BL.Consumer;
@@ -51,6 +52,8 @@ namespace CrossHMI.Shared.Statics
 
             builder.RegisterBuildCallback(BuildCallback);
         }
+
+        public static ILogAdapter<T> GetLogger<T>() => _appLifetimeScope.Resolve<ILogAdapter<T>>();
 
         /// <summary>
         /// Allows to obtain resouce scope for manual component resolution.

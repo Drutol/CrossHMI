@@ -6,6 +6,7 @@ using System.Reflection;
 using AoLibs.Adapters.Core.Interfaces;
 using AoLibs.Navigation.Core.Interfaces;
 using CrossHMI.Interfaces;
+using CrossHMI.Interfaces.Adapters;
 using CrossHMI.Interfaces.Networking;
 using CrossHMI.Models;
 using CrossHMI.Models.Enums;
@@ -29,6 +30,7 @@ namespace CrossHMI.Shared.ViewModels
 
         private readonly INetworkEventsManager _networkEventsManager;
         private readonly INavigationManager<PageIndex> _navigationManager;
+        private readonly ILogAdapter<DashboardViewModel> _logger;
         private ObservableCollection<Boiler> _boilers;
 
         private readonly List<INetworkDeviceUpdateSource<Boiler>> _updateSources =
@@ -40,22 +42,27 @@ namespace CrossHMI.Shared.ViewModels
         /// <param name="networkEventsManager">Network events receiver.</param>
         /// <param name="navigationManager"></param>
         public DashboardViewModel(INetworkEventsManager networkEventsManager,
-            INavigationManager<PageIndex> navigationManager)
+            INavigationManager<PageIndex> navigationManager,
+            ILogAdapter<DashboardViewModel> logger)
         {
             _networkEventsManager = networkEventsManager;
             _navigationManager = navigationManager;
+            _logger = logger;
             Initialize();
         }
 
         private async void Initialize()
         {
+            _logger.LogDebug("Initializing network events manager.");
             await _networkEventsManager.Initialize();
 
+            _logger.LogDebug("Network events manager initialized. Creating event sources for repositories.");
             _updateSources.Add(_networkEventsManager.ObtainEventSourceForDevice<Boiler>(Repository1));
             _updateSources.Add(_networkEventsManager.ObtainEventSourceForDevice<Boiler>(Repository2));
             _updateSources.Add(_networkEventsManager.ObtainEventSourceForDevice<Boiler>(Repository3));
             _updateSources.Add(_networkEventsManager.ObtainEventSourceForDevice<Boiler>(Repository4));
 
+            _logger.LogDebug("Event sources created successfully.");
             Boilers = new ObservableCollection<Boiler>(_updateSources.Select(source => source.Device));
         }
 
@@ -74,6 +81,7 @@ namespace CrossHMI.Shared.ViewModels
 
         public RelayCommand<Boiler> NavigateToBoilerDetailsCommand => new RelayCommand<Boiler>(boiler =>
         {
+            _logger.LogDebug($"Navigating to boiler details page: {boiler.Repository}");
             _navigationManager.Navigate(PageIndex.BoilderDetailsPage, new BoilderDetailsNavArgs {Boiler = boiler});
         });
     }

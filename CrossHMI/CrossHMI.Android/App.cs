@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Net;
 using Android.App;
 using Android.Runtime;
+using Android.Util;
 using AoLibs.Adapters.Android;
 using AoLibs.Adapters.Android.Interfaces;
 using AoLibs.Adapters.Core.Interfaces;
@@ -31,10 +32,13 @@ namespace CrossHMI.Android
 
         public override void OnCreate()
         {
+            Log.Debug(nameof(App), "Starting application.");
+            Log.Debug(nameof(App), "Starting dependencies registration.");
             AppInitializationRoutines.Init(AdaptersRegistration);
+            Log.Debug(nameof(App), "Finished registering dependencies.");
             NavigationFragmentBase.ViewModelResolver = new ViewModelResolver();
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
-
+            Log.Debug(nameof(App), "Finished application start. Commencing Activity launch.");
             base.OnCreate();
         }
 
@@ -54,13 +58,16 @@ namespace CrossHMI.Android
             containerBuilder.RegisterType<PhotoPickerAdapter>().As<IPhotoPickerAdapter>().SingleInstance();
             containerBuilder.RegisterType<PhoneCallAdapter>().As<IPhoneCallAdapter>().SingleInstance();
 
-            containerBuilder.RegisterType<ConfigurationResourcesProvider>().As<IConfigurationResourcesProvider>().SingleInstance();
+            containerBuilder.RegisterType<ConfigurationResourcesProvider>().As<IConfigurationResourcesProvider>()
+                .SingleInstance();
 
             containerBuilder.RegisterInstance(LifetimeInfoProvider).As<ILifecycleInfoProvider>();
 
             containerBuilder.Register(ctx => NavigationManager).As<INavigationManager<PageIndex>>();
             containerBuilder.Register(ctx => MainActivity.Instance).As<IOnActivityResultProvider>()
                 .As<IOnNewIntentProvider>();
+
+            containerBuilder.RegisterGeneric(typeof(LogAdapter<>)).As(typeof(ILogAdapter<>));
         }
 
 
@@ -68,6 +75,7 @@ namespace CrossHMI.Android
         {
             public TViewModel Resolve<TViewModel>()
             {
+                Log.Debug(nameof(App), $"Resolving ViewModel: {typeof(TViewModel).Name}");
                 try
                 {
                     using (var scope = ResourceLocator.ObtainScope())

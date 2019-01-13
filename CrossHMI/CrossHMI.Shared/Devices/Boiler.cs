@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using CrossHMI.Interfaces;
+using CrossHMI.Interfaces.Adapters;
 using CrossHMI.Interfaces.Networking;
 using CrossHMI.Shared.Configuration;
+using CrossHMI.Shared.Statics;
 using GalaSoft.MvvmLight;
 using Newtonsoft.Json.Linq;
 
@@ -15,9 +17,24 @@ namespace CrossHMI.Shared.Devices
     /// </summary>
     public class Boiler : NetworkDeviceBaseWithConfiguration<BoilersConfigurationData>
     {
+        private ILogAdapter<Boiler> _logger;
         private bool _isAnyValueThresholdExeeded;
         private readonly Dictionary<string,bool> _thresholdExceeded = new Dictionary<string, bool>();
         private Dictionary<string, double> _thresholds = new Dictionary<string, double>();
+
+        public Boiler()
+        {
+            try
+            {
+                _logger = ResourceLocator.GetLogger<Boiler>();
+
+            }
+            catch 
+            {
+                //logger unavailable in current configuration
+            }
+        }
+
         /// <summary>
         /// Gets the repository of the device.
         /// </summary>
@@ -93,12 +110,14 @@ namespace CrossHMI.Shared.Devices
         /// <inheritdoc />
         public override void AssignRepository(string repository)
         {
+            _logger?.LogDebug($"Assigned repository: {repository}");
             Repository = repository;
         }
 
         /// <inheritdoc />
         public override void DefineDevice(INetworkDeviceDefinitionBuilder<BoilersConfigurationData> builder)
         {
+            _logger?.LogDebug($"Defining device.");
             base.DefineDevice(builder);
 
             builder.DefineConfigurationExtenstion(
@@ -108,6 +127,7 @@ namespace CrossHMI.Shared.Devices
 
         private void ExtenstionAssigned(BoilerRepositoryDetails extension)
         {
+            _logger?.LogDebug($"Configuration extension has been assigned.");
             Lat = extension.Lat;
             Lon = extension.Lon;
             Notes = extension.Notes;

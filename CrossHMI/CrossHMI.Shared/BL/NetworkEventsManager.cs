@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AoLibs.Adapters.Core.Interfaces;
 using CrossHMI.Interfaces;
+using CrossHMI.Interfaces.Adapters;
 using CrossHMI.Interfaces.Networking;
 using CrossHMI.Shared.BL.Consumer;
 using CrossHMI.Shared.Configuration;
@@ -25,6 +26,7 @@ namespace CrossHMI.Shared.BL
         private readonly IRecordingBindingFactory _recordingBindingFactory;
         private readonly INetworkConfigurationProvider<TConfiguration> _configurationProvider;
         private readonly IDispatcherAdapter _dispatcherAdapter;
+        private readonly ILogAdapter<NetworkEventsManager<TConfiguration>> _logger;
 
         /// <summary>
         /// Creates new instance of <see cref="NetworkEventsManager{TConfiguration}"/>
@@ -41,11 +43,13 @@ namespace CrossHMI.Shared.BL
             INetworkConfigurationProvider<TConfiguration> configurationProvider,
             IMessageHandlerFactory messageHandlerFactory, 
             IEncodingFactory encodingFactory,
-            IDispatcherAdapter dispatcherAdapter)
+            IDispatcherAdapter dispatcherAdapter,
+            ILogAdapter<NetworkEventsManager<TConfiguration>> logger)
         {
             _recordingBindingFactory = bindingFactory;
             _configurationProvider = configurationProvider;
             _dispatcherAdapter = dispatcherAdapter;
+            _logger = logger;
 
             BindingFactory = bindingFactory;
             ConfigurationFactory = configurationFactory;
@@ -66,10 +70,12 @@ namespace CrossHMI.Shared.BL
         public INetworkDeviceUpdateSource<TDevice> ObtainEventSourceForDevice<TDevice>(string repository)
             where TDevice : INetworkDevice, new()
         {
+            _logger.LogDebug($"Creating event source for: {repository}");
             var source = new NetworkDeviceEventSource<TDevice>(_dispatcherAdapter);
 
             source.Device = new NetworkDeviceDefinitionBuilder<TDevice>(this, source, repository).Build();
-                         
+
+            _logger.LogDebug($"Created event source for: {repository}");
             return source;
         }
 

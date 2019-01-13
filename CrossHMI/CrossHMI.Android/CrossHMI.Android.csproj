@@ -62,6 +62,7 @@
   <ItemGroup>
     <Compile Include="Adapters\ConfigurationResourcesProvider.cs" />
     <Compile Include="Adapters\GpsAdapter.cs" />
+    <Compile Include="Adapters\LogAdapter.cs" />
     <Compile Include="App.cs" />
     <Compile Include="Fragment\BoilerDetailsPageFragment.cs" />
     <Compile Include="Fragment\DashboardPageFragment.cs" />
