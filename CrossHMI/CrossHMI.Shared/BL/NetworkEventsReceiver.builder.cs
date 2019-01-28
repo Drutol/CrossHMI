@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text;
 using CrossHMI.Interfaces;
@@ -33,16 +35,17 @@ namespace CrossHMI.Shared.BL
         /// </summary>
         /// <typeparam name="TDevice"></typeparam>
         internal class NetworkDeviceDefinitionBuilder<TDevice> : INetworkDeviceDefinitionBuilder<TConfiguration>
-            where TDevice : INetworkDevice, new()
+            where TDevice : INetworkDevice
         {
             private static Func<TDevice> DefaultDeviceFactory { get; set; } = Activator.CreateInstance<TDevice>;
+
             private static ILogAdapter<NetworkDeviceDefinitionBuilder<TDevice>> DefaultLogger { get; set; }
 
             private readonly NetworkEventsManager<TConfiguration> _parent;
             private readonly INetworkDeviceUpdateSourceBase _deviceUpdateSource;
             private readonly string _repository;
 
-            private Func<TDevice> _deviceInstanceFactory;
+            private Func<TDevice> _deviceInstanceFactory = DefaultDeviceFactory;
             private readonly List<IExtensionDeclaration> _extensionDeclarations = new List<IExtensionDeclaration>();
             private readonly ILogAdapter<NetworkDeviceDefinitionBuilder<TDevice>> _builderLogger;
 
@@ -52,32 +55,30 @@ namespace CrossHMI.Shared.BL
             /// <param name="parent">Parent <see cref="NetworkEventsManager{TConfiguration}"/></param>
             /// <param name="deviceUpdateSource">The device update source.</param>
             /// <param name="repository">The repository associated with the device.</param>
-            /// <param name="deviceInstanceFactory">Delegate that will be used to instantiate bare device class instance. By default <see cref="Activator.CreateInstance{T}"/> is used.</param>
             public NetworkDeviceDefinitionBuilder(NetworkEventsManager<TConfiguration> parent,
                 INetworkDeviceUpdateSourceBase deviceUpdateSource,
-                string repository,
-                Func<TDevice> deviceInstanceFactory = null)
+                string repository)
             {
                 try
                 {
                     _builderLogger = ResourceLocator.GetLogger<NetworkDeviceDefinitionBuilder<TDevice>>();
                 }
                 catch
-                { 
+                {
                     _builderLogger = DefaultLogger;
                 }
-                
+
                 _parent = parent;
                 _deviceUpdateSource = deviceUpdateSource;
                 _repository = repository;
-                _deviceInstanceFactory = deviceInstanceFactory ?? DefaultDeviceFactory;
             }
 
             /// <inheritdoc />
             public INetworkDeviceDefinitionBuilder<TConfiguration> DefineVariable<T>(string variableName)
             {
                 _builderLogger.LogDebug($"Defining {variableName} of type {typeof(T).Name} for {_repository}.");
-                _deviceUpdateSource.RegisterNetworkVariable(_parent.ObtainEventSourceForVariable<T>(_repository, variableName));
+                _deviceUpdateSource.RegisterNetworkVariable(
+                    _parent.ObtainEventSourceForVariable<T>(_repository, variableName));
                 return this;
             }
 
@@ -87,7 +88,8 @@ namespace CrossHMI.Shared.BL
                 Action<TExtension> extenstionAssigned)
                 where TExtension : class, IAdditonalRepositoryDataDescriptor
             {
-                _builderLogger.LogDebug($"Defining configuration extension of type {typeof(TExtension).Name} for {_repository}.");
+                _builderLogger.LogDebug(
+                    $"Defining configuration extension of type {typeof(TExtension).Name} for {_repository}.");
                 _extensionDeclarations.Add(
                     new ExtensionDeclaration<TExtension>(this, extensionSelector, extenstionAssigned));
                 return this;
@@ -96,22 +98,23 @@ namespace CrossHMI.Shared.BL
             /// <summary>
             /// Instantiates and defines the device.
             /// </summary>
-            /// <returns></returns>
-            public TDevice Build()
+            /// <param name="factory"></param>
+            public TDevice Build(Func<TDevice> factory = null)
             {
                 _builderLogger.LogDebug($"Commencing building event source for {_repository}");
-                var device = _deviceInstanceFactory();
+                var device = (factory ?? _deviceInstanceFactory)();
                 _builderLogger.LogDebug($"Instantiated device model.");
                 device.AssignRepository(_repository);
                 _builderLogger.LogDebug($"Assigned repository.");
                 if (typeof(INetworkDeviceWithConfiguration<TConfiguration>).IsAssignableFrom(typeof(TDevice)))
                 {
-                    ((INetworkDeviceWithConfiguration<TConfiguration>)device).DefineDevice(this);
+                    ((INetworkDeviceWithConfiguration<TConfiguration>) device).DefineDevice(this);
                 }
                 else
                 {
                     device.DefineDevice(this);
                 }
+
                 _builderLogger.LogDebug($"Finished defining device.");
                 foreach (var extensionDeclaration in _extensionDeclarations)
                 {
@@ -123,21 +126,21 @@ namespace CrossHMI.Shared.BL
                 return device;
             }
 
-#region TestInstrumentation
+            #region TestInstrumentation
 
-[Conditional("DEBUG")]
-internal static void OverrideDefaultDeviceFactory(Func<TDevice> factory)
-{
-    DefaultDeviceFactory = factory;
-}
+            [Conditional("DEBUG")]
+            internal static void OverrideDefaultDeviceFactory(Func<TDevice> factory)
+            {
+                DefaultDeviceFactory = factory;
+            }
 
-[Conditional("DEBUG")]
-internal static void OverrideDefaultLogger(ILogAdapter<NetworkDeviceDefinitionBuilder<TDevice>> logger)
-{
-    DefaultLogger = logger;
-}
+            [Conditional("DEBUG")]
+            internal static void OverrideDefaultLogger(ILogAdapter<NetworkDeviceDefinitionBuilder<TDevice>> logger)
+            {
+                DefaultLogger = logger;
+            }
 
-#endregion
+            #endregion
 
             /// <summary>
             /// Helper class for storing data about extensions passed to builer while defining the model.
@@ -169,7 +172,8 @@ internal static void OverrideDefaultLogger(ILogAdapter<NetworkDeviceDefinitionBu
                 public void Assign()
                 {
                     var extensions =
-                        _extensionSelector(_parent._parent._configurationProvider.CurrentConfiguration as TConfiguration)
+                        _extensionSelector(
+                                _parent._parent._configurationProvider.CurrentConfiguration as TConfiguration)
                             .Cast<IAdditonalRepositoryDataDescriptor>();
                     var assignedExtension =
                         extensions.FirstOrDefault(descriptor => descriptor.Repository.Equals(_parent._repository));

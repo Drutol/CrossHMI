@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#f6f6f6"
+            android:id="@+id/ScrollView"
+            android:orientation="vertical">
+
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <FrameLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:clipToPadding="false"
+      android:paddingBottom="4dp">
+
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#e6e6e6"
+        android:elevation="4dp"
+        android:orientation="horizontal"
+        android:padding="8dp">
+
+        <TextView
+          android:id="@+id/BoilerName"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:textColor="#444"
+          tools:text="BoilerName" />
+
+        <TextView
+          android:id="@+id/Position"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="16dp"
+          android:layout_weight="1"
+          android:gravity="center"
+          android:textAlignment="center"
+          android:textColor="#000"
+          tools:text="BoilerPosition" />
+      </LinearLayout>
+    </FrameLayout>
+
+    <!--region includes-->
+
+    <android.support.v7.widget.RecyclerView
+      android:id="@+id/PropertiesRecyclerView"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"/>
+
+  </LinearLayout>
+
+
+</ScrollView>

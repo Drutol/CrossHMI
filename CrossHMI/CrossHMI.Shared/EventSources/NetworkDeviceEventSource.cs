@@ -10,7 +10,7 @@ namespace CrossHMI.Shared.EventSources
 {
     /// <inheritdoc />
     public class NetworkDeviceEventSource<T> : INetworkDeviceUpdateSource<T> 
-        where T : INetworkDevice, new()
+        where T : INetworkDevice
     {
         private readonly IDispatcherAdapter _dispatcherAdapter;
 

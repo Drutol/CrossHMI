@@ -67,13 +67,13 @@ namespace CrossHMI.Shared.BL
         }
 
         /// <inheritdoc />
-        public INetworkDeviceUpdateSource<TDevice> ObtainEventSourceForDevice<TDevice>(string repository)
-            where TDevice : INetworkDevice, new()
+        public INetworkDeviceUpdateSource<TDevice> ObtainEventSourceForDevice<TDevice>(string repository, Func<TDevice> factory = null)
+            where TDevice : INetworkDevice
         {
             _logger.LogDebug($"Creating event source for: {repository}");
             var source = new NetworkDeviceEventSource<TDevice>(_dispatcherAdapter);
 
-            source.Device = new NetworkDeviceDefinitionBuilder<TDevice>(this, source, repository).Build();
+            source.Device = new NetworkDeviceDefinitionBuilder<TDevice>(this, source, repository).Build(factory);
 
             _logger.LogDebug($"Created event source for: {repository}");
             return source;

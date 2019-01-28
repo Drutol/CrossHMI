@@ -67,6 +67,7 @@
     <Compile Include="Fragment\BoilerDetailsPageFragment.cs" />
     <Compile Include="Fragment\DashboardPageFragment.cs" />
     <Compile Include="Activities\MainActivity.cs" />
+    <Compile Include="Fragment\GenericDevicePageFragment.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Views\CustomMap.cs" />
@@ -195,6 +196,12 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\icon_warning.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\generic_device_details_page.xml">
+      <Generator>MSBuild:UpdateGeneratedFiles</Generator>
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
