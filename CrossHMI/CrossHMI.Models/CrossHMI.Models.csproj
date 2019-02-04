@@ -13,7 +13,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="UAOOI.Configuration.Networking" Version="4.0.0" />
+    <PackageReference Include="UAOOI.Configuration.Networking" Version="4.0.1" />
   </ItemGroup>
 
 </Project>

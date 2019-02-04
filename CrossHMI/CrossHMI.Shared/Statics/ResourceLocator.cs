@@ -6,6 +6,7 @@ using CrossHMI.Shared.BL;
 using CrossHMI.Shared.BL.Consumer;
 using CrossHMI.Shared.Configuration;
 using UAOOI.Configuration.Networking;
+using UAOOI.Networking.Core;
 using UAOOI.Networking.Encoding;
 using UAOOI.Networking.SemanticData;
 using UAOOI.Networking.SemanticData.MessageHandling;

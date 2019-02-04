@@ -13,6 +13,7 @@ using CrossHMI.Shared.Configuration;
 using CrossHMI.Shared.EventSources;
 using UAOOI.Configuration.Networking;
 using UAOOI.Configuration.Networking.Serialization;
+using UAOOI.Networking.Core;
 using UAOOI.Networking.SemanticData;
 using UAOOI.Networking.SemanticData.DataRepository;
 using UAOOI.Networking.SemanticData.MessageHandling;
