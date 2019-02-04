@@ -1,4 +1,6 @@
-﻿using Autofac;
+﻿using System.Linq;
+using System.Reflection;
+using Autofac;
 using CrossHMI.Interfaces;
 using CrossHMI.Interfaces.Adapters;
 using CrossHMI.Interfaces.Networking;
@@ -68,6 +70,17 @@ namespace CrossHMI.Shared.Statics
         private static void BuildCallback(IContainer container)
         {
             _appLifetimeScope = container.BeginLifetimeScope();
+
+
+            var logger = GetLogger<IContainer>();
+            var assemblies = new[]
+            {
+                Assembly.GetAssembly(typeof(MessageHandlerFactory)),
+                Assembly.GetAssembly(typeof(IConfigurationFactory)),
+                Assembly.GetAssembly(typeof(IBindingFactory)),
+                Assembly.GetAssembly(typeof(EncodingFactoryBinarySimple)),
+            }.Select(assembly => assembly.FullName);
+            logger.LogDebug($"UAOOI Assemblies containing registered components in the IoC container:\n{string.Join("\n", assemblies)}");
         }
     }
 }
