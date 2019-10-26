@@ -3,6 +3,7 @@
     public enum PageIndex
     {
         DashboardPage,
-        BoilderDetailsPage
+        BoilderDetailsPage,
+        GenericDeviceDetailsPage
     }
 }

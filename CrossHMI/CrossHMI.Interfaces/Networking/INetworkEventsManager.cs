@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 
 namespace CrossHMI.Interfaces.Networking
 {
@@ -21,7 +22,7 @@ namespace CrossHMI.Interfaces.Networking
         /// <typeparam name="TDevice">The type of the device.</typeparam>
         /// <param name="repository">The repository against which the device will be created.</param>
         /// <returns>Device model.</returns>
-        INetworkDeviceUpdateSource<TDevice> ObtainEventSourceForDevice<TDevice>(string repository) 
-            where TDevice : INetworkDevice , new ();
+        INetworkDeviceUpdateSource<TDevice> ObtainEventSourceForDevice<TDevice>(string repository, Func<TDevice> factory = null) 
+            where TDevice : INetworkDevice;
     }
 }

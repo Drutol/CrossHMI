@@ -6,10 +6,10 @@
     /// <typeparam name="T"></typeparam>
     public interface INetworkDeviceUpdateSource<out T> 
         : INetworkDeviceUpdateSourceBase
-        where T : INetworkDevice, new ()
+        where T : INetworkDevice
     {
         /// <summary>
-        /// The device that is receinving the updates.
+        /// The device that is receiving the updates.
         /// </summary>
         T Device { get; }
     }
