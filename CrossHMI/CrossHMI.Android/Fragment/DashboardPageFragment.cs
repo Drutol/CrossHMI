@@ -2,17 +2,18 @@
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
+using Android;
 using Android.Graphics;
 using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
 using AoLibs.Adapters.Android.Recycler;
+using AoLibs.Navigation.Android.Navigation;
 using AoLibs.Utilities.Android;
 using CrossHMI.Shared.Devices;
 using CrossHMI.Shared.ViewModels;
 using GalaSoft.MvvmLight.Helpers;
 using ME.Itangqi.Waveloadingview;
-using NavigationLib.Android.Navigation;
 
 namespace CrossHMI.Android.Fragment
 {
@@ -30,7 +31,7 @@ namespace CrossHMI.Android.Fragment
                 RecyclerView.SetAdapter(
                     new ObservableRecyclerAdapter<Boiler, BoilerViewHolder>(ViewModel.Boilers, DataTemplate,
                             ItemTemplate,HolderFactory)
-                        {ApplyLayoutParams = true});
+                        {StretchContentHorizonatally = true});
             }));
 
 

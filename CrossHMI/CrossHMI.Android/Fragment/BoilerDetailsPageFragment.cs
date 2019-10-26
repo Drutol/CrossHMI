@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Android;
 using Android.App;
 using Android.Content;
 using Android.Gms.Maps;
@@ -13,6 +14,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Views.Animations;
 using Android.Widget;
+using AoLibs.Navigation.Android.Navigation;
 using AoLibs.Utilities.Android;
 using CrossHMI.Android.Views;
 using CrossHMI.Shared.Devices;
@@ -20,7 +22,6 @@ using CrossHMI.Shared.NavArgs;
 using CrossHMI.Shared.ViewModels;
 using GalaSoft.MvvmLight.Helpers;
 using ME.Itangqi.Waveloadingview;
-using NavigationLib.Android.Navigation;
 
 namespace CrossHMI.Android.Fragment
 {

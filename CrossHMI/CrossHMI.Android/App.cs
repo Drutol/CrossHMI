@@ -2,18 +2,19 @@
 using System.Diagnostics;
 using System.Net;
 using Android.App;
+using Android.Content;
 using Android.Runtime;
 using Android.Util;
 using AoLibs.Adapters.Android;
 using AoLibs.Adapters.Android.Interfaces;
 using AoLibs.Adapters.Core.Interfaces;
+using AoLibs.Navigation.Android.Navigation;
 using AoLibs.Navigation.Core.Interfaces;
 using Autofac;
 using CrossHMI.Android.Adapters;
 using CrossHMI.Interfaces.Adapters;
 using CrossHMI.Models.Enums;
 using CrossHMI.Shared.Statics;
-using NavigationLib.Android.Navigation;
 
 namespace CrossHMI.Android
 {
@@ -25,7 +26,6 @@ namespace CrossHMI.Android
             Current = this;
         }
 
-        public LifecycleInfoProvider LifetimeInfoProvider { get; private set; }
         public INavigationManager<PageIndex> NavigationManager { get; set; }
 
         public static App Current { get; private set; }
@@ -36,7 +36,6 @@ namespace CrossHMI.Android
             Log.Debug(nameof(App), "Starting dependencies registration.");
             AppInitializationRoutines.Init(AdaptersRegistration);
             Log.Debug(nameof(App), "Finished registering dependencies.");
-            NavigationFragmentBase.ViewModelResolver = new ViewModelResolver();
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
             Log.Debug(nameof(App), "Finished application start. Commencing Activity launch.");
             base.OnCreate();
@@ -44,8 +43,6 @@ namespace CrossHMI.Android
 
         private void AdaptersRegistration(ContainerBuilder containerBuilder)
         {
-            LifetimeInfoProvider = new LifecycleInfoProvider();
-
             containerBuilder.RegisterType<ClipboardProvider>().As<IClipboardProvider>().SingleInstance();
             containerBuilder.RegisterType<DispatcherAdapter>().As<IDispatcherAdapter>().SingleInstance();
             containerBuilder.RegisterType<FileStorageProvider>().As<IFileStorageProvider>().SingleInstance();
@@ -61,8 +58,6 @@ namespace CrossHMI.Android
             containerBuilder.RegisterType<ConfigurationResourcesProvider>().As<IConfigurationResourcesProvider>()
                 .SingleInstance();
 
-            containerBuilder.RegisterInstance(LifetimeInfoProvider).As<ILifecycleInfoProvider>();
-
             containerBuilder.Register(ctx => NavigationManager).As<INavigationManager<PageIndex>>();
             containerBuilder.Register(ctx => MainActivity.Instance).As<IOnActivityResultProvider>()
                 .As<IOnNewIntentProvider>();
@@ -70,30 +65,11 @@ namespace CrossHMI.Android
             containerBuilder.RegisterGeneric(typeof(LogAdapter<>)).As(typeof(ILogAdapter<>));
         }
 
-
-        private class ViewModelResolver : IViewModelResolver
-        {
-            public TViewModel Resolve<TViewModel>()
-            {
-                Log.Debug(nameof(App), $"Resolving ViewModel: {typeof(TViewModel).Name}");
-                try
-                {
-                    using (var scope = ResourceLocator.ObtainScope())
-                    {
-                        return scope.Resolve<TViewModel>();
-                    }
-                }
-                catch (Exception e)
-                {
-                    Debugger.Break();
-                    throw;
-                }
-            }
-        }
-
         private class ContextProvider : IContextProvider
         {
-            public Activity CurrentContext => MainActivity.Instance;
+            public Activity CurrentActivity => MainActivity.Instance;
+
+            public Context CurrentContext => MainActivity.Instance;
         }
     }
 }

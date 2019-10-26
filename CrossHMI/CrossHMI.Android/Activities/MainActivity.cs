@@ -1,15 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using Android;
 using Android.App;
 using Android.Content;
 using Android.Content.PM;
 using Android.OS;
 using Android.Support.V7.App;
+using Android.Util;
 using Android.Widget;
 using AoLibs.Adapters.Android;
 using AoLibs.Adapters.Android.Interfaces;
 using AoLibs.Adapters.Core.Interfaces;
+using AoLibs.Navigation.Android.Navigation;
 using AoLibs.Navigation.Core.Interfaces;
 using AoLibs.Navigation.Core.PageProviders;
 using Autofac;
@@ -18,7 +21,6 @@ using CrossHMI.Interfaces.Adapters;
 using CrossHMI.Models.Enums;
 using CrossHMI.Shared.Statics;
 using CrossHMI.Shared.ViewModels;
-using NavigationLib.Android.Navigation;
 using Newtonsoft.Json;
 
 namespace CrossHMI.Android
@@ -54,7 +56,7 @@ namespace CrossHMI.Android
                 {PageIndex.BoilderDetailsPage, new CachedPageProvider<BoilerDetailsPageFragment>()}
             };
 
-            var manager = new NavigationManager<PageIndex>(SupportFragmentManager, RootView, pageDefinitions);
+            var manager = new NavigationManager<PageIndex>(SupportFragmentManager, RootView, pageDefinitions, new ViewModelResolver());
             App.Current.NavigationManager = manager;
             _logger.LogDebug("Created navigation manager.");
             using (var scope = ResourceLocator.ObtainScope())
@@ -121,5 +123,26 @@ namespace CrossHMI.Android
         public FrameLayout RootView => _rootView ?? (_rootView = FindViewById<FrameLayout>(Resource.Id.RootView));
 
         #endregion
+
+
+        private class ViewModelResolver : IDependencyResolver
+        {
+            public TViewModel Resolve<TViewModel>()
+            {
+                Log.Debug(nameof(App), $"Resolving ViewModel: {typeof(TViewModel).Name}");
+                try
+                {
+                    using (var scope = ResourceLocator.ObtainScope())
+                    {
+                        return scope.Resolve<TViewModel>();
+                    }
+                }
+                catch (Exception e)
+                {
+                    Debugger.Break();
+                    throw;
+                }
+            }
+        }
     }
 }
