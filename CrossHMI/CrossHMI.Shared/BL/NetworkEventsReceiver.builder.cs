@@ -24,7 +24,7 @@ namespace CrossHMI.Shared.BL
         {
             /// <summary>
             /// Used to find proper extension object and pass
-            /// it to undrelying device via provided callback delegate.
+            /// it to underlying device via provided callback delegate.
             /// </summary>
             void Assign();
         }
