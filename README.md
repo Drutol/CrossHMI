@@ -9,8 +9,8 @@ The data itself in this exercised example originates from simulator application 
 ## Scenario
 
 Currently implemented scenario includes a set of boilers about which data is presented.
-![](.github/image/boilers.png)
-![](.github/image/details.png)
+![](https://raw.githubusercontent.com/Drutol/ReactiveNetworking.CrossHMI/master/.github/images/boilers.png)
+![](https://raw.githubusercontent.com/Drutol/ReactiveNetworking.CrossHMI/master/.github/images/details.png)
 
 The details page presents simple user interface mapping selected values in form of text and animated control onto a picture.
 
@@ -26,7 +26,7 @@ The aplication itself is written incroprating cross-platform patterns and techni
 * Business logic which implements domain interfaces is contained within `CrossHMI.Shared` namespace and it includes both ViewModels used directly by user interface as well as logic for processing asynchnous data obtained through the OPC-UA-OOI library.
 * The actual platform project `CrossHMI.Android` implements Android user interface using previously created ViewModels and serves as an entry point for the whole end application.
 
-![](.github/image/arch.png)
+![](https://raw.githubusercontent.com/Drutol/ReactiveNetworking.CrossHMI/master/.github/images/arch.png)
 
 #### OPC-UA-OOI library interfacing
 
