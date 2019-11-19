@@ -1,4 +1,4 @@
-# OPCUA.CrossHMI
+# CrossHMI
 
 This project implements simple HMI (Human Machine Interface) for process data in cross-platform fashion. For reference Android mobile application has been implemented.
 
@@ -9,8 +9,12 @@ The data itself in this exercised example originates from simulator application 
 ## Scenario
 
 Currently implemented scenario includes a set of boilers about which data is presented.
-![](https://raw.githubusercontent.com/Drutol/ReactiveNetworking.CrossHMI/master/.github/images/boilers.png)
-![](https://raw.githubusercontent.com/Drutol/ReactiveNetworking.CrossHMI/master/.github/images/details.png)
+
+Boiler list        |  Boiler device details
+:-------------------------:|:-------------------------:
+![](https://raw.githubusercontent.com/Drutol/CrossHMI/master/.github/images/boilers.png)  |  ![](https://raw.githubusercontent.com/Drutol/CrossHMI/master/.github/images/details.png)
+
+
 
 The details page presents simple user interface mapping selected values in form of text and animated control onto a picture.
 
@@ -26,7 +30,9 @@ The aplication itself is written incroprating cross-platform patterns and techni
 * Business logic which implements domain interfaces is contained within `CrossHMI.Shared` namespace and it includes both ViewModels used directly by user interface as well as logic for processing asynchnous data obtained through the OPC-UA-OOI library.
 * The actual platform project `CrossHMI.Android` implements Android user interface using previously created ViewModels and serves as an entry point for the whole end application.
 
-![](https://raw.githubusercontent.com/Drutol/ReactiveNetworking.CrossHMI/master/.github/images/arch.png)
+<p align="center">
+  <img width="460" height="300" src="https://raw.githubusercontent.com/Drutol/CrossHMI/master/.github/images/arch.png">
+</p>
 
 #### OPC-UA-OOI library interfacing
 
@@ -62,7 +68,7 @@ There are also other aspects of library configuration that need to be handled, y
 
 For obtaining asynchronous data the application is listening for UDP broadcast packets, as simple as it gets. 
 
-## Notes:
+## Notes 
 
 Additional NuGet packages used by this project can be obtained from following feed. These are my personal tools used to streamline Xamarin development.
 ```
