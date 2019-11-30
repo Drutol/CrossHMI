@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace CrossHMI.Models
+﻿namespace CrossHMI.Models
 {
     public class LatLon
     {

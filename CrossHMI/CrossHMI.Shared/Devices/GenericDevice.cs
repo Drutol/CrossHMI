@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using CrossHMI.Interfaces.Networking;
 using CrossHMI.Shared.Configuration;
 using UAOOI.Configuration.Networking.Serialization;
@@ -11,10 +10,6 @@ namespace CrossHMI.Shared.Devices
     public class GenericDevice : NetworkDeviceBase
     {
         private readonly GenericDeviceConfiguration _genericDeviceConfiguration;
-        public string Repository { get; private set; }
-        public List<string> PropertiesNames { get; private set; }
-        public Dictionary<string, object> Values { get; } = new Dictionary<string, object>();
-        public Dictionary<string, Type> Properties { get; } = new Dictionary<string, Type>();
 
         public GenericDevice(GenericDeviceConfiguration genericDeviceConfiguration)
         {
@@ -23,6 +18,11 @@ namespace CrossHMI.Shared.Devices
             Properties =
                 genericDeviceConfiguration.Properties.ToDictionary(pair => pair.Key, pair => ConvertToType(pair.Value));
         }
+
+        public string Repository { get; private set; }
+        public List<string> PropertiesNames { get; }
+        public Dictionary<string, object> Values { get; } = new Dictionary<string, object>();
+        public Dictionary<string, Type> Properties { get; } = new Dictionary<string, Type>();
 
         public override void AssignRepository(string repository)
         {

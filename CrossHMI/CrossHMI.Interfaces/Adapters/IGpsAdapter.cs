@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using CrossHMI.Models;
 using CrossHMI.Models.Enums;
@@ -20,5 +18,4 @@ namespace CrossHMI.Interfaces.Adapters
 
         Task<LatLon> ObtainCurrentPosition();
     }
-
 }

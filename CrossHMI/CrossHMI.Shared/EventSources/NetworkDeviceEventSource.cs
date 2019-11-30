@@ -1,21 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Text;
-using AoLibs.Adapters.Core.Interfaces;
-using CrossHMI.Interfaces;
+﻿using AoLibs.Adapters.Core.Interfaces;
 using CrossHMI.Interfaces.Networking;
 
 namespace CrossHMI.Shared.EventSources
 {
     /// <inheritdoc />
-    public class NetworkDeviceEventSource<T> : INetworkDeviceUpdateSource<T> 
+    public class NetworkDeviceEventSource<T> : INetworkDeviceUpdateSource<T>
         where T : INetworkDevice
     {
         private readonly IDispatcherAdapter _dispatcherAdapter;
 
         /// <summary>
-        /// Creates new instance of <see cref="NetworkDeviceEventSource{T}"/>.
+        ///     Creates new instance of <see cref="NetworkDeviceEventSource{T}" />.
         /// </summary>
         /// <param name="dispatcherAdapter">UI thread dispatcher</param>
         public NetworkDeviceEventSource(IDispatcherAdapter dispatcherAdapter)
@@ -32,10 +27,7 @@ namespace CrossHMI.Shared.EventSources
         {
             networkVariableUpdateSource.Updated += (updateSource, value) =>
             {
-                _dispatcherAdapter.Run(() =>
-                {
-                    Device?.ProcessPropertyUpdate(updateSource.Name, value);
-                });
+                _dispatcherAdapter.Run(() => { Device?.ProcessPropertyUpdate(updateSource.Name, value); });
             };
         }
     }

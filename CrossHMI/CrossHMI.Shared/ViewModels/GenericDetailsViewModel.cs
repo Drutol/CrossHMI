@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Text;
-using CrossHMI.Shared.Devices;
+﻿using CrossHMI.Shared.Devices;
 using CrossHMI.Shared.NavArgs;
 using GalaSoft.MvvmLight;
 
@@ -11,7 +7,7 @@ namespace CrossHMI.Shared.ViewModels
     public class GenericDetailsViewModel : ViewModelBase
     {
         private GenericDevice _device;
-   
+
         public GenericDevice Device
         {
             get => _device;

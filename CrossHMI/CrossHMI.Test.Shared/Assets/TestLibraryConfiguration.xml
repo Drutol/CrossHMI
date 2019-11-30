@@ -1,4 +1,5 @@
-﻿<ConfigurationData xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://commsvr.com/UAOOI/SemanticData/UANetworking/Configuration/Serialization.xsd">
+﻿<ConfigurationData xmlns:i="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://commsvr.com/UAOOI/SemanticData/UANetworking/Configuration/Serialization.xsd">
   <DataSets>
     <DataSetConfiguration>
       <AssociationRole>Consumer</AssociationRole>
@@ -146,8 +147,14 @@
       <Guid>e669df1f-3670-4dd4-9ef6-acb0975bf4f8</Guid>
       <Root>
         <BindingDescription>Binding Description</BindingDescription>
-        <q:DataType xmlns:d5p1="http://tempuri.org/UA/Examples/BoilerType" xmlns:q="http://commsvr.com/UAOOI/SemanticData/UANetworking/Configuration/Serialization.xsd">d5p1:BoilerType</q:DataType>
-        <q:NodeIdentifier xmlns:d5p1="http://commsvr.com/UA/Examples/BoilersSet" xmlns:q="http://commsvr.com/UAOOI/SemanticData/UANetworking/Configuration/Serialization.xsd">d5p1:BoilersArea_BoilerAlpha</q:NodeIdentifier>
+        <q:DataType xmlns:d5p1="http://tempuri.org/UA/Examples/BoilerType"
+                    xmlns:q="http://commsvr.com/UAOOI/SemanticData/UANetworking/Configuration/Serialization.xsd">
+          d5p1:BoilerType
+        </q:DataType>
+        <q:NodeIdentifier xmlns:d5p1="http://commsvr.com/UA/Examples/BoilersSet"
+                          xmlns:q="http://commsvr.com/UAOOI/SemanticData/UANetworking/Configuration/Serialization.xsd">
+          d5p1:BoilersArea_BoilerAlpha
+        </q:NodeIdentifier>
       </Root>
       <PublishingInterval>100</PublishingInterval>
       <MaxBufferTime>1000</MaxBufferTime>
@@ -303,8 +310,14 @@
       <Guid>1f5c2bba-b5a7-44d2-93fe-b8736470ee54</Guid>
       <Root>
         <BindingDescription>Binding Description</BindingDescription>
-        <q:DataType xmlns:d5p1="http://tempuri.org/UA/Examples/BoilerType" xmlns:q="http://commsvr.com/UAOOI/SemanticData/UANetworking/Configuration/Serialization.xsd">d5p1:BoilerType</q:DataType>
-        <q:NodeIdentifier xmlns:d5p1="http://commsvr.com/UA/Examples/BoilersSet" xmlns:q="http://commsvr.com/UAOOI/SemanticData/UANetworking/Configuration/Serialization.xsd">d5p1:BoilersArea_BoilerBravo</q:NodeIdentifier>
+        <q:DataType xmlns:d5p1="http://tempuri.org/UA/Examples/BoilerType"
+                    xmlns:q="http://commsvr.com/UAOOI/SemanticData/UANetworking/Configuration/Serialization.xsd">
+          d5p1:BoilerType
+        </q:DataType>
+        <q:NodeIdentifier xmlns:d5p1="http://commsvr.com/UA/Examples/BoilersSet"
+                          xmlns:q="http://commsvr.com/UAOOI/SemanticData/UANetworking/Configuration/Serialization.xsd">
+          d5p1:BoilersArea_BoilerBravo
+        </q:NodeIdentifier>
       </Root>
       <PublishingInterval>100</PublishingInterval>
       <MaxBufferTime>1000</MaxBufferTime>
@@ -460,8 +473,14 @@
       <Guid>096d553e-c1da-4ca4-9fcc-9d524fa3ca20</Guid>
       <Root>
         <BindingDescription>Binding Description</BindingDescription>
-        <q:DataType xmlns:d5p1="http://tempuri.org/UA/Examples/BoilerType" xmlns:q="http://commsvr.com/UAOOI/SemanticData/UANetworking/Configuration/Serialization.xsd">d5p1:BoilerType</q:DataType>
-        <q:NodeIdentifier xmlns:d5p1="http://commsvr.com/UA/Examples/BoilersSet" xmlns:q="http://commsvr.com/UAOOI/SemanticData/UANetworking/Configuration/Serialization.xsd">d5p1:BoilersArea_BoilerBravo</q:NodeIdentifier>
+        <q:DataType xmlns:d5p1="http://tempuri.org/UA/Examples/BoilerType"
+                    xmlns:q="http://commsvr.com/UAOOI/SemanticData/UANetworking/Configuration/Serialization.xsd">
+          d5p1:BoilerType
+        </q:DataType>
+        <q:NodeIdentifier xmlns:d5p1="http://commsvr.com/UA/Examples/BoilersSet"
+                          xmlns:q="http://commsvr.com/UAOOI/SemanticData/UANetworking/Configuration/Serialization.xsd">
+          d5p1:BoilersArea_BoilerBravo
+        </q:NodeIdentifier>
       </Root>
       <PublishingInterval>100</PublishingInterval>
       <MaxBufferTime>1000</MaxBufferTime>
@@ -617,8 +636,14 @@
       <Guid>78e83ea4-aa0c-43e3-9449-3f2f195f2844</Guid>
       <Root>
         <BindingDescription>Binding Description</BindingDescription>
-        <q:DataType xmlns:d5p1="http://tempuri.org/UA/Examples/BoilerType" xmlns:q="http://commsvr.com/UAOOI/SemanticData/UANetworking/Configuration/Serialization.xsd">d5p1:BoilerType</q:DataType>
-        <q:NodeIdentifier xmlns:d5p1="http://commsvr.com/UA/Examples/BoilersSet" xmlns:q="http://commsvr.com/UAOOI/SemanticData/UANetworking/Configuration/Serialization.xsd">d5p1:BoilersArea_BoilerBravo</q:NodeIdentifier>
+        <q:DataType xmlns:d5p1="http://tempuri.org/UA/Examples/BoilerType"
+                    xmlns:q="http://commsvr.com/UAOOI/SemanticData/UANetworking/Configuration/Serialization.xsd">
+          d5p1:BoilerType
+        </q:DataType>
+        <q:NodeIdentifier xmlns:d5p1="http://commsvr.com/UA/Examples/BoilersSet"
+                          xmlns:q="http://commsvr.com/UAOOI/SemanticData/UANetworking/Configuration/Serialization.xsd">
+          d5p1:BoilersArea_BoilerBravo
+        </q:NodeIdentifier>
       </Root>
       <PublishingInterval>100</PublishingInterval>
       <MaxBufferTime>1000</MaxBufferTime>
@@ -662,27 +687,27 @@
     </MessageHandlerConfiguration>
   </MessageHandlers>
   <RepositoryExtensions>
-[
-  {
+    [
+    {
     "Repository": "BoilersArea_Boiler #1",
     "Lat": 51.68399,
     "Lon": 19.29569
-  },
-  {
+    },
+    {
     "Repository": "BoilersArea_Boiler #2",
     "Lat": 51.68399,
     "Lon": 19.29569
-  },  
-  {
+    },
+    {
     "Repository": "BoilersArea_Boiler #3",
     "Lat": 51.68399,
     "Lon": 19.29569
-  }, 
-  {
+    },
+    {
     "Repository": "BoilersArea_Boiler #4",
     "Lat": 51.68399,
     "Lon": 19.29569
-  }
-]
+    }
+    ]
   </RepositoryExtensions>
 </ConfigurationData>

@@ -1,9 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Diagnostics;
-using System.Text;
-using CrossHMI.Interfaces;
 using CrossHMI.Interfaces.Networking;
 using UAOOI.Configuration.Networking.Serialization;
 using UAOOI.Networking.SemanticData;
@@ -12,7 +8,7 @@ using UAOOI.Networking.SemanticData.DataRepository;
 namespace CrossHMI.Shared.BL.Consumer
 {
     /// <summary>
-    /// Class responsible for creating bindings for every variable in every repository as requested by library.
+    ///     Class responsible for creating bindings for every variable in every repository as requested by library.
     /// </summary>
     public class ConsumerBindingFactory : IRecordingBindingFactory
     {
@@ -21,13 +17,15 @@ namespace CrossHMI.Shared.BL.Consumer
 
 
         /// <inheritdoc />
-        IConsumerBinding IBindingFactory.GetConsumerBinding(string repositoryGroup, string processValueName, UATypeInfo fieldTypeInfo)
+        IConsumerBinding IBindingFactory.GetConsumerBinding(string repositoryGroup, string processValueName,
+            UATypeInfo fieldTypeInfo)
         {
             return GetConsumerBinding(repositoryGroup, processValueName, fieldTypeInfo);
         }
 
         /// <inheritdoc />
-        IProducerBinding IBindingFactory.GetProducerBinding(string repository, string processValueName, UATypeInfo fieldTypeInfo)
+        IProducerBinding IBindingFactory.GetProducerBinding(string repository, string processValueName,
+            UATypeInfo fieldTypeInfo)
         {
             throw new NotImplementedException();
         }
@@ -48,35 +46,35 @@ namespace CrossHMI.Shared.BL.Consumer
             switch (typeInfo.BuiltInType)
             {
                 case BuiltInType.Boolean:
-                    return typeInfo.ValueRank < 0 ? AddBinding<bool>() : AddBinding<bool[]>();                
+                    return typeInfo.ValueRank < 0 ? AddBinding<bool>() : AddBinding<bool[]>();
                 case BuiltInType.SByte:
-                    return typeInfo.ValueRank < 0 ? AddBinding<sbyte>() : AddBinding<sbyte[]>();                   
+                    return typeInfo.ValueRank < 0 ? AddBinding<sbyte>() : AddBinding<sbyte[]>();
                 case BuiltInType.Byte:
-                    return typeInfo.ValueRank < 0 ? AddBinding<byte>() : AddBinding<byte[]>();                
+                    return typeInfo.ValueRank < 0 ? AddBinding<byte>() : AddBinding<byte[]>();
                 case BuiltInType.Int16:
-                    return typeInfo.ValueRank < 0 ? AddBinding<short>() : AddBinding<short[]>();                  
+                    return typeInfo.ValueRank < 0 ? AddBinding<short>() : AddBinding<short[]>();
                 case BuiltInType.UInt16:
-                    return typeInfo.ValueRank < 0 ? AddBinding<ushort>() : AddBinding<ushort[]>();                    
+                    return typeInfo.ValueRank < 0 ? AddBinding<ushort>() : AddBinding<ushort[]>();
                 case BuiltInType.Int32:
-                    return typeInfo.ValueRank < 0 ? AddBinding<int>() : AddBinding<int[]>();                   
+                    return typeInfo.ValueRank < 0 ? AddBinding<int>() : AddBinding<int[]>();
                 case BuiltInType.UInt32:
-                    return typeInfo.ValueRank < 0 ? AddBinding<uint>() : AddBinding<uint[]>();                   
+                    return typeInfo.ValueRank < 0 ? AddBinding<uint>() : AddBinding<uint[]>();
                 case BuiltInType.Int64:
-                    return typeInfo.ValueRank < 0 ? AddBinding<long>() : AddBinding<long[]>();                   
+                    return typeInfo.ValueRank < 0 ? AddBinding<long>() : AddBinding<long[]>();
                 case BuiltInType.UInt64:
-                    return typeInfo.ValueRank < 0 ? AddBinding<ulong>() : AddBinding<ulong[]>();                   
+                    return typeInfo.ValueRank < 0 ? AddBinding<ulong>() : AddBinding<ulong[]>();
                 case BuiltInType.Float:
-                    return typeInfo.ValueRank < 0 ? AddBinding<float>() : AddBinding<float[]>();                   
+                    return typeInfo.ValueRank < 0 ? AddBinding<float>() : AddBinding<float[]>();
                 case BuiltInType.Double:
-                    return typeInfo.ValueRank < 0 ? AddBinding<double>() : AddBinding<double[]>();                
+                    return typeInfo.ValueRank < 0 ? AddBinding<double>() : AddBinding<double[]>();
                 case BuiltInType.String:
-                    return typeInfo.ValueRank < 0 ? AddBinding<string>() : AddBinding<string[]>();           
+                    return typeInfo.ValueRank < 0 ? AddBinding<string>() : AddBinding<string[]>();
                 case BuiltInType.DateTime:
-                    return typeInfo.ValueRank < 0 ? AddBinding<DateTime>() : AddBinding<DateTime[]>();     
+                    return typeInfo.ValueRank < 0 ? AddBinding<DateTime>() : AddBinding<DateTime[]>();
                 case BuiltInType.Guid:
-                    return typeInfo.ValueRank < 0 ? AddBinding<Guid>() : AddBinding<Guid[]>();                
+                    return typeInfo.ValueRank < 0 ? AddBinding<Guid>() : AddBinding<Guid[]>();
                 case BuiltInType.ByteString:
-                    return typeInfo.ValueRank < 0 ? AddBinding<byte[]>() : AddBinding<byte[][]>();                 
+                    return typeInfo.ValueRank < 0 ? AddBinding<byte[]>() : AddBinding<byte[][]>();
                 default:
                     throw new ArgumentOutOfRangeException(nameof(typeInfo.BuiltInType));
             }
@@ -90,7 +88,7 @@ namespace CrossHMI.Shared.BL.Consumer
         private IConsumerBinding AddBinding<T>(string repositoryGroup, string variableName, UATypeInfo typeInfo)
         {
             var monitoredValue = new ConsumerBindingMonitoredValue<T>(typeInfo);
-            if(!ConsumerBindings.ContainsKey(repositoryGroup))
+            if (!ConsumerBindings.ContainsKey(repositoryGroup))
                 ConsumerBindings[repositoryGroup] = new Dictionary<string, IConsumerBinding>();
             ConsumerBindings[repositoryGroup][variableName] = monitoredValue;
             return monitoredValue;

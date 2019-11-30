@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Text;
+﻿using System.IO;
 using CrossHMI.Interfaces.Adapters;
 
 namespace CrossHMI.Test.Shared.Helpers

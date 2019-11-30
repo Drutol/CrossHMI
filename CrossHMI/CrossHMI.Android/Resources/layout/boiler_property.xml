@@ -1,58 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:gravity="center">
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:gravity="center">
+
+  <FrameLayout
+    android:layout_width="0dp"
+    android:layout_height="match_parent"
+    android:layout_weight="1"
+    android:clipToPadding="false"
+    android:paddingEnd="2dp">
 
     <FrameLayout
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:clipToPadding="false"
-        android:paddingEnd="2dp">
+      android:layout_gravity="center"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:elevation="2dp"
+      android:background="#f6f6f6"
+      android:padding="8dp">
 
-        <FrameLayout
-            android:layout_gravity="center"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:elevation="2dp"
-            android:background="#f6f6f6"
-            android:padding="8dp">
-
-            <TextView
-                android:id="@+id/PropertyName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/TextColour"
-                android:textSize="17sp"
-                android:fontFamily="@string/font_family_light"
-                tools:text="PipeX001_ValveX001_Input" />
-        </FrameLayout>
-    </FrameLayout>
-
-
-    <LinearLayout
-        android:layout_weight=".3"
-        android:layout_width="0dp"
+      <TextView
+        android:id="@+id/PropertyName"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="#fff">
+        android:textColor="@color/TextColour"
+        android:textSize="17sp"
+        android:fontFamily="@string/font_family_light"
+        tools:text="PipeX001_ValveX001_Input" />
+    </FrameLayout>
+  </FrameLayout>
 
-        <ImageView
-            android:id="@+id/IconWarning"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="invisible"
-            android:layout_gravity="center"
-            android:src="@drawable/icon_warning"/>
 
-        <TextView android:layout_gravity="center"
-            android:id="@+id/PropertyValue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="8dp"
-            android:textColor="@color/TextColour"
-            android:textSize="22sp"
-            tools:text="56.435" />
-    </LinearLayout>
+  <LinearLayout
+    android:layout_weight=".3"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:background="#fff">
+
+    <ImageView
+      android:id="@+id/IconWarning"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:visibility="invisible"
+      android:layout_gravity="center"
+      android:src="@drawable/icon_warning" />
+
+    <TextView android:layout_gravity="center"
+              android:id="@+id/PropertyValue"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:padding="8dp"
+              android:textColor="@color/TextColour"
+              android:textSize="22sp"
+              tools:text="56.435" />
+  </LinearLayout>
 </LinearLayout>

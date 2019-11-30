@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Windows.Input;
 using AoLibs.Adapters.Core.Interfaces;
 using CrossHMI.Interfaces.Adapters;
@@ -13,8 +11,8 @@ namespace CrossHMI.Shared.ViewModels
 {
     public class BoilerDetailsViewModel : ViewModelBase
     {
-        private readonly IUriLauncherAdapter _uriLauncherAdapter;
         private readonly ILogAdapter<BoilerDetailsViewModel> _logger;
+        private readonly IUriLauncherAdapter _uriLauncherAdapter;
 
         private Boiler _boiler;
 
@@ -23,11 +21,6 @@ namespace CrossHMI.Shared.ViewModels
         {
             _uriLauncherAdapter = uriLauncherAdapter;
             _logger = logger;
-        }
-
-        public void NavigatedTo(BoilderDetailsNavArgs navArgs)
-        {
-            Boiler = navArgs.Boiler;
         }
 
         public Boiler Boiler
@@ -46,5 +39,10 @@ namespace CrossHMI.Shared.ViewModels
             _uriLauncherAdapter.LaunchUri(
                 new Uri($"http://maps.google.com/maps?&daddr={Boiler.Lat},{Boiler.Lon}"));
         });
+
+        public void NavigatedTo(BoilderDetailsNavArgs navArgs)
+        {
+            Boiler = navArgs.Boiler;
+        }
     }
 }

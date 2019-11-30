@@ -21,19 +21,18 @@ using CrossHMI.Interfaces.Adapters;
 using CrossHMI.Models.Enums;
 using CrossHMI.Shared.Statics;
 using CrossHMI.Shared.ViewModels;
-using Newtonsoft.Json;
 
 namespace CrossHMI.Android
 {
-    [Activity(Label = "@string/app_name", Theme = "@style/AppTheme", MainLauncher = true, 
-        ConfigurationChanges = ConfigChanges.Orientation | ConfigChanges.ScreenSize, LaunchMode = LaunchMode.SingleTask)]
+    [Activity(Label = "@string/app_name", Theme = "@style/AppTheme", MainLauncher = true,
+        ConfigurationChanges = ConfigChanges.Orientation | ConfigChanges.ScreenSize,
+        LaunchMode = LaunchMode.SingleTask)]
     public class MainActivity : AppCompatActivity, IOnActivityResultProvider, IOnNewIntentProvider
     {
-        private MainViewModel _viewModel;
-        private ILogAdapter<MainActivity> _logger;
-
         private EventHandler<Intent> _activityNewIntentEventHandler;
         private EventHandler<(int RequestCode, Result ResultCode, Intent Data)> _activityResultEventHandler;
+        private readonly ILogAdapter<MainActivity> _logger;
+        private MainViewModel _viewModel;
 
         public MainActivity()
         {
@@ -42,6 +41,19 @@ namespace CrossHMI.Android
         }
 
         public static MainActivity Instance { get; private set; }
+
+        event EventHandler<(int RequestCode, Result ResultCode, Intent Data)>
+            IOnActivityEvent<(int RequestCode, Result ResultCode, Intent Data)>.Received
+            {
+                add => _activityResultEventHandler += value;
+                remove => _activityResultEventHandler -= value;
+            }
+
+        event EventHandler<Intent> IOnActivityEvent<Intent>.Received
+        {
+            add => _activityNewIntentEventHandler += value;
+            remove => _activityNewIntentEventHandler -= value;
+        }
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -57,7 +69,8 @@ namespace CrossHMI.Android
                 {PageIndex.GenericDeviceDetailsPage, new CachedPageProvider<GenericDevicePageFragment>()}
             };
 
-            var manager = new NavigationManager<PageIndex>(SupportFragmentManager, RootView, pageDefinitions, new ViewModelResolver());
+            var manager = new NavigationManager<PageIndex>(SupportFragmentManager, RootView, pageDefinitions,
+                new ViewModelResolver());
             App.Current.NavigationManager = manager;
             _logger.LogDebug("Created navigation manager.");
             using (var scope = ResourceLocator.ObtainScope())
@@ -76,10 +89,7 @@ namespace CrossHMI.Android
 
         public override void OnBackPressed()
         {
-            if (!App.Current.NavigationManager.OnBackRequested())
-            {
-                MoveTaskToBack(true);
-            }
+            if (!App.Current.NavigationManager.OnBackRequested()) MoveTaskToBack(true);
         }
 
         private void MessageBoxProviderOnHideLoadingPopupRequest(object sender, EventArgs e)
@@ -104,27 +114,6 @@ namespace CrossHMI.Android
             _activityNewIntentEventHandler.Invoke(this, intent);
         }
 
-        event EventHandler<(int RequestCode, Result ResultCode, Intent Data)>
-            IOnActivityEvent<(int RequestCode, Result ResultCode, Intent Data)>.Received
-            {
-                add => _activityResultEventHandler += value;
-                remove => _activityResultEventHandler -= value;
-            }
-
-        event EventHandler<Intent> IOnActivityEvent<Intent>.Received
-        {
-            add => _activityNewIntentEventHandler += value;
-            remove => _activityNewIntentEventHandler -= value;
-        }
-
-        #region Views
-
-        private FrameLayout _rootView;
-
-        public FrameLayout RootView => _rootView ?? (_rootView = FindViewById<FrameLayout>(Resource.Id.RootView));
-
-        #endregion
-
 
         private class ViewModelResolver : IDependencyResolver
         {
@@ -145,5 +134,13 @@ namespace CrossHMI.Android
                 }
             }
         }
+
+        #region Views
+
+        private FrameLayout _rootView;
+
+        public FrameLayout RootView => _rootView ?? (_rootView = FindViewById<FrameLayout>(Resource.Id.RootView));
+
+        #endregion
     }
 }

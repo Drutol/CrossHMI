@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Text;
+﻿using System.ComponentModel;
 using CrossHMI.Interfaces;
 using CrossHMI.Interfaces.Networking;
 using UAOOI.Networking.SemanticData.DataRepository;
@@ -12,11 +9,11 @@ namespace CrossHMI.Shared.EventSources
     public class NetworkVariableEventSource<T> : INetworkVariableUpdateSource<T>
     {
         private readonly ConsumerBindingMonitoredValue<T> _monitoredValue;
-        private NetworkVariableUpdateEventHandler<T> _updated;
         private bool _listening;
+        private NetworkVariableUpdateEventHandler<T> _updated;
 
         /// <summary>
-        /// Creates new instance of <see cref="NetworkVariableEventSource{T}"/>
+        ///     Creates new instance of <see cref="NetworkVariableEventSource{T}" />
         /// </summary>
         /// <param name="consumerBinding">Wrapped consumer binding.</param>
         /// <param name="variableName">The name of the variable which binding is being warpped.</param>

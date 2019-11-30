@@ -1,16 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Android.App;
-using Android.Content;
+﻿using System.IO;
 using Android.Content.Res;
-using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
 using AoLibs.Adapters.Android.Interfaces;
 using CrossHMI.Interfaces.Adapters;
 
@@ -30,7 +19,7 @@ namespace CrossHMI.Android.Adapters
 
         public Stream ObtainLibraryConfigurationXML()
         {
-            _logger.LogDebug($"Reading configuration data from native asset data file on Android.");
+            _logger.LogDebug("Reading configuration data from native asset data file on Android.");
             return _contextProvider.CurrentContext.Assets.Open("LibraryConfiguration.xml", Access.Random);
         }
     }

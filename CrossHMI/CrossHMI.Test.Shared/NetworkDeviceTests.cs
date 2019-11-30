@@ -1,4 +1,3 @@
-using System;
 using System.Linq;
 using AoLibs.Adapters.Core.Interfaces;
 using CrossHMI.Interfaces.Adapters;
@@ -10,7 +9,6 @@ using CrossHMI.Shared.Devices;
 using CrossHMI.Test.Shared.Devices;
 using CrossHMI.Test.Shared.Helpers;
 using Moq;
-using UAOOI.Configuration.Networking.Serialization;
 using UAOOI.Networking.Encoding;
 using UAOOI.Networking.UDPMessageHandler;
 using Xunit;
@@ -21,7 +19,7 @@ namespace CrossHMI.Test.Shared
     {
         private const string Repository1 = "BoilersArea_Boiler #1";
 
-        private NetworkEventsManager<BoilersConfigurationData> _networkEventsManager;
+        private readonly NetworkEventsManager<BoilersConfigurationData> _networkEventsManager;
 
         public NetworkDeviceTests()
         {
@@ -30,7 +28,7 @@ namespace CrossHMI.Test.Shared
 
             _networkEventsManager = new NetworkEventsManager<BoilersConfigurationData>(
                 new ConsumerBindingFactory(),
-                configurationFactory, 
+                configurationFactory,
                 configurationFactory,
                 new MessageHandlerFactory(),
                 new EncodingFactoryBinarySimple(),
@@ -58,7 +56,8 @@ namespace CrossHMI.Test.Shared
 
             //Assert
             Assert.NotNull(boilerUpdateSource);
-            deviceMock.Verify(boiler => boiler.DefineDevice(It.IsAny<INetworkDeviceDefinitionBuilder<BoilersConfigurationData>>()));
+            deviceMock.Verify(boiler =>
+                boiler.DefineDevice(It.IsAny<INetworkDeviceDefinitionBuilder<BoilersConfigurationData>>()));
             deviceMock.Verify(boiler => boiler.AssignRepository(It.Is<string>(s => s == Repository1)));
         }
 
@@ -84,7 +83,7 @@ namespace CrossHMI.Test.Shared
 
             //Assert
             Assert.Equal(new[] {"CCX001_ControlOut"}, deviceMock.ChangedProperties.ToArray());
-            Assert.Equal(new[] {"CCX001_ControlOut", "CCX001_Input1", "CCX001_Input2", "CCX001_Input3" },
+            Assert.Equal(new[] {"CCX001_ControlOut", "CCX001_Input1", "CCX001_Input2", "CCX001_Input3"},
                 deviceMock.UpdatedProperties.ToArray());
             Assert.NotNull(deviceMock.AssignedExtension);
             Assert.Equal(deviceMock.AssignedExtension.Repository, Repository1);

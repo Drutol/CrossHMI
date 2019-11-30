@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Net;
 using Android.App;
 using Android.Content;
@@ -8,7 +7,6 @@ using Android.Util;
 using AoLibs.Adapters.Android;
 using AoLibs.Adapters.Android.Interfaces;
 using AoLibs.Adapters.Core.Interfaces;
-using AoLibs.Navigation.Android.Navigation;
 using AoLibs.Navigation.Core.Interfaces;
 using Autofac;
 using CrossHMI.Android.Adapters;

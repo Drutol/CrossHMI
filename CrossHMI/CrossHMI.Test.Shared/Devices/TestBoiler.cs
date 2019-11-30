@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
-using System.Text;
 using CrossHMI.Interfaces.Networking;
 using CrossHMI.Shared.Configuration;
 using CrossHMI.Shared.Devices;
@@ -10,18 +8,20 @@ namespace CrossHMI.Test.Shared.Devices
 {
     public class TestBoiler : NetworkDeviceBaseWithConfiguration<BoilersConfigurationData>
     {
-        [ProcessVariable] public double CCX001_ControlOut { get; private set; }
-        [ProcessVariable(AutoDefine = false)] public double CCX001_Input1 { get; private set; }
-        [ProcessVariable(RaisePropertyChanged = false)] public double CCX001_Input2 { get; private set; }
-
-        public BoilerRepositoryDetails AssignedExtension { get; set; }
-        public HashSet<string> UpdatedProperties { get; set; } = new HashSet<string>();
-        public HashSet<string> ChangedProperties { get; set; } = new HashSet<string>();
-
         public TestBoiler()
         {
             PropertyChanged += OnPropertyChanged;
         }
+
+        [ProcessVariable] public double CCX001_ControlOut { get; private set; }
+        [ProcessVariable(AutoDefine = false)] public double CCX001_Input1 { get; private set; }
+
+        [ProcessVariable(RaisePropertyChanged = false)]
+        public double CCX001_Input2 { get; private set; }
+
+        public BoilerRepositoryDetails AssignedExtension { get; set; }
+        public HashSet<string> UpdatedProperties { get; set; } = new HashSet<string>();
+        public HashSet<string> ChangedProperties { get; set; } = new HashSet<string>();
 
         private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
@@ -30,7 +30,6 @@ namespace CrossHMI.Test.Shared.Devices
 
         public override void AssignRepository(string repository)
         {
-            
         }
 
         public override void DefineDevice(INetworkDeviceDefinitionBuilder<BoilersConfigurationData> builder)

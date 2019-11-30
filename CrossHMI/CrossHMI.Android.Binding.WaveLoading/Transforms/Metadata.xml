@@ -8,6 +8,7 @@
   -->
 
   <attr path="/api/package[@name='me.itangqi.waveloadingview']/class[@name='WaveLoadingView']" name="managedName">WaveLoadingControl</attr>
-  <remove-node path="/api/package[@name='me.itangqi.waveloadingview']/class[@name='WaveLoadingView']/method[@name='onDraw' and count(parameter)=1 and parameter[1][@type='android.graphics.Canvas']]"/>
+  <remove-node
+    path="/api/package[@name='me.itangqi.waveloadingview']/class[@name='WaveLoadingView']/method[@name='onDraw' and count(parameter)=1 and parameter[1][@type='android.graphics.Canvas']]" />
 
 </metadata>

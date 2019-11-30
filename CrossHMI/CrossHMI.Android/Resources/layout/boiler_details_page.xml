@@ -1,487 +1,488 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#f6f6f6"
+            android:id="@+id/ScrollView"
+            android:orientation="vertical">
+
+  <LinearLayout
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="#f6f6f6"
-    android:id="@+id/ScrollView"
+    android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <LinearLayout
+    <FrameLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:clipToPadding="false"
+      android:paddingBottom="4dp">
+
+      <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:clipToPadding="false"
-            android:paddingBottom="4dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#e6e6e6"
-                android:elevation="4dp"
-                android:orientation="horizontal"
-                android:padding="8dp">
-
-                <TextView
-                    android:id="@+id/BoilerName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="#444"
-                    tools:text="BoilerName" />
-
-                <TextView
-                    android:id="@+id/Position"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:textAlignment="center"
-                    android:textColor="#000"
-                    tools:text="BoilerPosition" />
-            </LinearLayout>
-        </FrameLayout>
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:layout_width="75dp"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:orientation="vertical">
-
-                    <ProgressBar
-                        android:id="@+id/InputPipeProgressBar"
-                        style="@style/ProgressBarVertical"
-                        android:layout_width="12dip"
-                        android:layout_height="100dp"
-                        android:progress="55"
-                        android:progressTint="#325fd9" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:fontFamily="@string/font_family_light"
-                        android:text="InputPipe"
-                        android:textSize="@dimen/FontSizeSemiNormal"
-                        android:textStyle="italic" />
-                </LinearLayout>
-
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:orientation="vertical">
-
-                    <FrameLayout
-                        android:layout_width="100dp"
-                        android:layout_height="100dp">
-                        <me.itangqi.waveloadingview.WaveLoadingView
-                            android:id="@+id/WaveViewUpper"
-                            android:layout_width="100dp"
-                            android:layout_height="100dp"
-                            app:wlv_borderColor="#2f2f2f"
-                            app:wlv_borderWidth="7dp"
-                            app:wlv_wave_background_Color="#e6e6e6"
-                            app:wlv_progressValue="33"
-                            app:wlv_round_rectangle="true"
-                            app:wlv_shapeType="rectangle"
-                            app:wlv_waveAmplitude="50"
-                            app:wlv_waveColor="#176bfd"
-                            tools:managedTypeName="WaveLoadingControl" />
-
-                        <TextView
-                            android:id="@+id/WaveViewUpperLabel"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:gravity="center"
-                            android:text="50%" />
-                    </FrameLayout>
-
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:fontFamily="@string/font_family_light"
-                        android:text="Drum level"
-                        android:textSize="@dimen/FontSizeSemiNormal"
-                        android:textStyle="italic" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="75dp"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:orientation="vertical">
-
-                    <ProgressBar
-                        android:id="@+id/OutputPipeProgressBar"
-                        style="@style/ProgressBarVertical"
-                        android:layout_width="12dip"
-                        android:layout_height="100dp"
-                        android:max="1000"
-                        android:progress="555"
-                        android:progressTint="#00a6ff" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:fontFamily="@string/font_family_light"
-                        android:text="OutputPipe"
-                        android:textSize="@dimen/FontSizeSemiNormal"
-                        android:textStyle="italic" />
-                </LinearLayout>
-
-            </LinearLayout>
-
-        </FrameLayout>
-
-
-        <android.support.constraint.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <!--region guidelines-->
-            <android.support.constraint.Guideline
-                android:id="@+id/_FSetPointGuidelineVertical"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_percent=".31" />
-
-            <android.support.constraint.Guideline
-                android:id="@+id/_FSetPointGuidelineHorizontal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintGuide_percent=".74" />
-
-            <android.support.constraint.Guideline
-                android:id="@+id/_LSetPointGuidelineVertical"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_percent=".34" />
-
-            <android.support.constraint.Guideline
-                android:id="@+id/_LSetPointGuidelineHorizontal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintGuide_percent=".53" />
-
-            <android.support.constraint.Guideline
-                android:id="@+id/_ValveInputGuidelineVertical"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_percent=".19" />
-
-            <android.support.constraint.Guideline
-                android:id="@+id/_ValveInputGuidelineHorizontal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintGuide_percent=".995" />
-
-            <android.support.constraint.Guideline
-                android:id="@+id/_FTMeasurementGuidelineVertical"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_percent=".65" />
-
-            <android.support.constraint.Guideline
-                android:id="@+id/_FTMeasurementGuidelineHorizontal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintGuide_percent=".84" />
-
-            <android.support.constraint.Guideline
-                android:id="@+id/_WaveViewGuidelineVertical"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_percent=".439" />
-
-            <android.support.constraint.Guideline
-                android:id="@+id/_WaveViewGuidelineVerticalEnd"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_percent=".573" />
-
-            <android.support.constraint.Guideline
-                android:id="@+id/_WaveViewGuidelineHorizontal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintGuide_percent=".622" />
-
-            <android.support.constraint.Guideline
-                android:id="@+id/_WaveViewGuidelineHorizontalEnd"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintGuide_percent=".918" />
-
-
-            <!--endregion-->
-
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:adjustViewBounds="true"
-                android:src="@drawable/boiler_pdi"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/FSetPoint"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@string/font_family_light"
-                android:text="=123"
-                android:textColor="#000"
-                android:textSize="11sp"
-                app:layout_constraintBottom_toBottomOf="@id/_FSetPointGuidelineHorizontal"
-                app:layout_constraintLeft_toRightOf="@id/_FSetPointGuidelineVertical" />
-
-            <TextView
-                android:id="@+id/LSetPoint"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@string/font_family_light"
-                android:text="123"
-                android:textColor="#000"
-                android:textSize="11sp"
-                app:layout_constraintBottom_toBottomOf="@id/_LSetPointGuidelineHorizontal"
-                app:layout_constraintLeft_toRightOf="@id/_LSetPointGuidelineVertical" />
-
-            <TextView
-                android:id="@+id/ValveInput"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@string/font_family_light"
-                android:text="ValveInput = 123"
-                android:textColor="#000"
-                android:textSize="12sp"
-                app:layout_constraintBottom_toBottomOf="@id/_ValveInputGuidelineHorizontal"
-                app:layout_constraintLeft_toRightOf="@id/_ValveInputGuidelineVertical" />
-
-            <TextView
-                android:id="@+id/FTMeasurement"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@string/font_family_light"
-                android:text="=123"
-                android:textColor="#000"
-                android:textSize="11sp"
-                app:layout_constraintBottom_toBottomOf="@id/_FTMeasurementGuidelineHorizontal"
-                app:layout_constraintLeft_toRightOf="@id/_FTMeasurementGuidelineVertical" />
-
-            <me.itangqi.waveloadingview.WaveLoadingView
-                android:id="@+id/WaveView"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:alpha="1"
-                app:layout_constraintBottom_toTopOf="@id/_WaveViewGuidelineHorizontalEnd"
-                app:layout_constraintLeft_toRightOf="@id/_WaveViewGuidelineVertical"
-                app:layout_constraintRight_toLeftOf="@id/_WaveViewGuidelineVerticalEnd"
-                app:layout_constraintTop_toBottomOf="@id/_WaveViewGuidelineHorizontal"
-                app:wlv_borderColor="#2f2f2f"
-                app:wlv_borderWidth="7dp"
-                app:wlv_progressValue="33"
-                app:wlv_round_rectangle_x_and_y="19"
-                app:wlv_round_rectangle="true"
-                app:wlv_shapeType="rectangle"
-                app:wlv_waveAmplitude="50"
-                app:wlv_waveColor="#176bfd"
-                tools:managedTypeName="WaveLoadingControl" />
-
-            <TextView
-                android:id="@+id/WaveViewLabel"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:gravity="center"
-                android:text="50%"
-                app:layout_constraintBottom_toTopOf="@id/_WaveViewGuidelineHorizontalEnd"
-                app:layout_constraintLeft_toRightOf="@id/_WaveViewGuidelineVertical"
-                app:layout_constraintRight_toLeftOf="@id/_WaveViewGuidelineVerticalEnd"
-                app:layout_constraintTop_toBottomOf="@id/_WaveViewGuidelineHorizontal" />
-
-        </android.support.constraint.ConstraintLayout>
-
-        <!--region includes-->
-
-        <include
-            android:id="@+id/PipeX001_FTX001_Output"
-            layout="@layout/boiler_property"
-            tools:managedTypeName="LinearLayout"
-            tools:skipRecursion="true" />
-
-        <include
-            android:id="@+id/PipeX001_ValveX001_Input"
-            layout="@layout/boiler_property"
-            tools:managedTypeName="LinearLayout"
-            tools:skipRecursion="true" />
-
-        <include
-            android:id="@+id/DrumX001_LIX001_Output"
-            layout="@layout/boiler_property"
-            tools:managedTypeName="LinearLayout"
-            tools:skipRecursion="true" />
-
-        <include
-            android:id="@+id/PipeX002_FTX002_Output"
-            layout="@layout/boiler_property"
-            tools:managedTypeName="LinearLayout"
-            tools:skipRecursion="true" />
-
-        <include
-            android:id="@+id/FCX001_ControlOut"
-            layout="@layout/boiler_property"
-            tools:managedTypeName="LinearLayout"
-            tools:skipRecursion="true" />
-
-        <include
-            android:id="@+id/FCX001_Measurement"
-            layout="@layout/boiler_property"
-            tools:managedTypeName="LinearLayout"
-            tools:skipRecursion="true" />
-
-        <include
-            android:id="@+id/FCX001_SetPoint"
-            layout="@layout/boiler_property"
-            tools:managedTypeName="LinearLayout"
-            tools:skipRecursion="true" />
-
-        <include
-            android:id="@+id/LCX001_ControlOut"
-            layout="@layout/boiler_property"
-            tools:managedTypeName="LinearLayout"
-            tools:skipRecursion="true" />
-
-        <include
-            android:id="@+id/LCX001_Measurement"
-            layout="@layout/boiler_property"
-            tools:managedTypeName="LinearLayout"
-            tools:skipRecursion="true" />
-
-        <include
-            android:id="@+id/LCX001_SetPoint"
-            layout="@layout/boiler_property"
-            tools:managedTypeName="LinearLayout"
-            tools:skipRecursion="true" />
-
-        <include
-            android:id="@+id/CCX001_ControlOut"
-            layout="@layout/boiler_property"
-            tools:managedTypeName="LinearLayout"
-            tools:skipRecursion="true" />
-
-        <include
-            android:id="@+id/CCX001_Input1"
-            layout="@layout/boiler_property"
-            tools:managedTypeName="LinearLayout"
-            tools:skipRecursion="true" />
-
-        <include
-            android:id="@+id/CCX001_Input2"
-            layout="@layout/boiler_property"
-            tools:managedTypeName="LinearLayout"
-            tools:skipRecursion="true" />
-
-        <include
-            android:id="@+id/CCX001_Input3"
-            layout="@layout/boiler_property"
-            tools:managedTypeName="LinearLayout"
-            tools:skipRecursion="true" />
-
-        <!--endregion-->
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:clipToPadding="false"
-            android:paddingBottom="2dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#e6e6e6"
-                android:elevation="2dp"
-                android:orientation="horizontal"
-                android:padding="8dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Notes"
-                    android:textColor="#444" />
-            </LinearLayout>
-        </FrameLayout>
+        android:layout_height="wrap_content"
+        android:background="#e6e6e6"
+        android:elevation="4dp"
+        android:orientation="horizontal"
+        android:padding="8dp">
 
         <TextView
-            android:id="@+id/BoilerNotes"
+          android:id="@+id/BoilerName"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:textColor="#444"
+          tools:text="BoilerName" />
+
+        <TextView
+          android:id="@+id/Position"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="16dp"
+          android:layout_weight="1"
+          android:gravity="center"
+          android:textAlignment="center"
+          android:textColor="#000"
+          tools:text="BoilerPosition" />
+      </LinearLayout>
+    </FrameLayout>
+
+    <FrameLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content">
+
+      <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="horizontal">
+
+        <LinearLayout
+          android:layout_width="75dp"
+          android:layout_height="wrap_content"
+          android:gravity="center_horizontal"
+          android:orientation="vertical">
+
+          <ProgressBar
+            android:id="@+id/InputPipeProgressBar"
+            style="@style/ProgressBarVertical"
+            android:layout_width="12dip"
+            android:layout_height="100dp"
+            android:progress="55"
+            android:progressTint="#325fd9" />
+
+          <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="8dp"
-            android:textColor="#000"
-            tools:text="Notes" />
+            android:layout_height="match_parent"
+            android:fontFamily="@string/font_family_light"
+            android:text="InputPipe"
+            android:textSize="@dimen/FontSizeSemiNormal"
+            android:textStyle="italic" />
+        </LinearLayout>
 
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:clipToPadding="false"
-            android:paddingBottom="2dp">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#e6e6e6"
-                android:elevation="2dp"
-                android:orientation="horizontal"
-                android:padding="8dp">
+        <LinearLayout
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:gravity="center_horizontal"
+          android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Map"
-                    android:textColor="#444" />
-            </LinearLayout>
-        </FrameLayout>
+          <FrameLayout
+            android:layout_width="100dp"
+            android:layout_height="100dp">
+            <me.itangqi.waveloadingview.WaveLoadingView
+              android:id="@+id/WaveViewUpper"
+              android:layout_width="100dp"
+              android:layout_height="100dp"
+              app:wlv_borderColor="#2f2f2f"
+              app:wlv_borderWidth="7dp"
+              app:wlv_wave_background_Color="#e6e6e6"
+              app:wlv_progressValue="33"
+              app:wlv_round_rectangle="true"
+              app:wlv_shapeType="rectangle"
+              app:wlv_waveAmplitude="50"
+              app:wlv_waveColor="#176bfd"
+              tools:managedTypeName="WaveLoadingControl" />
 
-        <CrossHMI.Android.Views.CustomMap
-            android:id="@+id/MapView"
-            android:layout_width="match_parent"
-            android:layout_height="300dp" />
+            <TextView
+              android:id="@+id/WaveViewUpperLabel"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:gravity="center"
+              android:text="50%" />
+          </FrameLayout>
 
-        <Button
-            android:id="@+id/NavigateButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Navigate"/>
 
-    </LinearLayout>
+          <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:fontFamily="@string/font_family_light"
+            android:text="Drum level"
+            android:textSize="@dimen/FontSizeSemiNormal"
+            android:textStyle="italic" />
+        </LinearLayout>
+
+        <LinearLayout
+          android:layout_width="75dp"
+          android:layout_height="wrap_content"
+          android:gravity="center_horizontal"
+          android:orientation="vertical">
+
+          <ProgressBar
+            android:id="@+id/OutputPipeProgressBar"
+            style="@style/ProgressBarVertical"
+            android:layout_width="12dip"
+            android:layout_height="100dp"
+            android:max="1000"
+            android:progress="555"
+            android:progressTint="#00a6ff" />
+
+          <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:fontFamily="@string/font_family_light"
+            android:text="OutputPipe"
+            android:textSize="@dimen/FontSizeSemiNormal"
+            android:textStyle="italic" />
+        </LinearLayout>
+
+      </LinearLayout>
+
+    </FrameLayout>
+
+
+    <android.support.constraint.ConstraintLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content">
+
+      <!--region guidelines-->
+      <android.support.constraint.Guideline
+        android:id="@+id/_FSetPointGuidelineVertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent=".31" />
+
+      <android.support.constraint.Guideline
+        android:id="@+id/_FSetPointGuidelineHorizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent=".74" />
+
+      <android.support.constraint.Guideline
+        android:id="@+id/_LSetPointGuidelineVertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent=".34" />
+
+      <android.support.constraint.Guideline
+        android:id="@+id/_LSetPointGuidelineHorizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent=".53" />
+
+      <android.support.constraint.Guideline
+        android:id="@+id/_ValveInputGuidelineVertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent=".19" />
+
+      <android.support.constraint.Guideline
+        android:id="@+id/_ValveInputGuidelineHorizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent=".995" />
+
+      <android.support.constraint.Guideline
+        android:id="@+id/_FTMeasurementGuidelineVertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent=".65" />
+
+      <android.support.constraint.Guideline
+        android:id="@+id/_FTMeasurementGuidelineHorizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent=".84" />
+
+      <android.support.constraint.Guideline
+        android:id="@+id/_WaveViewGuidelineVertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent=".439" />
+
+      <android.support.constraint.Guideline
+        android:id="@+id/_WaveViewGuidelineVerticalEnd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent=".573" />
+
+      <android.support.constraint.Guideline
+        android:id="@+id/_WaveViewGuidelineHorizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent=".622" />
+
+      <android.support.constraint.Guideline
+        android:id="@+id/_WaveViewGuidelineHorizontalEnd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent=".918" />
+
+
+      <!--endregion-->
+
+      <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:src="@drawable/boiler_pdi"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+      <TextView
+        android:id="@+id/FSetPoint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@string/font_family_light"
+        android:text="=123"
+        android:textColor="#000"
+        android:textSize="11sp"
+        app:layout_constraintBottom_toBottomOf="@id/_FSetPointGuidelineHorizontal"
+        app:layout_constraintLeft_toRightOf="@id/_FSetPointGuidelineVertical" />
+
+      <TextView
+        android:id="@+id/LSetPoint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@string/font_family_light"
+        android:text="123"
+        android:textColor="#000"
+        android:textSize="11sp"
+        app:layout_constraintBottom_toBottomOf="@id/_LSetPointGuidelineHorizontal"
+        app:layout_constraintLeft_toRightOf="@id/_LSetPointGuidelineVertical" />
+
+      <TextView
+        android:id="@+id/ValveInput"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@string/font_family_light"
+        android:text="ValveInput = 123"
+        android:textColor="#000"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@id/_ValveInputGuidelineHorizontal"
+        app:layout_constraintLeft_toRightOf="@id/_ValveInputGuidelineVertical" />
+
+      <TextView
+        android:id="@+id/FTMeasurement"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@string/font_family_light"
+        android:text="=123"
+        android:textColor="#000"
+        android:textSize="11sp"
+        app:layout_constraintBottom_toBottomOf="@id/_FTMeasurementGuidelineHorizontal"
+        app:layout_constraintLeft_toRightOf="@id/_FTMeasurementGuidelineVertical" />
+
+      <me.itangqi.waveloadingview.WaveLoadingView
+        android:id="@+id/WaveView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:alpha="1"
+        app:layout_constraintBottom_toTopOf="@id/_WaveViewGuidelineHorizontalEnd"
+        app:layout_constraintLeft_toRightOf="@id/_WaveViewGuidelineVertical"
+        app:layout_constraintRight_toLeftOf="@id/_WaveViewGuidelineVerticalEnd"
+        app:layout_constraintTop_toBottomOf="@id/_WaveViewGuidelineHorizontal"
+        app:wlv_borderColor="#2f2f2f"
+        app:wlv_borderWidth="7dp"
+        app:wlv_progressValue="33"
+        app:wlv_round_rectangle_x_and_y="19"
+        app:wlv_round_rectangle="true"
+        app:wlv_shapeType="rectangle"
+        app:wlv_waveAmplitude="50"
+        app:wlv_waveColor="#176bfd"
+        tools:managedTypeName="WaveLoadingControl" />
+
+      <TextView
+        android:id="@+id/WaveViewLabel"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:gravity="center"
+        android:text="50%"
+        app:layout_constraintBottom_toTopOf="@id/_WaveViewGuidelineHorizontalEnd"
+        app:layout_constraintLeft_toRightOf="@id/_WaveViewGuidelineVertical"
+        app:layout_constraintRight_toLeftOf="@id/_WaveViewGuidelineVerticalEnd"
+        app:layout_constraintTop_toBottomOf="@id/_WaveViewGuidelineHorizontal" />
+
+    </android.support.constraint.ConstraintLayout>
+
+    <!--region includes-->
+
+    <include
+      android:id="@+id/PipeX001_FTX001_Output"
+      layout="@layout/boiler_property"
+      tools:managedTypeName="LinearLayout"
+      tools:skipRecursion="true" />
+
+    <include
+      android:id="@+id/PipeX001_ValveX001_Input"
+      layout="@layout/boiler_property"
+      tools:managedTypeName="LinearLayout"
+      tools:skipRecursion="true" />
+
+    <include
+      android:id="@+id/DrumX001_LIX001_Output"
+      layout="@layout/boiler_property"
+      tools:managedTypeName="LinearLayout"
+      tools:skipRecursion="true" />
+
+    <include
+      android:id="@+id/PipeX002_FTX002_Output"
+      layout="@layout/boiler_property"
+      tools:managedTypeName="LinearLayout"
+      tools:skipRecursion="true" />
+
+    <include
+      android:id="@+id/FCX001_ControlOut"
+      layout="@layout/boiler_property"
+      tools:managedTypeName="LinearLayout"
+      tools:skipRecursion="true" />
+
+    <include
+      android:id="@+id/FCX001_Measurement"
+      layout="@layout/boiler_property"
+      tools:managedTypeName="LinearLayout"
+      tools:skipRecursion="true" />
+
+    <include
+      android:id="@+id/FCX001_SetPoint"
+      layout="@layout/boiler_property"
+      tools:managedTypeName="LinearLayout"
+      tools:skipRecursion="true" />
+
+    <include
+      android:id="@+id/LCX001_ControlOut"
+      layout="@layout/boiler_property"
+      tools:managedTypeName="LinearLayout"
+      tools:skipRecursion="true" />
+
+    <include
+      android:id="@+id/LCX001_Measurement"
+      layout="@layout/boiler_property"
+      tools:managedTypeName="LinearLayout"
+      tools:skipRecursion="true" />
+
+    <include
+      android:id="@+id/LCX001_SetPoint"
+      layout="@layout/boiler_property"
+      tools:managedTypeName="LinearLayout"
+      tools:skipRecursion="true" />
+
+    <include
+      android:id="@+id/CCX001_ControlOut"
+      layout="@layout/boiler_property"
+      tools:managedTypeName="LinearLayout"
+      tools:skipRecursion="true" />
+
+    <include
+      android:id="@+id/CCX001_Input1"
+      layout="@layout/boiler_property"
+      tools:managedTypeName="LinearLayout"
+      tools:skipRecursion="true" />
+
+    <include
+      android:id="@+id/CCX001_Input2"
+      layout="@layout/boiler_property"
+      tools:managedTypeName="LinearLayout"
+      tools:skipRecursion="true" />
+
+    <include
+      android:id="@+id/CCX001_Input3"
+      layout="@layout/boiler_property"
+      tools:managedTypeName="LinearLayout"
+      tools:skipRecursion="true" />
+
+    <!--endregion-->
+
+    <FrameLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:clipToPadding="false"
+      android:paddingBottom="2dp">
+
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#e6e6e6"
+        android:elevation="2dp"
+        android:orientation="horizontal"
+        android:padding="8dp">
+
+        <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="Notes"
+          android:textColor="#444" />
+      </LinearLayout>
+    </FrameLayout>
+
+    <TextView
+      android:id="@+id/BoilerNotes"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:padding="8dp"
+      android:textColor="#000"
+      tools:text="Notes" />
+
+    <FrameLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:clipToPadding="false"
+      android:paddingBottom="2dp">
+
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#e6e6e6"
+        android:elevation="2dp"
+        android:orientation="horizontal"
+        android:padding="8dp">
+
+        <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="Map"
+          android:textColor="#444" />
+      </LinearLayout>
+    </FrameLayout>
+
+    <CrossHMI.Android.Views.CustomMap
+      android:id="@+id/MapView"
+      android:layout_width="match_parent"
+      android:layout_height="300dp" />
+
+    <Button
+      android:id="@+id/NavigateButton"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:text="Navigate" />
+
+  </LinearLayout>
 
 
 </ScrollView>
