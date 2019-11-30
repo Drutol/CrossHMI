@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using CrossHMI.Models.Networking;
 using UAOOI.Networking.SemanticData;
 using UAOOI.Networking.SemanticData.DataRepository;
 
@@ -9,6 +11,16 @@ namespace CrossHMI.Interfaces.Networking
     /// </summary>
     public interface IRecordingBindingFactory : IBindingFactory
     {
+        /// <summary>
+        /// Called whenever new binding is about to be created for new repository.
+        /// </summary>
+        event EventHandler<string> NewRepositoryReceived;
+
+        /// <summary>
+        /// Called whenever new binding gets created providing repository name.
+        /// </summary>
+        event EventHandler<CreateBindingEventArgs> NewBindingCreated;
+
         /// <summary>
         ///     Gets the dictionary with all bindings created for repository.
         /// </summary>

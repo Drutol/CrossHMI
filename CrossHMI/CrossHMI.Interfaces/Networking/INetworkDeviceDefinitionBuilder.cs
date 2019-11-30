@@ -30,5 +30,10 @@ namespace CrossHMI.Interfaces.Networking
             Func<ConfigurationData, IEnumerable<TExtension>> extensionSelector,
             Action<TExtension> extenstionAssigned)
             where TExtension : class, IAdditionalRepositoryDataDescriptor;
+
+        /// <summary>
+        /// Declares the device dynamic meaning that any newly discovered bindings will be added at runtime.
+        /// </summary>
+        INetworkDeviceDynamicLifetimeHandle DeclareDynamic();
     }
 }

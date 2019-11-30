@@ -19,15 +19,11 @@ namespace CrossHMI.Shared.Devices
                 genericDeviceConfiguration.Properties.ToDictionary(pair => pair.Key, pair => ConvertToType(pair.Value));
         }
 
-        public string Repository { get; private set; }
+        public override string Repository { get; set; }
         public List<string> PropertiesNames { get; }
         public Dictionary<string, object> Values { get; } = new Dictionary<string, object>();
         public Dictionary<string, Type> Properties { get; } = new Dictionary<string, Type>();
 
-        public override void AssignRepository(string repository)
-        {
-            Repository = repository;
-        }
 
         public override void ProcessPropertyUpdate<T>(string variableName, T value)
         {

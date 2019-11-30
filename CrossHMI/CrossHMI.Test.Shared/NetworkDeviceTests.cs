@@ -44,11 +44,11 @@ namespace CrossHMI.Test.Shared
             //Arrange
             var deviceMock = new Mock<Boiler>();
             var loggerMock =
-                new Mock<ILogAdapter<NetworkEventsManager.NetworkDeviceDefinitionBuilder<
+                new Mock<ILogAdapter<NetworkDeviceDefinitionBuilder<
                     Boiler>>>();
-            NetworkEventsManager.NetworkDeviceDefinitionBuilder<Boiler>
+            NetworkDeviceDefinitionBuilder<Boiler>
                 .OverrideDefaultDeviceFactory(() => deviceMock.Object);
-            NetworkEventsManager.NetworkDeviceDefinitionBuilder<Boiler>
+            NetworkDeviceDefinitionBuilder<Boiler>
                 .OverrideDefaultLogger(loggerMock.Object);
 
             //Act
@@ -58,7 +58,7 @@ namespace CrossHMI.Test.Shared
             Assert.NotNull(boilerUpdateSource);
             deviceMock.Verify(boiler =>
                 boiler.DefineDevice(It.IsAny<INetworkDeviceDefinitionBuilder>()));
-            deviceMock.Verify(boiler => boiler.AssignRepository(It.Is<string>(s => s == Repository1)));
+            //deviceMock.Verify(boiler => boiler.Repository(It.Is<string>(s => s == Repository1)));
         }
 
         [Fact]
@@ -67,11 +67,11 @@ namespace CrossHMI.Test.Shared
             //Arrange
             var deviceMock = new TestBoiler();
             var loggerMock =
-                new Mock<ILogAdapter<NetworkEventsManager.NetworkDeviceDefinitionBuilder<
+                new Mock<ILogAdapter<NetworkDeviceDefinitionBuilder<
                     TestBoiler>>>();
-            NetworkEventsManager.NetworkDeviceDefinitionBuilder<TestBoiler>
+            NetworkDeviceDefinitionBuilder<TestBoiler>
                 .OverrideDefaultDeviceFactory(() => deviceMock);
-            NetworkEventsManager.NetworkDeviceDefinitionBuilder<TestBoiler>
+            NetworkDeviceDefinitionBuilder<TestBoiler>
                 .OverrideDefaultLogger(loggerMock.Object);
 
             //Act

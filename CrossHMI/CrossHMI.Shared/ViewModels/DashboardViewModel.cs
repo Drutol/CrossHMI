@@ -78,31 +78,32 @@ namespace CrossHMI.Shared.ViewModels
         private async void Initialize()
         {
             _logger.LogDebug("Initializing network events manager.");
+            _networkEventsManager.EnableAutomaticDeviceInstantiation<DynamicDevice>();
             await _networkEventsManager.Initialize();
 
             _logger.LogDebug("Network events manager initialized. Creating event sources for repositories.");
-            _updateSources.Add(_networkEventsManager.ObtainEventSourceForDevice<Boiler>(Repository1));
-            _updateSources.Add(_networkEventsManager.ObtainEventSourceForDevice<Boiler>(Repository2));
-            _updateSources.Add(_networkEventsManager.ObtainEventSourceForDevice<Boiler>(Repository3));
-            _updateSources.Add(_networkEventsManager.ObtainEventSourceForDevice<Boiler>(Repository4));
-            _updateSources.Add(_networkEventsManager.ObtainEventSourceForDevice(Repository1,
-                () => new GenericDevice(new GenericDeviceConfiguration
-                {
-                    Properties = new Dictionary<string, BuiltInType>
-                    {
-                        {"DrumX001_LIX001_Output", BuiltInType.Double},
-                        {"PipeX002_FTX002_Output", BuiltInType.Double}
-                    }
-                })));
-            _updateSources.Add(_networkEventsManager.ObtainEventSourceForDevice(Repository2,
-                () => new GenericDevice(new GenericDeviceConfiguration
-                {
-                    Properties = new Dictionary<string, BuiltInType>
-                    {
-                        {"FCX001_Measurement", BuiltInType.Double},
-                        {"LCX001_Measurement", BuiltInType.Double}
-                    }
-                })));
+            //_updateSources.Add(_networkEventsManager.ObtainEventSourceForDevice<Boiler>(Repository1));
+            //_updateSources.Add(_networkEventsManager.ObtainEventSourceForDevice<Boiler>(Repository2));
+            //_updateSources.Add(_networkEventsManager.ObtainEventSourceForDevice<Boiler>(Repository3));
+            //_updateSources.Add(_networkEventsManager.ObtainEventSourceForDevice<Boiler>(Repository4));
+            //_updateSources.Add(_networkEventsManager.ObtainEventSourceForDevice(Repository1,
+            //    () => new GenericDevice(new GenericDeviceConfiguration
+            //    {
+            //        Properties = new Dictionary<string, BuiltInType>
+            //        {
+            //            {"DrumX001_LIX001_Output", BuiltInType.Double},
+            //            {"PipeX002_FTX002_Output", BuiltInType.Double}
+            //        }
+            //    })));
+            //_updateSources.Add(_networkEventsManager.ObtainEventSourceForDevice(Repository2,
+            //    () => new GenericDevice(new GenericDeviceConfiguration
+            //    {
+            //        Properties = new Dictionary<string, BuiltInType>
+            //        {
+            //            {"FCX001_Measurement", BuiltInType.Double},
+            //            {"LCX001_Measurement", BuiltInType.Double}
+            //        }
+            //    })));
 
 
             _logger.LogDebug("Event sources created successfully.");

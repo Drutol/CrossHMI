@@ -9,10 +9,9 @@ namespace CrossHMI.Interfaces.Networking
     public interface INetworkDevice
     {
         /// <summary>
-        ///     Called during model creation. Provides currently associated repository.
+        ///     Provided during model creation.
         /// </summary>
-        /// <param name="repository">The name of repository found in configuration.</param>
-        void AssignRepository(string repository);
+        string Repository { get; set; }
 
         /// <summary>
         ///     Called whenever new property value for given repository is availble.

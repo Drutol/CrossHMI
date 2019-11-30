@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using CrossHMI.Interfaces.Networking;
+using CrossHMI.Models.Networking;
 using UAOOI.Configuration.Networking.Serialization;
 using UAOOI.Networking.SemanticData;
 using UAOOI.Networking.SemanticData.DataRepository;
@@ -15,20 +16,34 @@ namespace CrossHMI.Shared.BL.Consumer
         private Dictionary<string, Dictionary<string, IConsumerBinding>> ConsumerBindings { get; } =
             new Dictionary<string, Dictionary<string, IConsumerBinding>>();
 
+        /// <inheritdoc />
+        public event EventHandler<string> NewRepositoryReceived;     
+        
+        /// <inheritdoc />
+        public event EventHandler<CreateBindingEventArgs> NewBindingCreated;
 
         /// <inheritdoc />
-        IConsumerBinding IBindingFactory.GetConsumerBinding(string repositoryGroup, string processValueName,
+        IConsumerBinding IBindingFactory.GetConsumerBinding(
+            string repositoryGroup,
+            string processValueName,
             UATypeInfo fieldTypeInfo)
         {
-            return GetConsumerBinding(repositoryGroup, processValueName, fieldTypeInfo);
+            NewRepositoryReceived?.Invoke(this, repositoryGroup);
+            var (binding, type) = GetConsumerBinding(repositoryGroup, processValueName, fieldTypeInfo);
+            NewBindingCreated?.Invoke(this, new CreateBindingEventArgs(repositoryGroup, processValueName, type));
+            return binding;
         }
 
         /// <inheritdoc />
-        IProducerBinding IBindingFactory.GetProducerBinding(string repository, string processValueName,
+        IProducerBinding IBindingFactory.GetProducerBinding(
+            string repository,
+            string processValueName,
             UATypeInfo fieldTypeInfo)
         {
             throw new NotImplementedException();
         }
+
+
 
         /// <inheritdoc />
         public Dictionary<string, IConsumerBinding> GetConsumerBindingsForRepository(string repository)
@@ -39,7 +54,7 @@ namespace CrossHMI.Shared.BL.Consumer
             throw new ArgumentOutOfRangeException(nameof(repository), $"Unknown repository \"{repository}\"");
         }
 
-        private IConsumerBinding GetConsumerBinding(string repositoryGroup, string variableName, UATypeInfo typeInfo)
+        private (IConsumerBinding Binding, Type BindingType) GetConsumerBinding(string repositoryGroup, string variableName, UATypeInfo typeInfo)
         {
             if (typeInfo.ValueRank == 0 || typeInfo.ValueRank > 1)
                 throw new ArgumentOutOfRangeException(nameof(typeInfo.ValueRank));
@@ -79,9 +94,9 @@ namespace CrossHMI.Shared.BL.Consumer
                     throw new ArgumentOutOfRangeException(nameof(typeInfo.BuiltInType));
             }
 
-            IConsumerBinding AddBinding<T>()
+            (IConsumerBinding Binding, Type BindingType) AddBinding<T>()
             {
-                return this.AddBinding<T>(repositoryGroup, variableName, typeInfo);
+                return (this.AddBinding<T>(repositoryGroup, variableName, typeInfo), typeof(T));
             }
         }
 

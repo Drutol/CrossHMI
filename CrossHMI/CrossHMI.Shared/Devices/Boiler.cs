@@ -19,6 +19,7 @@ namespace CrossHMI.Shared.Devices
         private bool _isAnyValueThresholdExeeded;
         private readonly ILogAdapter<Boiler> _logger;
         private Dictionary<string, double> _thresholds = new Dictionary<string, double>();
+        private string _repository;
 
         public Boiler()
         {
@@ -35,7 +36,15 @@ namespace CrossHMI.Shared.Devices
         /// <summary>
         ///     Gets the repository of the device.
         /// </summary>
-        public string Repository { get; private set; }
+        public override string Repository
+        {
+            get => _repository;
+            set
+            {
+                _repository = value;
+                _logger?.LogDebug($"Assigned repository: {value}");
+            }
+        }
 
         /// <summary>
         ///     Gets or sets Latitude.
@@ -111,13 +120,6 @@ namespace CrossHMI.Shared.Devices
             }
 
             IsAnyValueThresholdExeeded = _thresholdExceeded.Any(pair => pair.Value);
-        }
-
-        /// <inheritdoc />
-        public override void AssignRepository(string repository)
-        {
-            _logger?.LogDebug($"Assigned repository: {repository}");
-            Repository = repository;
         }
 
         /// <inheritdoc />

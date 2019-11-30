@@ -15,6 +15,18 @@ namespace CrossHMI.Interfaces.Networking
         Task Initialize();
 
         /// <summary>
+        /// Enables automatic creation of new devices if unknown repository manifests itself
+        /// after for example providing new configuration to the library.
+        /// </summary>
+        /// <typeparam name="TDevice">Type used to create the instance.</typeparam>
+        void EnableAutomaticDeviceInstantiation<TDevice>() where TDevice : INetworkDynamicDevice, new();
+
+        /// <summary>
+        /// Disables automatic creation of new devices.
+        /// </summary>
+        void DisableAutomaticDeviceInstantiation();
+
+        /// <summary>
         ///     Builds the instance of given type.
         ///     Subscribes the model for network updates as defined in the configuration for given repository.
         /// </summary>

@@ -18,6 +18,9 @@ namespace CrossHMI.Shared.Devices
             Dictionary<Type, Dictionary<string, (ProcessVariableAttribute Attribute, PropertyInfo Property)>>
             _propertyMappings =
                 new Dictionary<Type, Dictionary<string, (ProcessVariableAttribute Attribute, PropertyInfo Property)>>();
+        
+        /// <inheritdoc />
+        public abstract string Repository { get; set; }
 
         /// <summary>
         ///     Base constructor that via reflection scans all properties for <see cref="ProcessVariableAttribute" />
@@ -39,9 +42,6 @@ namespace CrossHMI.Shared.Devices
                 _propertyMappings[property.PropertyType][attr.ConfigurationPropertyName] = (attr, property);
             }
         }
-
-        /// <inheritdoc />
-        public abstract void AssignRepository(string repository);
 
         /// <inheritdoc />
         public virtual void ProcessPropertyUpdate<T>(string variableName, T value)

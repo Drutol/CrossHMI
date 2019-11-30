@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AoLibs.Adapters.Core.Interfaces;
 using CrossHMI.Interfaces.Adapters;
 using CrossHMI.Interfaces.Networking;
+using CrossHMI.Models.Networking;
 using CrossHMI.Shared.EventSources;
 using UAOOI.Configuration.Networking;
 using UAOOI.Configuration.Networking.Serialization;
@@ -15,10 +17,16 @@ namespace CrossHMI.Shared.BL
     /// <inheritdoc cref="INetworkEventsManager" />
     public partial class NetworkEventsManager : DataManagementSetup, INetworkEventsManager
     {
-        private readonly INetworkConfigurationProvider _configurationProvider;
+        internal readonly INetworkConfigurationProvider _configurationProvider;
         private readonly IDispatcherAdapter _dispatcherAdapter;
         private readonly ILogAdapter<NetworkEventsManager> _logger;
         private readonly IRecordingBindingFactory _recordingBindingFactory;
+
+        private readonly Dictionary<string, INetworkDevice> _assignedRepositories 
+            = new Dictionary<string, INetworkDevice>();
+
+        private bool _isDynamicInstantiationEnabled;
+        private Type _dynamicInstantiationDeviceType;
 
         /// <summary>
         ///     Creates new instance of <see cref="NetworkEventsManager" />
@@ -47,12 +55,49 @@ namespace CrossHMI.Shared.BL
             ConfigurationFactory = configurationFactory;
             MessageHandlerFactory = messageHandlerFactory;
             EncodingFactory = encodingFactory;
+
+            bindingFactory.NewRepositoryReceived += BindingFactoryOnNewBindingCreatedForRepository;
+            bindingFactory.NewBindingCreated += BindingFactoryOnNewBindingCreated;
+        }
+
+        private void BindingFactoryOnNewBindingCreated(object sender, CreateBindingEventArgs e)
+        {
+            if (_isDynamicInstantiationEnabled)
+            {
+                if (_assignedRepositories.TryGetValue(e.Repository, out var device))
+                {
+                    if (device is INetworkDynamicDevice dynamicDevice)
+                    {
+                        dynamicDevice.Handle.NotifyNewBindingCreated(e.Repository, e.ProcessValue, e.BindingType);
+                    }
+                }
+            }
+        }
+
+        private void BindingFactoryOnNewBindingCreatedForRepository(object sender, string repository)
+        {
+            if (_isDynamicInstantiationEnabled && !_assignedRepositories.ContainsKey(repository))
+            {
+                ObtainEventSourceForDevice(repository, () => (INetworkDynamicDevice)Activator.CreateInstance(_dynamicInstantiationDeviceType));
+            }
         }
 
         /// <inheritdoc />
         public async Task Initialize()
         {
             await Task.Run(() => { Start(); });
+        }
+
+        public void EnableAutomaticDeviceInstantiation<TDevice>() where TDevice : INetworkDynamicDevice, new()
+        {
+            _isDynamicInstantiationEnabled = true;
+            _dynamicInstantiationDeviceType = typeof(TDevice);
+        }
+
+        public void DisableAutomaticDeviceInstantiation()
+        {
+            _isDynamicInstantiationEnabled = false;
+            _dynamicInstantiationDeviceType = null;
         }
 
         /// <inheritdoc />
@@ -64,12 +109,13 @@ namespace CrossHMI.Shared.BL
             var source = new NetworkDeviceEventSource<TDevice>(_dispatcherAdapter);
 
             source.Device = new NetworkDeviceDefinitionBuilder<TDevice>(this, source, repository).Build(factory);
+            _assignedRepositories[repository] = source.Device;
 
             _logger.LogDebug($"Created event source for: {repository}");
             return source;
         }
 
-        private INetworkVariableUpdateSource<T> ObtainEventSourceForVariable<T>(string repository, string variableName)
+        internal INetworkVariableUpdateSource<T> ObtainEventSourceForVariable<T>(string repository, string variableName)
         {
             var repositoryBindings = _recordingBindingFactory.GetConsumerBindingsForRepository(repository);
             var valueMonitor = repositoryBindings.First(pair => pair.Key.Equals(variableName)).Value;

@@ -8,6 +8,8 @@ namespace CrossHMI.Test.Shared.Devices
 {
     public class TestBoiler : NetworkDeviceBase
     {
+        public override string Repository { get; set; }
+
         public TestBoiler()
         {
             PropertyChanged += OnPropertyChanged;
@@ -28,10 +30,6 @@ namespace CrossHMI.Test.Shared.Devices
             ChangedProperties.Add(e.PropertyName);
         }
 
-        public override void AssignRepository(string repository)
-        {
-        }
-
         public override void DefineDevice(INetworkDeviceDefinitionBuilder builder)
         {
             base.DefineDevice(builder);
@@ -40,6 +38,8 @@ namespace CrossHMI.Test.Shared.Devices
 
             builder.DefineConfigurationExtenstion(config => (config as BoilersConfigurationData).RepositoriesDetails, ExtenstionAssigned);
         }
+
+
 
         public override void ProcessPropertyUpdate<T>(string variableName, T value)
         {
