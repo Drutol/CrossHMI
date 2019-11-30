@@ -13,7 +13,7 @@ namespace CrossHMI.Shared.Devices
     ///     Model class representing the boiler repository. This class can be treated as ViewModel with implemented
     ///     <see cref="INotifyPropertyChanged" />.
     /// </summary>
-    public class Boiler : NetworkDeviceBaseWithConfiguration<BoilersConfigurationData>
+    public class Boiler : NetworkDeviceBase
     {
         private readonly Dictionary<string, bool> _thresholdExceeded = new Dictionary<string, bool>();
         private bool _isAnyValueThresholdExeeded;
@@ -121,13 +121,13 @@ namespace CrossHMI.Shared.Devices
         }
 
         /// <inheritdoc />
-        public override void DefineDevice(INetworkDeviceDefinitionBuilder<BoilersConfigurationData> builder)
+        public override void DefineDevice(INetworkDeviceDefinitionBuilder builder)
         {
             _logger?.LogDebug("Defining device.");
             base.DefineDevice(builder);
 
             builder.DefineConfigurationExtenstion(
-                data => data.RepositoriesDetails,
+                data => (data as BoilersConfigurationData).RepositoriesDetails,
                 ExtenstionAssigned);
         }
 

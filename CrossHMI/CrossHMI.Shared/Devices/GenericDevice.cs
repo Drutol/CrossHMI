@@ -35,7 +35,7 @@ namespace CrossHMI.Shared.Devices
             RaisePropertyChanged(variableName);
         }
 
-        public override void DefineDevice<TConfiguration>(INetworkDeviceDefinitionBuilder<TConfiguration> builder)
+        public override void DefineDevice(INetworkDeviceDefinitionBuilder builder)
         {
             foreach (var pair in Properties)
             {

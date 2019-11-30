@@ -6,7 +6,7 @@ using CrossHMI.Shared.Devices;
 
 namespace CrossHMI.Test.Shared.Devices
 {
-    public class TestBoiler : NetworkDeviceBaseWithConfiguration<BoilersConfigurationData>
+    public class TestBoiler : NetworkDeviceBase
     {
         public TestBoiler()
         {
@@ -32,13 +32,13 @@ namespace CrossHMI.Test.Shared.Devices
         {
         }
 
-        public override void DefineDevice(INetworkDeviceDefinitionBuilder<BoilersConfigurationData> builder)
+        public override void DefineDevice(INetworkDeviceDefinitionBuilder builder)
         {
             base.DefineDevice(builder);
 
             builder.DefineVariable<double>("CCX001_Input3");
 
-            builder.DefineConfigurationExtenstion(config => config.RepositoriesDetails, ExtenstionAssigned);
+            builder.DefineConfigurationExtenstion(config => (config as BoilersConfigurationData).RepositoriesDetails, ExtenstionAssigned);
         }
 
         public override void ProcessPropertyUpdate<T>(string variableName, T value)

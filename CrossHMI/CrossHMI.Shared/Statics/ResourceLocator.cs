@@ -35,7 +35,7 @@ namespace CrossHMI.Shared.Statics
 
             builder.RegisterType<ConfigurationFactory>()
                 .As<IConfigurationFactory>()
-                .As<INetworkConfigurationProvider<BoilersConfigurationData>>()
+                .As<INetworkConfigurationProvider>()
                 .SingleInstance();
 
             builder.RegisterType<EncodingFactoryBinarySimple>()
@@ -47,7 +47,7 @@ namespace CrossHMI.Shared.Statics
                 .SingleInstance();
 
             //Library Orchiestrastion
-            builder.RegisterType<NetworkEventsManager<BoilersConfigurationData>>()
+            builder.RegisterType<NetworkEventsManager>()
                 .As<INetworkEventsManager>()
                 .SingleInstance();
 

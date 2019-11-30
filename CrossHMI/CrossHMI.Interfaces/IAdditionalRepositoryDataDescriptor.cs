@@ -5,10 +5,10 @@ namespace CrossHMI.Interfaces
     /// <summary>
     ///     Interface for objects that are found in extended <see cref="ConfigurationData" />.
     /// </summary>
-    public interface IAdditonalRepositoryDataDescriptor
+    public interface IAdditionalRepositoryDataDescriptor
     {
         /// <summary>
-        ///     The repository that this additional data is targetting.
+        ///     The repository that this additional data is targeting.
         /// </summary>
         string Repository { get; }
     }

@@ -21,7 +21,7 @@ namespace CrossHMI.Shared.Devices
 
         /// <summary>
         ///     Base constructor that via reflection scans all properties for <see cref="ProcessVariableAttribute" />
-        ///     and build a map of them to aoutomate the definition process.
+        ///     and build a map of them to automate the definition process.
         /// </summary>
         protected NetworkDeviceBase()
         {
@@ -60,8 +60,7 @@ namespace CrossHMI.Shared.Devices
         }
 
         /// <inheritdoc />
-        public virtual void DefineDevice<TConfiguration>(INetworkDeviceDefinitionBuilder<TConfiguration> builder)
-            where TConfiguration : ConfigurationData
+        public virtual void DefineDevice(INetworkDeviceDefinitionBuilder builder)
         {
             foreach (var typeMappings in _propertyMappings)
             {
@@ -79,6 +78,7 @@ namespace CrossHMI.Shared.Devices
         /// <summary>
         ///     Used as a marker for variables that are meant to be used in definition process.
         /// </summary>
+        [AttributeUsage(AttributeTargets.Property)]
         public class ProcessVariableAttribute : Attribute
         {
             /// <summary>
@@ -98,7 +98,7 @@ namespace CrossHMI.Shared.Devices
 
             /// <summary>
             ///     Determines whether this variable should be automatically defined in
-            ///     <see cref="INetworkDeviceDefinitionBuilder{TConfiguration}" />
+            ///     <see cref="INetworkDeviceDefinitionBuilder" />
             /// </summary>
             public bool AutoDefine { get; set; } = true;
 

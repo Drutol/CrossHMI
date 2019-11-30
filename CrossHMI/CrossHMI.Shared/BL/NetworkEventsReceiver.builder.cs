@@ -7,12 +7,13 @@ using CrossHMI.Interfaces;
 using CrossHMI.Interfaces.Adapters;
 using CrossHMI.Interfaces.Networking;
 using CrossHMI.Shared.Statics;
+using UAOOI.Configuration.Networking.Serialization;
 
 [assembly: InternalsVisibleTo("DynamicProxyGenAssembly2")]
 
 namespace CrossHMI.Shared.BL
 {
-    public partial class NetworkEventsManager<TConfiguration>
+    public partial class NetworkEventsManager
     {
         /// <summary>
         ///     Interface for objects representing registration of an extension.
@@ -31,14 +32,14 @@ namespace CrossHMI.Shared.BL
         ///     define itself without exposing unnecessary information.
         /// </summary>
         /// <typeparam name="TDevice"></typeparam>
-        internal class NetworkDeviceDefinitionBuilder<TDevice> : INetworkDeviceDefinitionBuilder<TConfiguration>
+        internal class NetworkDeviceDefinitionBuilder<TDevice> : INetworkDeviceDefinitionBuilder
             where TDevice : INetworkDevice
         {
             private readonly ILogAdapter<NetworkDeviceDefinitionBuilder<TDevice>> _builderLogger;
             private readonly INetworkDeviceUpdateSourceBase _deviceUpdateSource;
             private readonly List<IExtensionDeclaration> _extensionDeclarations = new List<IExtensionDeclaration>();
 
-            private readonly NetworkEventsManager<TConfiguration> _parent;
+            private readonly NetworkEventsManager _parent;
             private readonly string _repository;
 
             private readonly Func<TDevice> _deviceInstanceFactory = DefaultDeviceFactory;
@@ -46,10 +47,11 @@ namespace CrossHMI.Shared.BL
             /// <summary>
             ///     Creates new instance of <see cref="NetworkDeviceDefinitionBuilder{TDevice}" />
             /// </summary>
-            /// <param name="parent">Parent <see cref="NetworkEventsManager{TConfiguration}" /></param>
+            /// <param name="parent">Parent <see cref="NetworkEventsManager" /></param>
             /// <param name="deviceUpdateSource">The device update source.</param>
             /// <param name="repository">The repository associated with the device.</param>
-            public NetworkDeviceDefinitionBuilder(NetworkEventsManager<TConfiguration> parent,
+            public NetworkDeviceDefinitionBuilder(
+                NetworkEventsManager parent,
                 INetworkDeviceUpdateSourceBase deviceUpdateSource,
                 string repository)
             {
@@ -72,7 +74,7 @@ namespace CrossHMI.Shared.BL
             private static ILogAdapter<NetworkDeviceDefinitionBuilder<TDevice>> DefaultLogger { get; set; }
 
             /// <inheritdoc />
-            public INetworkDeviceDefinitionBuilder<TConfiguration> DefineVariable<T>(string variableName)
+            public INetworkDeviceDefinitionBuilder DefineVariable<T>(string variableName)
             {
                 _builderLogger.LogDebug($"Defining {variableName} of type {typeof(T).Name} for {_repository}.");
                 _deviceUpdateSource.RegisterNetworkVariable(
@@ -81,10 +83,10 @@ namespace CrossHMI.Shared.BL
             }
 
             /// <inheritdoc />
-            public INetworkDeviceDefinitionBuilder<TConfiguration> DefineConfigurationExtenstion<TExtension>(
-                Func<TConfiguration, IEnumerable<TExtension>> extensionSelector,
+            public INetworkDeviceDefinitionBuilder DefineConfigurationExtenstion<TExtension>(
+                Func<ConfigurationData, IEnumerable<TExtension>> extensionSelector,
                 Action<TExtension> extenstionAssigned)
-                where TExtension : class, IAdditonalRepositoryDataDescriptor
+                where TExtension : class, IAdditionalRepositoryDataDescriptor
             {
                 _builderLogger.LogDebug(
                     $"Defining configuration extension of type {typeof(TExtension).Name} for {_repository}.");
@@ -104,10 +106,8 @@ namespace CrossHMI.Shared.BL
                 _builderLogger.LogDebug("Instantiated device model.");
                 device.AssignRepository(_repository);
                 _builderLogger.LogDebug("Assigned repository.");
-                if (typeof(INetworkDeviceWithConfiguration<TConfiguration>).IsAssignableFrom(typeof(TDevice)))
-                    ((INetworkDeviceWithConfiguration<TConfiguration>) device).DefineDevice(this);
-                else
-                    device.DefineDevice(this);
+
+                device.DefineDevice(this);
 
                 _builderLogger.LogDebug("Finished defining device.");
                 foreach (var extensionDeclaration in _extensionDeclarations)
@@ -121,13 +121,13 @@ namespace CrossHMI.Shared.BL
             }
 
             /// <summary>
-            ///     Helper class for storing data about extensions passed to builer while defining the model.
+            ///     Helper class for storing data about extensions passed to builder while defining the model.
             /// </summary>
             /// <typeparam name="TExtension"></typeparam>
             private class ExtensionDeclaration<TExtension> : IExtensionDeclaration
-                where TExtension : class, IAdditonalRepositoryDataDescriptor
+                where TExtension : class, IAdditionalRepositoryDataDescriptor
             {
-                private readonly Func<TConfiguration, IEnumerable<object>> _extensionSelector;
+                private readonly Func<ConfigurationData, IEnumerable<object>> _extensionSelector;
                 private readonly Action<TExtension> _extenstionAssigned;
                 private readonly NetworkDeviceDefinitionBuilder<TDevice> _parent;
 
@@ -138,7 +138,7 @@ namespace CrossHMI.Shared.BL
                 /// <param name="extensionSelector">Selector of extensions collection.</param>
                 /// <param name="extenstionAssigned">Callback for when the extension is found.</param>
                 public ExtensionDeclaration(NetworkDeviceDefinitionBuilder<TDevice> parent,
-                    Func<TConfiguration, IEnumerable<object>> extensionSelector,
+                    Func<ConfigurationData, IEnumerable<object>> extensionSelector,
                     Action<TExtension> extenstionAssigned)
                 {
                     _parent = parent;
@@ -152,7 +152,7 @@ namespace CrossHMI.Shared.BL
                     var extensions =
                         _extensionSelector(
                                 _parent._parent._configurationProvider.CurrentConfiguration)
-                            .Cast<IAdditonalRepositoryDataDescriptor>();
+                            .Cast<IAdditionalRepositoryDataDescriptor>();
                     var assignedExtension =
                         extensions.FirstOrDefault(descriptor => descriptor.Repository.Equals(_parent._repository));
 

@@ -1,7 +1,7 @@
 ﻿namespace CrossHMI.Interfaces.Networking
 {
     /// <summary>
-    ///     Ccomponent that forwards updates from library to appropriate <see cref="INetworkDevice" />.
+    ///     Component that forwards updates from library to appropriate <see cref="INetworkDevice" />.
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public interface INetworkDeviceUpdateSource<out T>

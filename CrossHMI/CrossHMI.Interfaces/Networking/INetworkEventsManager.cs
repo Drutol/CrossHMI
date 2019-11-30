@@ -12,7 +12,6 @@ namespace CrossHMI.Interfaces.Networking
         /// <summary>
         ///     Initializes the underlying library.
         /// </summary>
-        /// <returns></returns>
         Task Initialize();
 
         /// <summary>
@@ -21,8 +20,10 @@ namespace CrossHMI.Interfaces.Networking
         /// </summary>
         /// <typeparam name="TDevice">The type of the device.</typeparam>
         /// <param name="repository">The repository against which the device will be created.</param>
+        /// <param name="factory">Device instance factory.</param>
         /// <returns>Device model.</returns>
-        INetworkDeviceUpdateSource<TDevice> ObtainEventSourceForDevice<TDevice>(string repository,
+        INetworkDeviceUpdateSource<TDevice> ObtainEventSourceForDevice<TDevice>(
+            string repository,
             Func<TDevice> factory = null)
             where TDevice : INetworkDevice;
     }

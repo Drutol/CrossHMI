@@ -26,9 +26,7 @@ namespace CrossHMI.Interfaces.Networking
         ///     Called in order to utilise <see cref="builder" />
         ///     to define the model with properties and configuration extensions.
         /// </summary>
-        /// <typeparam name="TConfiguration">Extended configuration type.</typeparam>
         /// <param name="builder">Builder to define the model.</param>
-        void DefineDevice<TConfiguration>(INetworkDeviceDefinitionBuilder<TConfiguration> builder)
-            where TConfiguration : ConfigurationData;
+        void DefineDevice(INetworkDeviceDefinitionBuilder builder);
     }
 }

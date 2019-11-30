@@ -13,16 +13,15 @@ using UAOOI.Networking.SemanticData;
 namespace CrossHMI.Shared.BL
 {
     /// <inheritdoc cref="INetworkEventsManager" />
-    public partial class NetworkEventsManager<TConfiguration> : DataManagementSetup, INetworkEventsManager
-        where TConfiguration : ConfigurationData, new()
+    public partial class NetworkEventsManager : DataManagementSetup, INetworkEventsManager
     {
-        private readonly INetworkConfigurationProvider<TConfiguration> _configurationProvider;
+        private readonly INetworkConfigurationProvider _configurationProvider;
         private readonly IDispatcherAdapter _dispatcherAdapter;
-        private readonly ILogAdapter<NetworkEventsManager<TConfiguration>> _logger;
+        private readonly ILogAdapter<NetworkEventsManager> _logger;
         private readonly IRecordingBindingFactory _recordingBindingFactory;
 
         /// <summary>
-        ///     Creates new instance of <see cref="NetworkEventsManager{TConfiguration}" />
+        ///     Creates new instance of <see cref="NetworkEventsManager" />
         /// </summary>
         /// <param name="bindingFactory">Binding factory.</param>
         /// <param name="configurationFactory">Configuration factory.</param>
@@ -33,11 +32,11 @@ namespace CrossHMI.Shared.BL
         public NetworkEventsManager(
             IRecordingBindingFactory bindingFactory,
             IConfigurationFactory configurationFactory,
-            INetworkConfigurationProvider<TConfiguration> configurationProvider,
+            INetworkConfigurationProvider configurationProvider,
             IMessageHandlerFactory messageHandlerFactory,
             IEncodingFactory encodingFactory,
             IDispatcherAdapter dispatcherAdapter,
-            ILogAdapter<NetworkEventsManager<TConfiguration>> logger)
+            ILogAdapter<NetworkEventsManager> logger)
         {
             _recordingBindingFactory = bindingFactory;
             _configurationProvider = configurationProvider;

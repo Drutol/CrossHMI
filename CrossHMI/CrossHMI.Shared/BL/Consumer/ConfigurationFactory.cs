@@ -5,23 +5,26 @@ using CrossHMI.Interfaces.Adapters;
 using CrossHMI.Interfaces.Networking;
 using CrossHMI.Shared.Configuration;
 using UAOOI.Configuration.Networking;
+using UAOOI.Configuration.Networking.Serialization;
 
 namespace CrossHMI.Shared.BL.Consumer
 {
     /// <summary>
     ///     Class responsible for loading and propagating configuration of the library.
     /// </summary>
-    public class ConfigurationFactory : ConfigurationFactoryBase<BoilersConfigurationData>,
-        INetworkConfigurationProvider<BoilersConfigurationData>
+    public class ConfigurationFactory : 
+        ConfigurationFactoryBase<BoilersConfigurationData>,
+        INetworkConfigurationProvider
     {
         private readonly IConfigurationResourcesProvider _configurationResourcesProvider;
         private readonly ILogAdapter<ConfigurationFactory> _logger;
 
         /// <summary>
-        ///     Creates new instaince of <see cref="ConfigurationFactory" />
+        ///     Creates new instance of <see cref="ConfigurationFactory" />
         /// </summary>
         /// <param name="configurationResourcesProvider">The provider of raw configuration asset.</param>
-        public ConfigurationFactory(IConfigurationResourcesProvider configurationResourcesProvider,
+        public ConfigurationFactory(
+            IConfigurationResourcesProvider configurationResourcesProvider,
             ILogAdapter<ConfigurationFactory> logger)
         {
             _configurationResourcesProvider = configurationResourcesProvider;
@@ -30,7 +33,7 @@ namespace CrossHMI.Shared.BL.Consumer
         }
 
         /// <inheritdoc />
-        public BoilersConfigurationData CurrentConfiguration { get; private set; }
+        public ConfigurationData CurrentConfiguration { get; private set; }
 
         private BoilersConfigurationData ConfigurationLoader()
         {

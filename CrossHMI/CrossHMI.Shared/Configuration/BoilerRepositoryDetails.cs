@@ -6,7 +6,7 @@ namespace CrossHMI.Shared.Configuration
     /// <summary>
     ///     Class with extra data about the repository.
     /// </summary>
-    public class BoilerRepositoryDetails : IAdditonalRepositoryDataDescriptor
+    public class BoilerRepositoryDetails : IAdditionalRepositoryDataDescriptor
     {
         /// <summary>
         ///     Gets or sets the latitude.
