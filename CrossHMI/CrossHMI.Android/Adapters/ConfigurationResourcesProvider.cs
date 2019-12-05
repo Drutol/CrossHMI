@@ -17,10 +17,10 @@ namespace CrossHMI.Android.Adapters
             _logger = logger;
         }
 
-        public Stream ObtainLibraryConfigurationXML()
+        public Stream ObtainLibraryConfiguration()
         {
             _logger.LogDebug("Reading configuration data from native asset data file on Android.");
-            return _contextProvider.CurrentContext.Assets.Open("LibraryConfiguration.xml", Access.Random);
+            return _contextProvider.CurrentContext.Assets.Open("LibraryConfiguration.json", Access.Random);
         }
     }
 }

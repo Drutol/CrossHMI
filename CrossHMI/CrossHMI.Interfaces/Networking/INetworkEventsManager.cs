@@ -38,5 +38,14 @@ namespace CrossHMI.Interfaces.Networking
             string repository,
             Func<TDevice> factory = null)
             where TDevice : INetworkDevice;
+
+
+        /// <summary>
+        /// Obtains update source associated with given value within repository.
+        /// </summary>
+        /// <typeparam name="T">Type of the variable.</typeparam>
+        /// <param name="repository">Repository.</param>
+        /// <param name="variableName">Variable.</param>
+        INetworkVariableUpdateSource<T> ObtainEventSourceForVariable<T>(string repository, string variableName);
     }
 }

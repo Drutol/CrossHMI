@@ -6,7 +6,7 @@ using UAOOI.Configuration.Networking.Serialization;
 using UAOOI.Networking.SemanticData;
 using UAOOI.Networking.SemanticData.DataRepository;
 
-namespace CrossHMI.Shared.BL.Consumer
+namespace CrossHMI.Shared.Infrastructure
 {
     /// <summary>
     ///     Class responsible for creating bindings for every variable in every repository as requested by library.

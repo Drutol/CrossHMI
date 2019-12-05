@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UAOOI.Configuration.Networking.Serialization;
 
-namespace CrossHMI.Shared.Configuration
+namespace CrossHMI.Shared.Infrastructure.Configuration
 {
     public class GenericDeviceConfiguration
     {

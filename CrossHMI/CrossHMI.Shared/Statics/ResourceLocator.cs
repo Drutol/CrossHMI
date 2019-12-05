@@ -3,9 +3,9 @@ using System.Reflection;
 using Autofac;
 using CrossHMI.Interfaces.Adapters;
 using CrossHMI.Interfaces.Networking;
-using CrossHMI.Shared.BL;
-using CrossHMI.Shared.BL.Consumer;
-using CrossHMI.Shared.Configuration;
+using CrossHMI.Shared.Infrastructure;
+using CrossHMI.Shared.Infrastructure.Configuration;
+using CrossHMI.Shared.Interfaces;
 using UAOOI.Configuration.Networking;
 using UAOOI.Networking.Core;
 using UAOOI.Networking.Encoding;
@@ -35,7 +35,7 @@ namespace CrossHMI.Shared.Statics
 
             builder.RegisterType<ConfigurationFactory>()
                 .As<IConfigurationFactory>()
-                .As<INetworkConfigurationProvider>()
+                .As<IAdditionalRepositoryDescriptorProvider>()
                 .SingleInstance();
 
             builder.RegisterType<EncodingFactoryBinarySimple>()
@@ -46,21 +46,19 @@ namespace CrossHMI.Shared.Statics
                 .As<IRecordingBindingFactory>()
                 .SingleInstance();
 
-            //Library Orchiestrastion
+            //Library Orchestration
             builder.RegisterType<NetworkEventsManager>()
                 .As<INetworkEventsManager>()
                 .SingleInstance();
 
+            builder.RegisterGeneric(typeof(NetworkDeviceDefinitionBuilder<>));
+            builder.RegisterType<NetworkDeviceDefinitionBuilderFactory>()
+                .As<INetworkDeviceDefinitionBuilderFactory>();
             builder.RegisterBuildCallback(BuildCallback);
         }
 
-        public static ILogAdapter<T> GetLogger<T>()
-        {
-            return _appLifetimeScope.Resolve<ILogAdapter<T>>();
-        }
-
         /// <summary>
-        ///     Allows to obtain resouce scope for manual component resolution.
+        ///     Allows to obtain resource scope for manual component resolution.
         /// </summary>
         /// <returns>New resource scope.</returns>
         public static ILifetimeScope ObtainScope()
@@ -73,7 +71,7 @@ namespace CrossHMI.Shared.Statics
             _appLifetimeScope = container.BeginLifetimeScope();
 
 
-            var logger = GetLogger<IContainer>();
+            var logger = _appLifetimeScope.Resolve<ILogAdapter<IContainer>>();
             var assemblies = new[]
             {
                 Assembly.GetAssembly(typeof(MessageHandlerFactory)),

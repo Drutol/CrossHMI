@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using CrossHMI.Interfaces.Adapters;
 using CrossHMI.Interfaces.Networking;
-using CrossHMI.Shared.Configuration;
+using CrossHMI.Shared.Infrastructure.Configuration;
 using CrossHMI.Shared.Statics;
 
 namespace CrossHMI.Shared.Devices
@@ -21,16 +21,9 @@ namespace CrossHMI.Shared.Devices
         private Dictionary<string, double> _thresholds = new Dictionary<string, double>();
         private string _repository;
 
-        public Boiler()
+        public Boiler(ILogAdapter<Boiler> logAdapter)
         {
-            try
-            {
-                _logger = ResourceLocator.GetLogger<Boiler>();
-            }
-            catch
-            {
-                //logger unavailable in current configuration
-            }
+            _logger = logAdapter;
         }
 
         /// <summary>
@@ -128,9 +121,7 @@ namespace CrossHMI.Shared.Devices
             _logger?.LogDebug("Defining device.");
             base.DefineDevice(builder);
 
-            builder.DefineConfigurationExtenstion(
-                data => (data as BoilersConfigurationData).RepositoriesDetails,
-                ExtenstionAssigned);
+            builder.RequestConfigurationExtenstion<BoilerRepositoryDetails>(ExtenstionAssigned);
         }
 
         private void ExtenstionAssigned(BoilerRepositoryDetails extension)

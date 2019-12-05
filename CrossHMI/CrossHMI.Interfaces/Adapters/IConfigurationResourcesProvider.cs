@@ -11,6 +11,6 @@ namespace CrossHMI.Interfaces.Adapters
         ///     Obtains a stream pointing to raw configuration XML.
         /// </summary>
         /// <returns></returns>
-        Stream ObtainLibraryConfigurationXML();
+        Stream ObtainLibraryConfiguration();
     }
 }

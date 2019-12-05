@@ -10,6 +10,12 @@ namespace CrossHMI.Interfaces.Networking
     public interface INetworkDeviceDefinitionBuilder
     {
         /// <summary>
+        /// Configures repository of given builder.
+        /// </summary>
+        /// <param name="repository">The repository.</param>
+        INetworkDeviceDefinitionBuilder WithRepository(string repository);
+
+        /// <summary>
         ///     Define the subscription to given process variable found in repository.
         /// </summary>
         /// <typeparam name="T">The type of the property.</typeparam>
@@ -23,11 +29,9 @@ namespace CrossHMI.Interfaces.Networking
         ///     It will be matched against the configuration and callback will be fired.
         /// </summary>
         /// <typeparam name="TExtension">Extension type.</typeparam>
-        /// <param name="extensionSelector">Delegate that chooses the list of elements contain the extension.</param>
         /// <param name="extenstionAssigned">Callback for when extension is assigned.</param>
         /// <returns></returns>
-        INetworkDeviceDefinitionBuilder DefineConfigurationExtenstion<TExtension>(
-            Func<ConfigurationData, IEnumerable<TExtension>> extensionSelector,
+        INetworkDeviceDefinitionBuilder RequestConfigurationExtenstion<TExtension>(
             Action<TExtension> extenstionAssigned)
             where TExtension : class, IAdditionalRepositoryDataDescriptor;
 

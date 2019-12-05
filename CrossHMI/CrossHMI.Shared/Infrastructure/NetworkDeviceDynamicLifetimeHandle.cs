@@ -1,13 +1,13 @@
 ﻿using System;
 using CrossHMI.Interfaces.Networking;
 
-namespace CrossHMI.Shared.BL
+namespace CrossHMI.Shared.Infrastructure
 {
     public class NetworkDeviceDynamicLifetimeHandle : INetworkDeviceDynamicLifetimeHandle
     {
-        private readonly NetworkEventsManager _networkEventsManager;
+        private readonly INetworkEventsManager _networkEventsManager;
 
-        public NetworkDeviceDynamicLifetimeHandle(NetworkEventsManager networkEventsManager)
+        public NetworkDeviceDynamicLifetimeHandle(INetworkEventsManager networkEventsManager)
         {
             _networkEventsManager = networkEventsManager;
         }

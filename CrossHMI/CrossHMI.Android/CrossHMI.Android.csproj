@@ -167,7 +167,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <AndroidAsset Include="Assets\LibraryConfiguration.xml">
+    <AndroidAsset Include="Assets\LibraryConfiguration.json">
       <SubType>Designer</SubType>
     </AndroidAsset>
   </ItemGroup>

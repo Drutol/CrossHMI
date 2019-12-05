@@ -4,16 +4,16 @@ using CrossHMI.Interfaces.Networking;
 namespace CrossHMI.Shared.EventSources
 {
     /// <inheritdoc />
-    public class NetworkDeviceEventSource<T> : INetworkDeviceUpdateSource<T>
+    public class NetworkDeviceUpdateSource<T> : INetworkDeviceUpdateSource<T>
         where T : INetworkDevice
     {
         private readonly IDispatcherAdapter _dispatcherAdapter;
 
         /// <summary>
-        ///     Creates new instance of <see cref="NetworkDeviceEventSource{T}" />.
+        ///     Creates new instance of <see cref="NetworkDeviceUpdateSource{T}" />.
         /// </summary>
         /// <param name="dispatcherAdapter">UI thread dispatcher</param>
-        public NetworkDeviceEventSource(IDispatcherAdapter dispatcherAdapter)
+        public NetworkDeviceUpdateSource(IDispatcherAdapter dispatcherAdapter)
         {
             _dispatcherAdapter = dispatcherAdapter;
         }

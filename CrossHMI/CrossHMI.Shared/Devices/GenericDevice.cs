@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using CrossHMI.Interfaces.Networking;
-using CrossHMI.Shared.Configuration;
+using CrossHMI.Shared.Infrastructure.Configuration;
 using UAOOI.Configuration.Networking.Serialization;
 
 namespace CrossHMI.Shared.Devices

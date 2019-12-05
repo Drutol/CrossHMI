@@ -6,24 +6,24 @@ using CrossHMI.Interfaces;
 using CrossHMI.Interfaces.Adapters;
 using CrossHMI.Interfaces.Networking;
 using CrossHMI.Shared.Statics;
-using UAOOI.Configuration.Networking.Serialization;
 
-namespace CrossHMI.Shared.BL
+namespace CrossHMI.Shared.Infrastructure
 {
     /// <summary>
     ///     Builder that allows the model class in question
     ///     define itself without exposing unnecessary information.
     /// </summary>
     /// <typeparam name="TDevice"></typeparam>
-    internal class NetworkDeviceDefinitionBuilder<TDevice> : INetworkDeviceDefinitionBuilder
+    public class NetworkDeviceDefinitionBuilder<TDevice> : INetworkDeviceDefinitionBuilder
         where TDevice : INetworkDevice
     {
         private readonly ILogAdapter<NetworkDeviceDefinitionBuilder<TDevice>> _builderLogger;
         private readonly INetworkDeviceUpdateSourceBase _deviceUpdateSource;
         private readonly List<IExtensionDeclaration> _extensionDeclarations = new List<IExtensionDeclaration>();
 
-        private readonly NetworkEventsManager _parent;
-        private readonly string _repository;
+        private readonly INetworkEventsManager _networkEventsManager;
+        private readonly IAdditionalRepositoryDescriptorProvider _additionalRepositoryDescriptorProvider;
+        private string _repository;
 
         private readonly Func<TDevice> _deviceInstanceFactory = DefaultDeviceFactory;
         private NetworkDeviceDynamicLifetimeHandle _dynamicHandle;
@@ -31,26 +31,19 @@ namespace CrossHMI.Shared.BL
         /// <summary>
         ///     Creates new instance of <see cref="NetworkDeviceDefinitionBuilder{TDevice}" />
         /// </summary>
-        /// <param name="parent">Parent <see cref="NetworkEventsManager" /></param>
+        /// <param name="networkEventsManager">Network events manager.</param>
+        /// <param name="additionalRepositoryDescriptorProvider">Additional descriptor provider.</param>
         /// <param name="deviceUpdateSource">The device update source.</param>
-        /// <param name="repository">The repository associated with the device.</param>
         public NetworkDeviceDefinitionBuilder(
-            NetworkEventsManager parent,
+            INetworkEventsManager networkEventsManager,
+            IAdditionalRepositoryDescriptorProvider additionalRepositoryDescriptorProvider,
             INetworkDeviceUpdateSourceBase deviceUpdateSource,
-            string repository)
+            ILogAdapter<NetworkDeviceDefinitionBuilder<TDevice>> logAdapter = null)
         {
-            try
-            {
-                _builderLogger = ResourceLocator.GetLogger<NetworkDeviceDefinitionBuilder<TDevice>>();
-            }
-            catch
-            {
-                _builderLogger = DefaultLogger;
-            }
-
-            _parent = parent;
+            _builderLogger = logAdapter;
+            _networkEventsManager = networkEventsManager;
+            _additionalRepositoryDescriptorProvider = additionalRepositoryDescriptorProvider;
             _deviceUpdateSource = deviceUpdateSource;
-            _repository = repository;
         }
 
         private static Func<TDevice> DefaultDeviceFactory { get; set; } = Activator.CreateInstance<TDevice>;
@@ -58,31 +51,37 @@ namespace CrossHMI.Shared.BL
         private static ILogAdapter<NetworkDeviceDefinitionBuilder<TDevice>> DefaultLogger { get; set; }
 
         /// <inheritdoc />
-        public INetworkDeviceDefinitionBuilder DefineVariable<T>(string variableName)
+        public INetworkDeviceDefinitionBuilder WithRepository(string repository)
         {
-            _builderLogger.LogDebug($"Defining {variableName} of type {typeof(T).Name} for {_repository}.");
-            _deviceUpdateSource.RegisterNetworkVariable(
-                _parent.ObtainEventSourceForVariable<T>(_repository, variableName));
+            _repository = repository;
             return this;
         }
 
         /// <inheritdoc />
-        public INetworkDeviceDefinitionBuilder DefineConfigurationExtenstion<TExtension>(
-            Func<ConfigurationData, IEnumerable<TExtension>> extensionSelector,
+        public INetworkDeviceDefinitionBuilder DefineVariable<T>(string variableName)
+        {
+            _builderLogger.LogDebug($"Defining {variableName} of type {typeof(T).Name} for {_repository}.");
+            _deviceUpdateSource.RegisterNetworkVariable(
+                _networkEventsManager.ObtainEventSourceForVariable<T>(_repository, variableName));
+            return this;
+        }
+
+        /// <inheritdoc />
+        public INetworkDeviceDefinitionBuilder RequestConfigurationExtenstion<TExtension>(
             Action<TExtension> extenstionAssigned)
             where TExtension : class, IAdditionalRepositoryDataDescriptor
         {
             _builderLogger.LogDebug(
                 $"Defining configuration extension of type {typeof(TExtension).Name} for {_repository}.");
             _extensionDeclarations.Add(
-                new ExtensionDeclaration<TExtension>(this, extensionSelector, extenstionAssigned));
+                new ExtensionDeclaration<TExtension>(this, _additionalRepositoryDescriptorProvider, extenstionAssigned));
             return this;
         }
 
         /// <inheritdoc />
         public INetworkDeviceDynamicLifetimeHandle DeclareDynamic()
         {
-            _dynamicHandle =  new NetworkDeviceDynamicLifetimeHandle(_parent);
+            _dynamicHandle =  new NetworkDeviceDynamicLifetimeHandle(_networkEventsManager);
             return _dynamicHandle;
         }
 
@@ -123,34 +122,35 @@ namespace CrossHMI.Shared.BL
         private class ExtensionDeclaration<TExtension> : IExtensionDeclaration
             where TExtension : class, IAdditionalRepositoryDataDescriptor
         {
-            private readonly Func<ConfigurationData, IEnumerable<object>> _extensionSelector;
+            
             private readonly Action<TExtension> _extenstionAssigned;
             private readonly NetworkDeviceDefinitionBuilder<TDevice> _parent;
+            private readonly IAdditionalRepositoryDescriptorProvider _additionalRepositoryDescriptorProvider;
 
             /// <summary>
             ///     Creates new <see cref="ExtensionDeclaration{TExtension}" /> instance.
             /// </summary>
             /// <param name="parent">Parent <see cref="NetworkDeviceDefinitionBuilder{TDevice}" /></param>
-            /// <param name="extensionSelector">Selector of extensions collection.</param>
+            /// <param name="additionalRepositoryDescriptorProvider">Provider of extensions collection.</param>
             /// <param name="extenstionAssigned">Callback for when the extension is found.</param>
-            public ExtensionDeclaration(NetworkDeviceDefinitionBuilder<TDevice> parent,
-                Func<ConfigurationData, IEnumerable<object>> extensionSelector,
+            public ExtensionDeclaration(
+                NetworkDeviceDefinitionBuilder<TDevice> parent,
+                IAdditionalRepositoryDescriptorProvider additionalRepositoryDescriptorProvider,
                 Action<TExtension> extenstionAssigned)
             {
                 _parent = parent;
-                _extensionSelector = extensionSelector;
+                _additionalRepositoryDescriptorProvider = additionalRepositoryDescriptorProvider;
+
                 _extenstionAssigned = extenstionAssigned;
             }
 
             /// <inheritdoc />
             public void Assign()
             {
-                var extensions =
-                    _extensionSelector(
-                            _parent._parent._configurationProvider.CurrentConfiguration)
-                        .Cast<IAdditionalRepositoryDataDescriptor>();
                 var assignedExtension =
-                    extensions.FirstOrDefault(descriptor => descriptor.Repository.Equals(_parent._repository));
+                    _additionalRepositoryDescriptorProvider
+                        .Descriptors?
+                        .FirstOrDefault(descriptor => descriptor.Repository.Equals(_parent._repository));
 
                 _extenstionAssigned(assignedExtension as TExtension);
             }

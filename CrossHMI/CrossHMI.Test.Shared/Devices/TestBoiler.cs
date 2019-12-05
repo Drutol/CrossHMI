@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
 using CrossHMI.Interfaces.Networking;
-using CrossHMI.Shared.Configuration;
 using CrossHMI.Shared.Devices;
+using CrossHMI.Shared.Infrastructure.Configuration;
 
 namespace CrossHMI.Test.Shared.Devices
 {
@@ -36,10 +36,8 @@ namespace CrossHMI.Test.Shared.Devices
 
             builder.DefineVariable<double>("CCX001_Input3");
 
-            builder.DefineConfigurationExtenstion(config => (config as BoilersConfigurationData).RepositoriesDetails, ExtenstionAssigned);
+            builder.RequestConfigurationExtenstion<BoilerRepositoryDetails>(ExtenstionAssigned);
         }
-
-
 
         public override void ProcessPropertyUpdate<T>(string variableName, T value)
         {

@@ -1,23 +1,30 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Runtime.Serialization;
 using System.Xml;
+using CrossHMI.Interfaces;
 using CrossHMI.Interfaces.Adapters;
 using CrossHMI.Interfaces.Networking;
-using CrossHMI.Shared.Configuration;
+using Newtonsoft.Json;
 using UAOOI.Configuration.Networking;
 using UAOOI.Configuration.Networking.Serialization;
+using Formatting = Newtonsoft.Json.Formatting;
 
-namespace CrossHMI.Shared.BL.Consumer
+namespace CrossHMI.Shared.Infrastructure.Configuration
 {
     /// <summary>
     ///     Class responsible for loading and propagating configuration of the library.
     /// </summary>
-    public class ConfigurationFactory : 
+    public class ConfigurationFactory :
         ConfigurationFactoryBase<BoilersConfigurationData>,
-        INetworkConfigurationProvider
+        IAdditionalRepositoryDescriptorProvider
     {
         private readonly IConfigurationResourcesProvider _configurationResourcesProvider;
         private readonly ILogAdapter<ConfigurationFactory> _logger;
+
+        /// <inheritdoc />
+        public IReadOnlyCollection<IAdditionalRepositoryDataDescriptor> Descriptors { get; private set; }
 
         /// <summary>
         ///     Creates new instance of <see cref="ConfigurationFactory" />
@@ -32,9 +39,6 @@ namespace CrossHMI.Shared.BL.Consumer
             Loader = ConfigurationLoader;
         }
 
-        /// <inheritdoc />
-        public ConfigurationData CurrentConfiguration { get; private set; }
-
         private BoilersConfigurationData ConfigurationLoader()
         {
             _logger.LogDebug("Configuration data has been requested.");
@@ -45,13 +49,15 @@ namespace CrossHMI.Shared.BL.Consumer
         {
             _logger.LogDebug("Loading data from registered adapter.");
             using (var reader =
-                new XmlTextReader(_configurationResourcesProvider.ObtainLibraryConfigurationXML()))
+                new StreamReader(_configurationResourcesProvider.ObtainLibraryConfiguration()))
             {
-                _logger.LogDebug("Deserializing XML configuration.");
-                var configuration = new DataContractSerializer(typeof(BoilersConfigurationData))
-                    .ReadObject(reader, false) as BoilersConfigurationData;
+                _logger.LogDebug("Deserializing JSON configuration.");
+                var configuration = JsonConvert.DeserializeObject<BoilersConfigurationData>(reader.ReadToEnd(), new JsonSerializerSettings
+                {
+                    TypeNameHandling = TypeNameHandling.Auto
+                });
 
-                CurrentConfiguration = configuration;
+                Descriptors = configuration.AdditionalRepositoryData;
                 _logger.LogDebug("Configuration successfully deserialized.");
                 return configuration;
             }

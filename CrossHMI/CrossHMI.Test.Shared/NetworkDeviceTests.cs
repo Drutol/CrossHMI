@@ -2,10 +2,9 @@ using System.Linq;
 using AoLibs.Adapters.Core.Interfaces;
 using CrossHMI.Interfaces.Adapters;
 using CrossHMI.Interfaces.Networking;
-using CrossHMI.Shared.BL;
-using CrossHMI.Shared.BL.Consumer;
-using CrossHMI.Shared.Configuration;
 using CrossHMI.Shared.Devices;
+using CrossHMI.Shared.Infrastructure;
+using CrossHMI.Shared.Infrastructure.Configuration;
 using CrossHMI.Test.Shared.Devices;
 using CrossHMI.Test.Shared.Helpers;
 using Moq;
@@ -26,16 +25,16 @@ namespace CrossHMI.Test.Shared
             var configurationFactory = new ConfigurationFactory(new ConfigurationResourcesProvider(),
                 new Mock<ILogAdapter<ConfigurationFactory>>().Object);
 
-            _networkEventsManager = new NetworkEventsManager(
-                new ConsumerBindingFactory(),
-                configurationFactory,
-                configurationFactory,
-                new MessageHandlerFactory(),
-                new EncodingFactoryBinarySimple(),
-                new Mock<IDispatcherAdapter>().Object,
-                new Mock<ILogAdapter<NetworkEventsManager>>().Object);
+            //_networkEventsManager = new NetworkEventsManager(
+            //    new ConsumerBindingFactory(),
+            //    configurationFactory,
+            //    configurationFactory,
+            //    new MessageHandlerFactory(),
+            //    new EncodingFactoryBinarySimple(),
+            //    new Mock<IDispatcherAdapter>().Object,
+            //    new Mock<ILogAdapter<NetworkEventsManager>>().Object);
 
-            _networkEventsManager.Initialize().GetAwaiter().GetResult();
+            //_networkEventsManager.Initialize().GetAwaiter().GetResult();
         }
 
         [Fact]

@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using CrossHMI.Shared.Devices;
 using CrossHMI.Shared.ViewModels;
 
 namespace CrossHMI.Shared.Statics
@@ -27,6 +28,8 @@ namespace CrossHMI.Shared.Statics
             builder.RegisterType<DashboardViewModel>().SingleInstance();
             builder.RegisterType<BoilerDetailsViewModel>().SingleInstance();
             builder.RegisterType<GenericDetailsViewModel>().SingleInstance();
+
+            builder.RegisterType<Boiler>();
         }
 
         private static void BuildCallback(IContainer container)

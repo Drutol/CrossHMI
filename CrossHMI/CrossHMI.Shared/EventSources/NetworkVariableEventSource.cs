@@ -9,8 +9,12 @@ namespace CrossHMI.Shared.EventSources
     public class NetworkVariableEventSource<T> : INetworkVariableUpdateSource<T>
     {
         private readonly ConsumerBindingMonitoredValue<T> _monitoredValue;
-        private bool _listening;
-        private NetworkVariableUpdateEventHandler<T> _updated;
+
+        /// <inheritdoc />
+        public string Name { get; }
+
+        /// <inheritdoc />
+        public event NetworkVariableUpdateEventHandler<T> Updated;
 
         /// <summary>
         ///     Creates new instance of <see cref="NetworkVariableEventSource{T}" />
@@ -21,40 +25,13 @@ namespace CrossHMI.Shared.EventSources
         {
             Name = variableName;
 
-            _monitoredValue = consumerBinding as ConsumerBindingMonitoredValue<T>;
-        }
-
-        /// <inheritdoc />
-        public string Name { get; }
-
-        /// <inheritdoc />
-        public event NetworkVariableUpdateEventHandler<T> Updated
-        {
-            add
-            {
-                if (!_listening)
-                {
-                    _monitoredValue.PropertyChanged += MonitoredValueOnPropertyChanged;
-                    _listening = true;
-                }
-
-                _updated += value;
-            }
-            remove
-            {
-                _updated -= value;
-
-                if (_updated == null)
-                {
-                    _monitoredValue.PropertyChanged -= MonitoredValueOnPropertyChanged;
-                    _listening = false;
-                }
-            }
+            _monitoredValue = (ConsumerBindingMonitoredValue<T>) consumerBinding;
+            _monitoredValue.PropertyChanged += MonitoredValueOnPropertyChanged;
         }
 
         private void MonitoredValueOnPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            _updated?.Invoke(this, _monitoredValue.Value);
+            Updated?.Invoke(this, _monitoredValue.Value);
         }
     }
 }

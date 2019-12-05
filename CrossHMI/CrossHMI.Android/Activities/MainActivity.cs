@@ -16,6 +16,7 @@ using AoLibs.Navigation.Android.Navigation;
 using AoLibs.Navigation.Core.Interfaces;
 using AoLibs.Navigation.Core.PageProviders;
 using Autofac;
+using CrossHMI.Android.Adapters;
 using CrossHMI.Android.Fragment;
 using CrossHMI.Interfaces.Adapters;
 using CrossHMI.Models.Enums;
@@ -36,7 +37,7 @@ namespace CrossHMI.Android
 
         public MainActivity()
         {
-            _logger = ResourceLocator.GetLogger<MainActivity>();
+            _logger = new LogAdapter<MainActivity>();
             Instance = this;
         }
 

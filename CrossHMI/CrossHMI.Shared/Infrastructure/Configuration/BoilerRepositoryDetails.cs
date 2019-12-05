@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using CrossHMI.Interfaces;
 
-namespace CrossHMI.Shared.Configuration
+namespace CrossHMI.Shared.Infrastructure.Configuration
 {
     /// <summary>
     ///     Class with extra data about the repository.
