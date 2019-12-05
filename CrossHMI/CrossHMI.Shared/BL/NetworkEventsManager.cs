@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using AoLibs.Adapters.Core.Interfaces;
 using CrossHMI.Interfaces.Adapters;
@@ -15,7 +16,7 @@ using UAOOI.Networking.SemanticData;
 namespace CrossHMI.Shared.BL
 {
     /// <inheritdoc cref="INetworkEventsManager" />
-    public partial class NetworkEventsManager : DataManagementSetup, INetworkEventsManager
+    public class NetworkEventsManager : DataManagementSetup, INetworkEventsManager
     {
         internal readonly INetworkConfigurationProvider _configurationProvider;
         private readonly IDispatcherAdapter _dispatcherAdapter;
@@ -34,7 +35,7 @@ namespace CrossHMI.Shared.BL
         /// <param name="bindingFactory">Binding factory.</param>
         /// <param name="configurationFactory">Configuration factory.</param>
         /// <param name="configurationProvider">Configuration provider.</param>
-        /// <param name="messageHandlerFactory">Message handler facory.</param>
+        /// <param name="messageHandlerFactory">Message handler factory.</param>
         /// <param name="encodingFactory">Encoding factory.</param>
         /// <param name="dispatcherAdapter">Dispatcher adapter.</param>
         public NetworkEventsManager(
