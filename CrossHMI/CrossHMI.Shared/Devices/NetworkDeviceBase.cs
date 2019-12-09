@@ -5,7 +5,6 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using CrossHMI.Interfaces.Networking;
 using GalaSoft.MvvmLight;
-using UAOOI.Configuration.Networking.Serialization;
 
 namespace CrossHMI.Shared.Devices
 {

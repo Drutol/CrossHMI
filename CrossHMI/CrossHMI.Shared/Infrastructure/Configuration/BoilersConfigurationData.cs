@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Runtime.Serialization;
-using System.Xml.Serialization;
-using Newtonsoft.Json;
 using UAOOI.Configuration.Networking.Serialization;
 
 namespace CrossHMI.Shared.Infrastructure.Configuration

@@ -1,15 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Runtime.Serialization;
-using System.Xml;
 using CrossHMI.Interfaces;
 using CrossHMI.Interfaces.Adapters;
 using CrossHMI.Interfaces.Networking;
 using Newtonsoft.Json;
 using UAOOI.Configuration.Networking;
-using UAOOI.Configuration.Networking.Serialization;
-using Formatting = Newtonsoft.Json.Formatting;
 
 namespace CrossHMI.Shared.Infrastructure.Configuration
 {

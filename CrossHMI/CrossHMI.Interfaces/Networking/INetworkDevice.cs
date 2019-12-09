@@ -1,6 +1,4 @@
-﻿using UAOOI.Configuration.Networking.Serialization;
-
-namespace CrossHMI.Interfaces.Networking
+﻿namespace CrossHMI.Interfaces.Networking
 {
     /// <summary>
     ///     Interface for NetworkDevice that is instance of an object

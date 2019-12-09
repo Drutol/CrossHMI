@@ -5,7 +5,6 @@ using System.Linq;
 using CrossHMI.Interfaces.Adapters;
 using CrossHMI.Interfaces.Networking;
 using CrossHMI.Shared.Infrastructure.Configuration;
-using CrossHMI.Shared.Statics;
 
 namespace CrossHMI.Shared.Devices
 {

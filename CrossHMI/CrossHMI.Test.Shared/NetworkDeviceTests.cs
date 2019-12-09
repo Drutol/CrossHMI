@@ -8,8 +8,6 @@ using CrossHMI.Shared.Infrastructure.Configuration;
 using CrossHMI.Test.Shared.Devices;
 using CrossHMI.Test.Shared.Helpers;
 using Moq;
-using UAOOI.Networking.Encoding;
-using UAOOI.Networking.UDPMessageHandler;
 using Xunit;
 
 namespace CrossHMI.Test.Shared

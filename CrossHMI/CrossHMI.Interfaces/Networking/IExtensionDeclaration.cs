@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace CrossHMI.Interfaces.Networking
+﻿namespace CrossHMI.Interfaces.Networking
 {
     /// <summary>
     ///     Interface for objects representing registration of an extension.
