@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using AoLibs.Adapters.Core.Interfaces;
 using CrossHMI.Interfaces.Adapters;
 using CrossHMI.Interfaces.Networking;
 using CrossHMI.Shared.Infrastructure.Configuration;
+using Microsoft.Extensions.Logging;
 
 namespace CrossHMI.Shared.Devices
 {
@@ -16,13 +18,17 @@ namespace CrossHMI.Shared.Devices
     {
         private readonly Dictionary<string, bool> _thresholdExceeded = new Dictionary<string, bool>();
         private bool _isAnyValueThresholdExeeded;
-        private readonly ILogAdapter<Boiler> _logger;
+        private readonly ILogger<Boiler> _logger;
+        private readonly IDispatcherAdapter _dispatcherAdapter;
         private Dictionary<string, double> _thresholds = new Dictionary<string, double>();
         private string _repository;
 
-        public Boiler(ILogAdapter<Boiler> logAdapter)
+        public Boiler(
+            ILogger<Boiler> logAdapter,
+            IDispatcherAdapter dispatcherAdapter)
         {
             _logger = logAdapter;
+            _dispatcherAdapter = dispatcherAdapter;
         }
 
         /// <summary>
@@ -97,21 +103,24 @@ namespace CrossHMI.Shared.Devices
 
         public override void ProcessPropertyUpdate<T>(string variableName, T value)
         {
-            base.ProcessPropertyUpdate(variableName, value);
-
-            if (!_thresholds.ContainsKey(variableName))
-                return;
-
-            if (value is double d)
+            _dispatcherAdapter.Run(() =>
             {
-                var previousState = _thresholdExceeded[variableName];
-                _thresholdExceeded[variableName] = d > _thresholds[variableName];
+                base.ProcessPropertyUpdate(variableName, value);
 
-                if (previousState != _thresholdExceeded[variableName])
-                    PropertyThresholdStatusChanged?.Invoke(this, (variableName, _thresholdExceeded[variableName]));
-            }
+                if (!_thresholds.ContainsKey(variableName))
+                    return;
 
-            IsAnyValueThresholdExeeded = _thresholdExceeded.Any(pair => pair.Value);
+                if (value is double d)
+                {
+                    var previousState = _thresholdExceeded[variableName];
+                    _thresholdExceeded[variableName] = d > _thresholds[variableName];
+
+                    if (previousState != _thresholdExceeded[variableName])
+                        PropertyThresholdStatusChanged?.Invoke(this, (variableName, _thresholdExceeded[variableName]));
+                }
+
+                IsAnyValueThresholdExeeded = _thresholdExceeded.Any(pair => pair.Value);
+            });
         }
 
         /// <inheritdoc />

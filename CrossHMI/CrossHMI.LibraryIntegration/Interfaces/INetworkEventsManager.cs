@@ -36,7 +36,7 @@ namespace CrossHMI.Interfaces.Networking
         /// <returns>Device model.</returns>
         INetworkDeviceUpdateSource<TDevice> ObtainEventSourceForDevice<TDevice>(
             string repository,
-            Func<TDevice> factory = null)
+            Func<TDevice> factory)
             where TDevice : INetworkDevice;
 
 

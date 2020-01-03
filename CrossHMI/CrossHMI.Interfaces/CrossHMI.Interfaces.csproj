@@ -20,4 +20,8 @@
     <ProjectReference Include="..\CrossHMI.Models\CrossHMI.Models.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Networking\" />
+  </ItemGroup>
+
 </Project>

@@ -13,6 +13,7 @@ using CrossHMI.Android.Adapters;
 using CrossHMI.Interfaces.Adapters;
 using CrossHMI.Models.Enums;
 using CrossHMI.Shared.Statics;
+using Microsoft.Extensions.Logging;
 
 namespace CrossHMI.Android
 {
@@ -60,7 +61,7 @@ namespace CrossHMI.Android
             containerBuilder.Register(ctx => MainActivity.Instance).As<IOnActivityResultProvider>()
                 .As<IOnNewIntentProvider>();
 
-            containerBuilder.RegisterGeneric(typeof(LogAdapter<>)).As(typeof(ILogAdapter<>));
+            containerBuilder.RegisterType<AndroidLoggerProvider>().As<ILoggerProvider>().SingleInstance();
         }
 
         private class ContextProvider : IContextProvider

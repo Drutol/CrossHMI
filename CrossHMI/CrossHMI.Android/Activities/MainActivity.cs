@@ -22,6 +22,7 @@ using CrossHMI.Interfaces.Adapters;
 using CrossHMI.Models.Enums;
 using CrossHMI.Shared.Statics;
 using CrossHMI.Shared.ViewModels;
+using Microsoft.Extensions.Logging;
 
 namespace CrossHMI.Android
 {
@@ -32,12 +33,11 @@ namespace CrossHMI.Android
     {
         private EventHandler<Intent> _activityNewIntentEventHandler;
         private EventHandler<(int RequestCode, Result ResultCode, Intent Data)> _activityResultEventHandler;
-        private readonly ILogAdapter<MainActivity> _logger;
+        private ILogger<MainActivity> _logger;
         private MainViewModel _viewModel;
 
         public MainActivity()
         {
-            _logger = new LogAdapter<MainActivity>();
             Instance = this;
         }
 
@@ -73,12 +73,13 @@ namespace CrossHMI.Android
             var manager = new NavigationManager<PageIndex>(SupportFragmentManager, RootView, pageDefinitions,
                 new ViewModelResolver());
             App.Current.NavigationManager = manager;
-            _logger.LogDebug("Created navigation manager.");
+
             using (var scope = ResourceLocator.ObtainScope())
             {
                 var messageBoxProvider = scope.Resolve<IMessageBoxProvider>() as MessageBoxProvider;
                 messageBoxProvider.ShowLoadingPopupRequest += MessageBoxProviderOnShowLoadingPopupRequest;
                 messageBoxProvider.HideLoadingPopupRequest += MessageBoxProviderOnHideLoadingPopupRequest;
+                _logger = scope.Resolve<ILogger<MainActivity>>();
             }
 
             RequestPermissions(new[] {Manifest.Permission.AccessCoarseLocation, Manifest.Permission.AccessFineLocation},

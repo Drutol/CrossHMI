@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using AoLibs.Adapters.Core.Interfaces;
 using CrossHMI.Interfaces.Networking;
 using CrossHMI.Shared.Infrastructure.Configuration;
 using UAOOI.Configuration.Networking.Serialization;
@@ -9,10 +10,14 @@ namespace CrossHMI.Shared.Devices
 {
     public class GenericDevice : NetworkDeviceBase
     {
+        private readonly IDispatcherAdapter _dispatcherAdapter;
         private readonly GenericDeviceConfiguration _genericDeviceConfiguration;
 
-        public GenericDevice(GenericDeviceConfiguration genericDeviceConfiguration)
+        public GenericDevice(
+            IDispatcherAdapter dispatcherAdapter,
+            GenericDeviceConfiguration genericDeviceConfiguration)
         {
+            _dispatcherAdapter = dispatcherAdapter;
             _genericDeviceConfiguration = genericDeviceConfiguration;
             PropertiesNames = _genericDeviceConfiguration.Properties.Keys.ToList();
             Properties =
@@ -27,8 +32,11 @@ namespace CrossHMI.Shared.Devices
 
         public override void ProcessPropertyUpdate<T>(string variableName, T value)
         {
-            Values[variableName] = value;
-            RaisePropertyChanged(variableName);
+            _dispatcherAdapter.Run(() =>
+            {
+                Values[variableName] = value;
+                RaisePropertyChanged(variableName);
+            });
         }
 
         public override void DefineDevice(INetworkDeviceDefinitionBuilder builder)

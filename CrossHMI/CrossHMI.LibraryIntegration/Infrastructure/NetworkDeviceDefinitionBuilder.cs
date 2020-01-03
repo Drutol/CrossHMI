@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using CrossHMI.Interfaces;
-using CrossHMI.Interfaces.Adapters;
 using CrossHMI.Interfaces.Networking;
+using Microsoft.Extensions.Logging;
 
 namespace CrossHMI.Shared.Infrastructure
 {
@@ -16,7 +16,7 @@ namespace CrossHMI.Shared.Infrastructure
     public class NetworkDeviceDefinitionBuilder<TDevice> : INetworkDeviceDefinitionBuilder
         where TDevice : INetworkDevice
     {
-        private readonly ILogAdapter<NetworkDeviceDefinitionBuilder<TDevice>> _builderLogger;
+        private readonly ILogger<NetworkDeviceDefinitionBuilder<TDevice>> _builderLogger;
         private readonly INetworkDeviceUpdateSourceBase _deviceUpdateSource;
         private readonly List<IExtensionDeclaration> _extensionDeclarations = new List<IExtensionDeclaration>();
 
@@ -37,7 +37,7 @@ namespace CrossHMI.Shared.Infrastructure
             INetworkEventsManager networkEventsManager,
             IAdditionalRepositoryDescriptorProvider additionalRepositoryDescriptorProvider,
             INetworkDeviceUpdateSourceBase deviceUpdateSource,
-            ILogAdapter<NetworkDeviceDefinitionBuilder<TDevice>> logAdapter = null)
+            ILogger<NetworkDeviceDefinitionBuilder<TDevice>> logAdapter = null)
         {
             _builderLogger = logAdapter;
             _networkEventsManager = networkEventsManager;
@@ -47,7 +47,7 @@ namespace CrossHMI.Shared.Infrastructure
 
         private static Func<TDevice> DefaultDeviceFactory { get; set; } = Activator.CreateInstance<TDevice>;
 
-        private static ILogAdapter<NetworkDeviceDefinitionBuilder<TDevice>> DefaultLogger { get; set; }
+        private static ILogger<NetworkDeviceDefinitionBuilder<TDevice>> DefaultLogger { get; set; }
 
         /// <inheritdoc />
         public INetworkDeviceDefinitionBuilder WithRepository(string repository)
@@ -164,7 +164,7 @@ namespace CrossHMI.Shared.Infrastructure
         }
 
         [Conditional("DEBUG")]
-        internal static void OverrideDefaultLogger(ILogAdapter<NetworkDeviceDefinitionBuilder<TDevice>> logger)
+        internal static void OverrideDefaultLogger(ILogger<NetworkDeviceDefinitionBuilder<TDevice>> logger)
         {
             DefaultLogger = logger;
         }

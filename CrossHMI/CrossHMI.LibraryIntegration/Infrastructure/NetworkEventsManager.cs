@@ -2,13 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using AoLibs.Adapters.Core.Interfaces;
-using Autofac;
-using CrossHMI.Interfaces.Adapters;
 using CrossHMI.Interfaces.Networking;
 using CrossHMI.Models.Networking;
 using CrossHMI.Shared.EventSources;
 using CrossHMI.Shared.Interfaces;
+using Microsoft.Extensions.Logging;
 using UAOOI.Configuration.Networking;
 using UAOOI.Networking.Core;
 using UAOOI.Networking.SemanticData;
@@ -18,10 +16,8 @@ namespace CrossHMI.Shared.Infrastructure
     /// <inheritdoc cref="INetworkEventsManager" />
     public class NetworkEventsManager : DataManagementSetup, INetworkEventsManager
     {
-        private readonly IDispatcherAdapter _dispatcherAdapter;
-        private readonly ILogAdapter<NetworkEventsManager> _logger;
+        private readonly ILogger<NetworkEventsManager> _logger;
         private readonly INetworkDeviceDefinitionBuilderFactory _deviceDefinitionBuilderFactory;
-        private readonly ILifetimeScope _lifetimeScope;
         private readonly IRecordingBindingFactory _recordingBindingFactory;
 
         private readonly Dictionary<string, INetworkDevice> _assignedRepositories 
@@ -35,26 +31,20 @@ namespace CrossHMI.Shared.Infrastructure
         /// </summary>
         /// <param name="bindingFactory">Binding factory.</param>
         /// <param name="configurationFactory">Configuration factory.</param>
-        /// <param name="configurationProvider">Configuration provider.</param>
         /// <param name="messageHandlerFactory">Message handler factory.</param>
         /// <param name="encodingFactory">Encoding factory.</param>
-        /// <param name="dispatcherAdapter">Dispatcher adapter.</param>
         /// <param name="deviceDefinitionBuilderFactory">Definition builder factory.</param>
         public NetworkEventsManager(
             IRecordingBindingFactory bindingFactory,
             IConfigurationFactory configurationFactory,
             IMessageHandlerFactory messageHandlerFactory,
             IEncodingFactory encodingFactory,
-            IDispatcherAdapter dispatcherAdapter,
-            ILogAdapter<NetworkEventsManager> logger,
-            INetworkDeviceDefinitionBuilderFactory deviceDefinitionBuilderFactory,
-            ILifetimeScope lifetimeScope)
+            ILogger<NetworkEventsManager> logger,
+            INetworkDeviceDefinitionBuilderFactory deviceDefinitionBuilderFactory)
         {
             _recordingBindingFactory = bindingFactory;
-            _dispatcherAdapter = dispatcherAdapter;
             _logger = logger;
             _deviceDefinitionBuilderFactory = deviceDefinitionBuilderFactory;
-            _lifetimeScope = lifetimeScope;
 
             BindingFactory = bindingFactory;
             ConfigurationFactory = configurationFactory;
@@ -84,15 +74,16 @@ namespace CrossHMI.Shared.Infrastructure
         }
 
         /// <inheritdoc />
-        public INetworkDeviceUpdateSource<TDevice> ObtainEventSourceForDevice<TDevice>(string repository,
-            Func<TDevice> factory = null)
+        public INetworkDeviceUpdateSource<TDevice> ObtainEventSourceForDevice<TDevice>(
+            string repository,
+            Func<TDevice> factory)
             where TDevice : INetworkDevice
         {
             _logger.LogDebug($"Creating event source for: {repository}");
-            var source = new NetworkDeviceUpdateSource<TDevice>(_dispatcherAdapter);
+            var source = new NetworkDeviceUpdateSource<TDevice>();
             source.Device = ((NetworkDeviceDefinitionBuilder<TDevice>) _deviceDefinitionBuilderFactory
                 .CreateBuilder<TDevice>(source)
-                .WithRepository(repository)).Build(factory ?? (() => _lifetimeScope.Resolve<TDevice>()));
+                .WithRepository(repository)).Build(factory);
             
             _assignedRepositories[repository] = source.Device;
             _logger.LogDebug($"Created event source for: {repository}");

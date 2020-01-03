@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using Autofac;
 using CrossHMI.Interfaces.Adapters;
@@ -6,6 +7,7 @@ using CrossHMI.Interfaces.Networking;
 using CrossHMI.Shared.Infrastructure;
 using CrossHMI.Shared.Infrastructure.Configuration;
 using CrossHMI.Shared.Interfaces;
+using Microsoft.Extensions.Logging;
 using UAOOI.Configuration.Networking;
 using UAOOI.Networking.Core;
 using UAOOI.Networking.Encoding;
@@ -55,6 +57,9 @@ namespace CrossHMI.Shared.Statics
             builder.RegisterType<NetworkDeviceDefinitionBuilderFactory>()
                 .As<INetworkDeviceDefinitionBuilderFactory>();
             builder.RegisterBuildCallback(BuildCallback);
+
+            builder.Register(context => new LoggerFactory(context.Resolve<IEnumerable<ILoggerProvider>>())).As<ILoggerFactory>().SingleInstance();
+            builder.RegisterGeneric(typeof(Logger<>)).As(typeof(ILogger<>));
         }
 
         /// <summary>
@@ -71,7 +76,7 @@ namespace CrossHMI.Shared.Statics
             _appLifetimeScope = container.BeginLifetimeScope();
 
 
-            var logger = _appLifetimeScope.Resolve<ILogAdapter<IContainer>>();
+            var logger = _appLifetimeScope.Resolve<ILogger<IContainer>>();
             var assemblies = new[]
             {
                 Assembly.GetAssembly(typeof(MessageHandlerFactory)),

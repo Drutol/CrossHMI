@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using AoLibs.Adapters.Core.Interfaces;
 using AoLibs.Navigation.Core.Interfaces;
 using CrossHMI.Interfaces.Adapters;
 using CrossHMI.Interfaces.Networking;
@@ -10,6 +12,7 @@ using CrossHMI.Shared.Infrastructure.Configuration;
 using CrossHMI.Shared.NavArgs;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using Microsoft.Extensions.Logging;
 using UAOOI.Configuration.Networking.Serialization;
 
 namespace CrossHMI.Shared.ViewModels
@@ -23,9 +26,11 @@ namespace CrossHMI.Shared.ViewModels
         private const string Repository2 = "BoilersArea_Boiler #2";
         private const string Repository3 = "BoilersArea_Boiler #3";
         private const string Repository4 = "BoilersArea_Boiler #4";
-        private readonly ILogAdapter<DashboardViewModel> _logger;
+        private readonly ILogger<DashboardViewModel> _logger;
         private readonly INavigationManager<PageIndex> _navigationManager;
+        private readonly Func<Boiler> _boilerFactory;
 
+        private readonly IDispatcherAdapter _dispatcherAdapter;
         private readonly INetworkEventsManager _networkEventsManager;
 
         private readonly List<INetworkDeviceUpdateSource<NetworkDeviceBase>> _updateSources =
@@ -38,12 +43,19 @@ namespace CrossHMI.Shared.ViewModels
         /// </summary>
         /// <param name="networkEventsManager">Network events receiver.</param>
         /// <param name="navigationManager"></param>
-        public DashboardViewModel(INetworkEventsManager networkEventsManager,
+        /// <param name="_boilerFactory"></param>
+        /// <param name="logger"></param>
+        public DashboardViewModel(
+            IDispatcherAdapter dispatcherAdapter,
+            INetworkEventsManager networkEventsManager,
             INavigationManager<PageIndex> navigationManager,
-            ILogAdapter<DashboardViewModel> logger)
+            Func<Boiler> _boilerFactory,
+            ILogger<DashboardViewModel> logger)
         {
+            _dispatcherAdapter = dispatcherAdapter;
             _networkEventsManager = networkEventsManager;
             _navigationManager = navigationManager;
+            this._boilerFactory = _boilerFactory;
             _logger = logger;
             Initialize();
         }
@@ -82,12 +94,14 @@ namespace CrossHMI.Shared.ViewModels
             await _networkEventsManager.Initialize();
 
             _logger.LogDebug("Network events manager initialized. Creating event sources for repositories.");
-            _updateSources.Add(_networkEventsManager.ObtainEventSourceForDevice<Boiler>(Repository1));
-            _updateSources.Add(_networkEventsManager.ObtainEventSourceForDevice<Boiler>(Repository2));
-            _updateSources.Add(_networkEventsManager.ObtainEventSourceForDevice<Boiler>(Repository3));
-            _updateSources.Add(_networkEventsManager.ObtainEventSourceForDevice<Boiler>(Repository4));
+            _updateSources.Add(_networkEventsManager.ObtainEventSourceForDevice<Boiler>(Repository1, _boilerFactory));
+            _updateSources.Add(_networkEventsManager.ObtainEventSourceForDevice<Boiler>(Repository2, _boilerFactory));
+            _updateSources.Add(_networkEventsManager.ObtainEventSourceForDevice<Boiler>(Repository3, _boilerFactory));
+            _updateSources.Add(_networkEventsManager.ObtainEventSourceForDevice<Boiler>(Repository4, _boilerFactory));
             _updateSources.Add(_networkEventsManager.ObtainEventSourceForDevice(Repository1,
-                () => new GenericDevice(new GenericDeviceConfiguration
+                () => new GenericDevice(
+                    _dispatcherAdapter,
+                    new GenericDeviceConfiguration
                 {
                     Properties = new Dictionary<string, BuiltInType>
                     {
@@ -96,7 +110,9 @@ namespace CrossHMI.Shared.ViewModels
                     }
                 })));
             _updateSources.Add(_networkEventsManager.ObtainEventSourceForDevice(Repository2,
-                () => new GenericDevice(new GenericDeviceConfiguration
+                () => new GenericDevice(
+                    _dispatcherAdapter,
+                    new GenericDeviceConfiguration
                 {
                     Properties = new Dictionary<string, BuiltInType>
                     {

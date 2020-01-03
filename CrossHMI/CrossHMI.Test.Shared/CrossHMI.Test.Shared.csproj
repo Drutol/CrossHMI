@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CrossHMI.Interfaces\CrossHMI.Interfaces.csproj" />
+    <ProjectReference Include="..\CrossHMI.LibraryIntegration\CrossHMI.LibraryIntegration.csproj" />
     <ProjectReference Include="..\CrossHMI.Models\CrossHMI.Models.csproj" />
     <ProjectReference Include="..\CrossHMI.Shared\CrossHMI.Shared.csproj" />
   </ItemGroup>

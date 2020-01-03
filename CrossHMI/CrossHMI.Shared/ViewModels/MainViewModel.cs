@@ -3,6 +3,7 @@ using AoLibs.Navigation.Core.Interfaces;
 using CrossHMI.Interfaces.Adapters;
 using CrossHMI.Models.Enums;
 using GalaSoft.MvvmLight;
+using Microsoft.Extensions.Logging;
 
 [assembly: InternalsVisibleTo("CrossHMI.Test.Shared")]
 
@@ -13,14 +14,16 @@ namespace CrossHMI.Shared.ViewModels
     /// </summary>
     public class MainViewModel : ViewModelBase
     {
-        private readonly ILogAdapter<MainViewModel> _logger;
+        private readonly ILogger<MainViewModel> _logger;
         private readonly INavigationManager<PageIndex> _navigationManager;
 
         /// <summary>
         ///     Creates new <see cref="MainViewModel" /> intance.
         /// </summary>
         /// <param name="navigationManager"></param>
-        public MainViewModel(INavigationManager<PageIndex> navigationManager, ILogAdapter<MainViewModel> logger)
+        public MainViewModel(
+            INavigationManager<PageIndex> navigationManager,
+            ILogger<MainViewModel> logger)
         {
             _navigationManager = navigationManager;
             _logger = logger;

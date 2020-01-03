@@ -2,16 +2,17 @@
 using Android.Content.Res;
 using AoLibs.Adapters.Android.Interfaces;
 using CrossHMI.Interfaces.Adapters;
+using Microsoft.Extensions.Logging;
 
 namespace CrossHMI.Android.Adapters
 {
     public class ConfigurationResourcesProvider : IConfigurationResourcesProvider
     {
         private readonly IContextProvider _contextProvider;
-        private readonly ILogAdapter<ConfigurationResourcesProvider> _logger;
+        private readonly ILogger<ConfigurationResourcesProvider> _logger;
 
         public ConfigurationResourcesProvider(IContextProvider contextProvider,
-            ILogAdapter<ConfigurationResourcesProvider> logger)
+            ILogger<ConfigurationResourcesProvider> logger)
         {
             _contextProvider = contextProvider;
             _logger = logger;

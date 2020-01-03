@@ -4,6 +4,7 @@ using System.IO;
 using CrossHMI.Interfaces;
 using CrossHMI.Interfaces.Adapters;
 using CrossHMI.Interfaces.Networking;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using UAOOI.Configuration.Networking;
 
@@ -17,7 +18,7 @@ namespace CrossHMI.Shared.Infrastructure.Configuration
         IAdditionalRepositoryDescriptorProvider
     {
         private readonly IConfigurationResourcesProvider _configurationResourcesProvider;
-        private readonly ILogAdapter<ConfigurationFactory> _logger;
+        private readonly ILogger<ConfigurationFactory> _logger;
 
         /// <inheritdoc />
         public IReadOnlyCollection<IAdditionalRepositoryDataDescriptor> Descriptors { get; private set; }
@@ -28,7 +29,7 @@ namespace CrossHMI.Shared.Infrastructure.Configuration
         /// <param name="configurationResourcesProvider">The provider of raw configuration asset.</param>
         public ConfigurationFactory(
             IConfigurationResourcesProvider configurationResourcesProvider,
-            ILogAdapter<ConfigurationFactory> logger)
+            ILogger<ConfigurationFactory> logger)
         {
             _configurationResourcesProvider = configurationResourcesProvider;
             _logger = logger;

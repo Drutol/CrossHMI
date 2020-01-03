@@ -6,18 +6,19 @@ using CrossHMI.Shared.Devices;
 using CrossHMI.Shared.NavArgs;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using Microsoft.Extensions.Logging;
 
 namespace CrossHMI.Shared.ViewModels
 {
     public class BoilerDetailsViewModel : ViewModelBase
     {
-        private readonly ILogAdapter<BoilerDetailsViewModel> _logger;
+        private readonly ILogger<BoilerDetailsViewModel> _logger;
         private readonly IUriLauncherAdapter _uriLauncherAdapter;
 
         private Boiler _boiler;
 
         public BoilerDetailsViewModel(IUriLauncherAdapter uriLauncherAdapter,
-            ILogAdapter<BoilerDetailsViewModel> logger)
+            ILogger<BoilerDetailsViewModel> logger)
         {
             _uriLauncherAdapter = uriLauncherAdapter;
             _logger = logger;
