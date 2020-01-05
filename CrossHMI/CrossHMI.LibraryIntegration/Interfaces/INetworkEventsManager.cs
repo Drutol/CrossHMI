@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace CrossHMI.Interfaces.Networking
+namespace CrossHMI.LibraryIntegration.Interfaces
 {
     /// <summary>
     ///     Root class that initializes the library and abstraction layer of itself.

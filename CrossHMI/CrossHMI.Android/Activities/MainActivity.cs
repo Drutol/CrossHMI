@@ -16,15 +16,13 @@ using AoLibs.Navigation.Android.Navigation;
 using AoLibs.Navigation.Core.Interfaces;
 using AoLibs.Navigation.Core.PageProviders;
 using Autofac;
-using CrossHMI.Android.Adapters;
 using CrossHMI.Android.Fragment;
-using CrossHMI.Interfaces.Adapters;
 using CrossHMI.Models.Enums;
 using CrossHMI.Shared.Statics;
 using CrossHMI.Shared.ViewModels;
 using Microsoft.Extensions.Logging;
 
-namespace CrossHMI.Android
+namespace CrossHMI.Android.Activities
 {
     [Activity(Label = "@string/app_name", Theme = "@style/AppTheme", MainLauncher = true,
         ConfigurationChanges = ConfigChanges.Orientation | ConfigChanges.ScreenSize,

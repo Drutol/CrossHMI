@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using CrossHMI.Models.Networking;
+using CrossHMI.LibraryIntegration.Models;
 using UAOOI.Networking.SemanticData;
 using UAOOI.Networking.SemanticData.DataRepository;
 
-namespace CrossHMI.Interfaces.Networking
+namespace CrossHMI.LibraryIntegration.Interfaces
 {
     /// <summary>
     ///     Extension to <see cref="IBindingFactory" /> exposing <see cref="IConsumerBinding" /> per every repository.

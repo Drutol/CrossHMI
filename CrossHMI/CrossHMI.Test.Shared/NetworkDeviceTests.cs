@@ -1,11 +1,5 @@
-using System.Linq;
-using AoLibs.Adapters.Core.Interfaces;
-using CrossHMI.Interfaces.Adapters;
-using CrossHMI.Interfaces.Networking;
-using CrossHMI.Shared.Devices;
-using CrossHMI.Shared.Infrastructure;
+using CrossHMI.LibraryIntegration.Infrastructure;
 using CrossHMI.Shared.Infrastructure.Configuration;
-using CrossHMI.Test.Shared.Devices;
 using CrossHMI.Test.Shared.Helpers;
 using Microsoft.Extensions.Logging;
 using Moq;

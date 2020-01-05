@@ -1,9 +1,8 @@
 ﻿using System.ComponentModel;
-using CrossHMI.Interfaces;
-using CrossHMI.Interfaces.Networking;
+using CrossHMI.LibraryIntegration.Interfaces;
 using UAOOI.Networking.SemanticData.DataRepository;
 
-namespace CrossHMI.Shared.EventSources
+namespace CrossHMI.LibraryIntegration.Infrastructure.EventSources
 {
     /// <inheritdoc />
     public class NetworkVariableEventSource<T> : INetworkVariableUpdateSource<T>

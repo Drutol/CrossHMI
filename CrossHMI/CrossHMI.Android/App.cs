@@ -9,6 +9,7 @@ using AoLibs.Adapters.Android.Interfaces;
 using AoLibs.Adapters.Core.Interfaces;
 using AoLibs.Navigation.Core.Interfaces;
 using Autofac;
+using CrossHMI.Android.Activities;
 using CrossHMI.Android.Adapters;
 using CrossHMI.Interfaces.Adapters;
 using CrossHMI.Models.Enums;

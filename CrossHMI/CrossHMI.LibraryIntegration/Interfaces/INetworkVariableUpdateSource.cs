@@ -1,6 +1,6 @@
 ﻿using UAOOI.Networking.SemanticData.DataRepository;
 
-namespace CrossHMI.Interfaces.Networking
+namespace CrossHMI.LibraryIntegration.Interfaces
 {
     /// <summary>
     ///     Component meant to wrap <see cref="IConsumerBinding" /> exposing an event with update information.

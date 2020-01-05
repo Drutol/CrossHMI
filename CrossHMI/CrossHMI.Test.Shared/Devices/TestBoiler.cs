@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
-using CrossHMI.Interfaces.Networking;
-using CrossHMI.Shared.Devices;
+using CrossHMI.LibraryIntegration.Infrastructure.Devices;
+using CrossHMI.LibraryIntegration.Interfaces;
 using CrossHMI.Shared.Infrastructure.Configuration;
 
 namespace CrossHMI.Test.Shared.Devices

@@ -2,16 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using CrossHMI.Interfaces.Networking;
-using CrossHMI.Models.Networking;
-using CrossHMI.Shared.EventSources;
-using CrossHMI.Shared.Interfaces;
+using CrossHMI.LibraryIntegration.Infrastructure.EventSources;
+using CrossHMI.LibraryIntegration.Interfaces;
+using CrossHMI.LibraryIntegration.Models;
 using Microsoft.Extensions.Logging;
 using UAOOI.Configuration.Networking;
 using UAOOI.Networking.Core;
 using UAOOI.Networking.SemanticData;
 
-namespace CrossHMI.Shared.Infrastructure
+namespace CrossHMI.LibraryIntegration.Infrastructure
 {
     /// <inheritdoc cref="INetworkEventsManager" />
     public class NetworkEventsManager : DataManagementSetup, INetworkEventsManager

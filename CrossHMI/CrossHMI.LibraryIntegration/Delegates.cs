@@ -1,6 +1,6 @@
-﻿using CrossHMI.Interfaces.Networking;
+﻿using CrossHMI.LibraryIntegration.Interfaces;
 
-namespace CrossHMI.Interfaces
+namespace CrossHMI.LibraryIntegration
 {
     public delegate void NetworkVariableUpdateEventHandler<T>(
         INetworkVariableUpdateSource<T> deviceUpdateSourceBase,

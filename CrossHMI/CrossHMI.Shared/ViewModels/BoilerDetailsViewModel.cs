@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Windows.Input;
 using AoLibs.Adapters.Core.Interfaces;
-using CrossHMI.Interfaces.Adapters;
 using CrossHMI.Shared.Devices;
 using CrossHMI.Shared.NavArgs;
 using GalaSoft.MvvmLight;

@@ -1,4 +1,4 @@
-﻿namespace CrossHMI.Interfaces.Networking
+﻿namespace CrossHMI.LibraryIntegration.Interfaces
 {
     /// <summary>
     ///     Interface for objects representing registration of an extension.

@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
-using CrossHMI.Interfaces.Networking;
+using CrossHMI.LibraryIntegration.Interfaces;
 using GalaSoft.MvvmLight;
 
-namespace CrossHMI.Shared.Devices
+namespace CrossHMI.LibraryIntegration.Infrastructure.Devices
 {
     /// <summary>
     ///     Base utility class for final model classes. Provides functionality of automatically defining marked properties.

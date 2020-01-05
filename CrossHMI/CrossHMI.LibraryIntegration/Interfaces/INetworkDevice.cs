@@ -1,4 +1,4 @@
-﻿namespace CrossHMI.Interfaces.Networking
+﻿namespace CrossHMI.LibraryIntegration.Interfaces
 {
     /// <summary>
     ///     Interface for NetworkDevice that is instance of an object

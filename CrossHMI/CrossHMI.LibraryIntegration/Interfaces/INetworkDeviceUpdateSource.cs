@@ -1,4 +1,4 @@
-﻿namespace CrossHMI.Interfaces.Networking
+﻿namespace CrossHMI.LibraryIntegration.Interfaces
 {
     /// <summary>
     ///     Component that forwards updates from library to appropriate <see cref="INetworkDevice" />.

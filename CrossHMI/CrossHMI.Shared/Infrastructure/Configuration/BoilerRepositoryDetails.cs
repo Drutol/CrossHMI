@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using CrossHMI.Interfaces;
+using CrossHMI.LibraryIntegration.Interfaces;
 
 namespace CrossHMI.Shared.Infrastructure.Configuration
 {

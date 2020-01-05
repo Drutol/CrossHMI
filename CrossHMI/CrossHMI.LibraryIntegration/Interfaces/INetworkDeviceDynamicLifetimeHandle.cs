@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CrossHMI.Interfaces.Networking
+namespace CrossHMI.LibraryIntegration.Interfaces
 {
     public interface INetworkDeviceDynamicLifetimeHandle
     {

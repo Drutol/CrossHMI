@@ -1,5 +1,5 @@
 ﻿using System.Diagnostics;
-using CrossHMI.Interfaces.Networking;
+using CrossHMI.LibraryIntegration.Interfaces;
 
 namespace CrossHMI.Shared.Devices
 {

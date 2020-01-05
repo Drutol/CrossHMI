@@ -2,11 +2,10 @@
 using System.Linq;
 using System.Reflection;
 using Autofac;
-using CrossHMI.Interfaces.Adapters;
-using CrossHMI.Interfaces.Networking;
+using CrossHMI.LibraryIntegration.Infrastructure;
+using CrossHMI.LibraryIntegration.Interfaces;
 using CrossHMI.Shared.Infrastructure;
 using CrossHMI.Shared.Infrastructure.Configuration;
-using CrossHMI.Shared.Interfaces;
 using Microsoft.Extensions.Logging;
 using UAOOI.Configuration.Networking;
 using UAOOI.Networking.Core;

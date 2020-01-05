@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UAOOI.Configuration.Networking.Serialization;
 
-namespace CrossHMI.Interfaces.Networking
+namespace CrossHMI.LibraryIntegration.Interfaces
 {
     /// <summary>
     ///     Interface used in the process of defining the <see cref="INetworkDevice" /> model.

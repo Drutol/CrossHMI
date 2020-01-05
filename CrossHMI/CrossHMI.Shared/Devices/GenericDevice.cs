@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using AoLibs.Adapters.Core.Interfaces;
-using CrossHMI.Interfaces.Networking;
+using CrossHMI.LibraryIntegration.Infrastructure.Devices;
+using CrossHMI.LibraryIntegration.Interfaces;
 using CrossHMI.Shared.Infrastructure.Configuration;
 using UAOOI.Configuration.Networking.Serialization;
 

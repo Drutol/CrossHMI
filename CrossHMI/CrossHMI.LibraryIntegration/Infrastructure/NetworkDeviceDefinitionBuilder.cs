@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using CrossHMI.Interfaces;
-using CrossHMI.Interfaces.Networking;
+using CrossHMI.LibraryIntegration.Interfaces;
 using Microsoft.Extensions.Logging;
 
-namespace CrossHMI.Shared.Infrastructure
+namespace CrossHMI.LibraryIntegration.Infrastructure
 {
     /// <summary>
     ///     Builder that allows the model class in question

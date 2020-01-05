@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using CrossHMI.Interfaces.Networking;
-using CrossHMI.Models.Networking;
+using CrossHMI.LibraryIntegration.Interfaces;
+using CrossHMI.LibraryIntegration.Models;
 using UAOOI.Configuration.Networking.Serialization;
 using UAOOI.Networking.SemanticData;
 using UAOOI.Networking.SemanticData.DataRepository;
 
-namespace CrossHMI.Shared.Infrastructure
+namespace CrossHMI.LibraryIntegration.Infrastructure
 {
     /// <summary>
     ///     Class responsible for creating bindings for every variable in every repository as requested by library.

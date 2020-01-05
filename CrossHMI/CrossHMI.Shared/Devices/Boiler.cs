@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using AoLibs.Adapters.Core.Interfaces;
-using CrossHMI.Interfaces.Adapters;
-using CrossHMI.Interfaces.Networking;
+using CrossHMI.LibraryIntegration.Infrastructure.Devices;
+using CrossHMI.LibraryIntegration.Interfaces;
 using CrossHMI.Shared.Infrastructure.Configuration;
 using Microsoft.Extensions.Logging;
 

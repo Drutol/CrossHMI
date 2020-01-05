@@ -1,4 +1,4 @@
-﻿namespace CrossHMI.Interfaces.Networking
+﻿namespace CrossHMI.LibraryIntegration.Interfaces
 {
     public interface INetworkDynamicDevice : INetworkDevice
     {

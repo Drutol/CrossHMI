@@ -1,6 +1,6 @@
-﻿using CrossHMI.Interfaces.Networking;
+﻿using CrossHMI.LibraryIntegration.Interfaces;
 
-namespace CrossHMI.Shared.EventSources
+namespace CrossHMI.LibraryIntegration.Infrastructure.EventSources
 {
     /// <inheritdoc />
     public class NetworkDeviceUpdateSource<T> : INetworkDeviceUpdateSource<T>

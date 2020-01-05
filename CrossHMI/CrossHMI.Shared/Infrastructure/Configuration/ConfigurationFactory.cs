@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using CrossHMI.Interfaces;
 using CrossHMI.Interfaces.Adapters;
-using CrossHMI.Interfaces.Networking;
+using CrossHMI.LibraryIntegration.Interfaces;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using UAOOI.Configuration.Networking;

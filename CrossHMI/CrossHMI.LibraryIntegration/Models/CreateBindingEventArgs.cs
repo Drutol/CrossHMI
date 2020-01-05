@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CrossHMI.Models.Networking
+namespace CrossHMI.LibraryIntegration.Models
 {
     public class CreateBindingEventArgs
     {

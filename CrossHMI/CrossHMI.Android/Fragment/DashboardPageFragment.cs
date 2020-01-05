@@ -7,6 +7,7 @@ using Android.Widget;
 using AoLibs.Adapters.Android.Recycler;
 using AoLibs.Navigation.Android.Navigation;
 using AoLibs.Utilities.Android;
+using CrossHMI.LibraryIntegration.Infrastructure.Devices;
 using CrossHMI.Shared.Devices;
 using CrossHMI.Shared.ViewModels;
 using GalaSoft.MvvmLight.Helpers;

@@ -1,6 +1,5 @@
 ﻿using System.Runtime.CompilerServices;
 using AoLibs.Navigation.Core.Interfaces;
-using CrossHMI.Interfaces.Adapters;
 using CrossHMI.Models.Enums;
 using GalaSoft.MvvmLight;
 using Microsoft.Extensions.Logging;

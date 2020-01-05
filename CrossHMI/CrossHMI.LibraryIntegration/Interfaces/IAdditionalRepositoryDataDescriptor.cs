@@ -1,6 +1,6 @@
 ﻿using UAOOI.Configuration.Networking.Serialization;
 
-namespace CrossHMI.Interfaces
+namespace CrossHMI.LibraryIntegration.Interfaces
 {
     /// <summary>
     ///     Interface for objects that are found in extended <see cref="ConfigurationData" />.

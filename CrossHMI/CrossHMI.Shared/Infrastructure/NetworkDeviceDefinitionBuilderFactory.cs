@@ -1,6 +1,6 @@
 ﻿using Autofac;
-using CrossHMI.Interfaces.Networking;
-using CrossHMI.Shared.Interfaces;
+using CrossHMI.LibraryIntegration.Infrastructure;
+using CrossHMI.LibraryIntegration.Interfaces;
 
 namespace CrossHMI.Shared.Infrastructure
 {

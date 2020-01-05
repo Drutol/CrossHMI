@@ -1,7 +1,6 @@
-﻿using CrossHMI.Interfaces.Networking;
-using CrossHMI.Shared.Infrastructure;
+﻿using CrossHMI.LibraryIntegration.Infrastructure;
 
-namespace CrossHMI.Shared.Interfaces
+namespace CrossHMI.LibraryIntegration.Interfaces
 {
     public interface INetworkDeviceDefinitionBuilderFactory
     {
