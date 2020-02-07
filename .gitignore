@@ -232,3 +232,4 @@ MALClient.XShared/Secrets.cs
 
 site/
 CrossHMI/CrossHMI.Android/Resources/values/secrets.xml
+/CrossHMI/CrossHMI.AzureGatewayService/Configuration/LibraryConfiguration.json

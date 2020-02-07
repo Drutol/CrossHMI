@@ -16,12 +16,12 @@ namespace CrossHMI.LibraryIntegration.Infrastructure
         where TDevice : INetworkDevice
     {
         private readonly ILogger<NetworkDeviceDefinitionBuilder<TDevice>> _builderLogger;
-        private readonly INetworkDeviceUpdateSourceBase _deviceUpdateSource;
         private readonly List<IExtensionDeclaration> _extensionDeclarations = new List<IExtensionDeclaration>();
-
         private readonly INetworkEventsManager _networkEventsManager;
         private readonly IAdditionalRepositoryDescriptorProvider _additionalRepositoryDescriptorProvider;
+
         private string _repository;
+        private INetworkDeviceUpdateSourceBase _deviceUpdateSource;
 
         private readonly Func<TDevice> _deviceInstanceFactory = DefaultDeviceFactory;
         private NetworkDeviceDynamicLifetimeHandle _dynamicHandle;
@@ -32,16 +32,17 @@ namespace CrossHMI.LibraryIntegration.Infrastructure
         /// <param name="networkEventsManager">Network events manager.</param>
         /// <param name="additionalRepositoryDescriptorProvider">Additional descriptor provider.</param>
         /// <param name="deviceUpdateSource">The device update source.</param>
+        /// <param name="logger">Logger.</param>
         public NetworkDeviceDefinitionBuilder(
             INetworkEventsManager networkEventsManager,
             IAdditionalRepositoryDescriptorProvider additionalRepositoryDescriptorProvider,
             INetworkDeviceUpdateSourceBase deviceUpdateSource,
-            ILogger<NetworkDeviceDefinitionBuilder<TDevice>> logAdapter = null)
+            ILogger<NetworkDeviceDefinitionBuilder<TDevice>> logger = null)
         {
-            _builderLogger = logAdapter;
+            _builderLogger = logger;
             _networkEventsManager = networkEventsManager;
             _additionalRepositoryDescriptorProvider = additionalRepositoryDescriptorProvider;
-            _deviceUpdateSource = deviceUpdateSource;
+
         }
 
         private static Func<TDevice> DefaultDeviceFactory { get; set; } = Activator.CreateInstance<TDevice>;
@@ -56,8 +57,18 @@ namespace CrossHMI.LibraryIntegration.Infrastructure
         }
 
         /// <inheritdoc />
+        public INetworkDeviceDefinitionBuilder WithUpdateSource(INetworkDeviceUpdateSourceBase deviceUpdateSource)
+        {
+            _deviceUpdateSource = deviceUpdateSource;
+            return this;
+        }
+
+        /// <inheritdoc />
         public INetworkDeviceDefinitionBuilder DefineVariable<T>(string variableName)
         {
+            if (_deviceUpdateSource == null)
+                throw new InvalidOperationException("Unable to define variable without defining update source.");
+
             _builderLogger.LogDebug($"Defining {variableName} of type {typeof(T).Name} for {_repository}.");
             _deviceUpdateSource.RegisterNetworkVariable(
                 _networkEventsManager.ObtainEventSourceForVariable<T>(_repository, variableName));
@@ -89,6 +100,9 @@ namespace CrossHMI.LibraryIntegration.Infrastructure
         /// <param name="factory"></param>
         public TDevice Build(Func<TDevice> factory = null)
         {
+            if (_deviceUpdateSource == null)
+                throw new InvalidOperationException("Unable to build the device without defining update source.");
+
             _builderLogger.LogDebug($"Commencing building event source for {_repository}");
             var device = (factory ?? _deviceInstanceFactory)();
             _builderLogger.LogDebug("Instantiated device model.");

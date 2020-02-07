@@ -13,6 +13,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Interfaces\**" />
+    <EmbeddedResource Remove="Interfaces\**" />
+    <None Remove="Interfaces\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AoLibs.Adapters.Core" Version="0.6.9" />
     <PackageReference Include="AoLibs.Navigation.Core" Version="0.6.9" />
     <PackageReference Include="AoLibs.Utilities.Shared" Version="0.6.9" />
@@ -28,10 +34,6 @@
     <ProjectReference Include="..\CrossHMI.Interfaces\CrossHMI.Interfaces.csproj" />
     <ProjectReference Include="..\CrossHMI.LibraryIntegration\CrossHMI.LibraryIntegration.csproj" />
     <ProjectReference Include="..\CrossHMI.Models\CrossHMI.Models.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Interfaces\" />
   </ItemGroup>
 
 </Project>

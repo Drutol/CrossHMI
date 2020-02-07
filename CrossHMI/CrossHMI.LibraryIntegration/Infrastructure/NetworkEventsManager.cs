@@ -57,7 +57,7 @@ namespace CrossHMI.LibraryIntegration.Infrastructure
         /// <inheritdoc />
         public async Task Initialize()
         {
-            await Task.Run(() => { Start(); });
+            await Task.Run(Start);
         }
 
         public void EnableAutomaticDeviceInstantiation<TDevice>() where TDevice : INetworkDynamicDevice, new()

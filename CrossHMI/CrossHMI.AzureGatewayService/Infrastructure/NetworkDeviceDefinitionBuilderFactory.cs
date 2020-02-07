@@ -1,22 +1,23 @@
-﻿using Autofac;
+﻿using System;
 using CrossHMI.LibraryIntegration.Infrastructure;
 using CrossHMI.LibraryIntegration.Interfaces;
+using Microsoft.Extensions.DependencyInjection;
 
-namespace CrossHMI.Shared.Infrastructure
+namespace CrossHMI.AzureGatewayService.Infrastructure
 {
     internal class NetworkDeviceDefinitionBuilderFactory : INetworkDeviceDefinitionBuilderFactory
     {
-        private readonly ILifetimeScope _lifetimeScope;
+        private readonly IServiceProvider _lifetimeScope;
 
-        public NetworkDeviceDefinitionBuilderFactory(ILifetimeScope lifetimeScope)
+        public NetworkDeviceDefinitionBuilderFactory(IServiceProvider lifetimeScope)
         {
             _lifetimeScope = lifetimeScope;
         }
 
         public INetworkDeviceDefinitionBuilder CreateBuilder<T>(INetworkDeviceUpdateSourceBase source) where T : INetworkDevice
         {
-            return _lifetimeScope.Resolve<NetworkDeviceDefinitionBuilder<T>>(
-                new TypedParameter(typeof(INetworkDeviceUpdateSourceBase), source));
+            var builder = _lifetimeScope.GetService<NetworkDeviceDefinitionBuilder<T>>();
+            return builder.WithUpdateSource(source);
         }
     }
 }

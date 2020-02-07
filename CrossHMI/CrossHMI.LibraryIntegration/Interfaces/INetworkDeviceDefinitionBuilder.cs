@@ -16,6 +16,12 @@ namespace CrossHMI.LibraryIntegration.Interfaces
         INetworkDeviceDefinitionBuilder WithRepository(string repository);
 
         /// <summary>
+        /// Configures repository of given builder.
+        /// </summary>
+        /// <param name="deviceUpdateSource">Device update source.</param>
+        INetworkDeviceDefinitionBuilder WithUpdateSource(INetworkDeviceUpdateSourceBase deviceUpdateSource);
+
+        /// <summary>
         ///     Define the subscription to given process variable found in repository.
         /// </summary>
         /// <typeparam name="T">The type of the property.</typeparam>
