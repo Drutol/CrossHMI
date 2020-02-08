@@ -2,8 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CrossHMI.AzureGatewayService.Devices;
 using CrossHMI.AzureGatewayService.Infrastructure;
+using CrossHMI.AzureGatewayService.Infrastructure.Azure;
 using CrossHMI.AzureGatewayService.Infrastructure.Configuration;
+using CrossHMI.AzureGatewayService.Interfaces;
 using CrossHMI.LibraryIntegration.Infrastructure;
 using CrossHMI.LibraryIntegration.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
@@ -28,8 +31,11 @@ namespace CrossHMI.AzureGatewayService
             Host.CreateDefaultBuilder(args)
                 .ConfigureServices((hostContext, services) =>
                 {
-                    services.AddHostedService<Bootstrapper>();
-                    services.AddHostedService<AzurePublisher>();
+                    services.AddSingleton<IAzurePublisher, AzurePublisher>();
+                    services.AddSingleton<IBootstrapper, Bootstrapper>();
+
+                    services.AddHostedService(provider => (Bootstrapper)provider.GetRequiredService<IBootstrapper>());
+                    services.AddHostedService(provider => (AzurePublisher)provider.GetRequiredService<IAzurePublisher>());
 
                     //Library
                     services.AddSingleton<IMessageHandlerFactory, MessageHandlerFactory>();
@@ -43,6 +49,7 @@ namespace CrossHMI.AzureGatewayService
                         .AddSingleton<INetworkDeviceDefinitionBuilderFactory, NetworkDeviceDefinitionBuilderFactory>();
 
                     services.AddTransient(typeof(NetworkDeviceDefinitionBuilder<>));
+                    services.AddTransient<Boiler>();
                 })
                 .ConfigureLogging(builder =>
                 {

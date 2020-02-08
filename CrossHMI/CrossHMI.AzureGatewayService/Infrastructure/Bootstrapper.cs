@@ -38,12 +38,17 @@ namespace CrossHMI.AzureGatewayService.Infrastructure
         {
             await _networkEventsManager.Initialize().ConfigureAwait(false);
 
-            var boilerSource =
+            var boilerSource1 =
                 _networkEventsManager.ObtainEventSourceForDevice(
                     "BoilersArea_Boiler #1",
                     _serviceProvider.GetService<Boiler>);
+            var boilerSource2 =
+                _networkEventsManager.ObtainEventSourceForDevice(
+                    "BoilersArea_Boiler #2",
+                    _serviceProvider.GetService<Boiler>);
 
-            _azurePublisher.RegisterDeviceForPublishing(boilerSource.Device);
+            _azurePublisher.RegisterDeviceForPublishing(boilerSource1.Device);
+            _azurePublisher.RegisterDeviceForPublishing(boilerSource2.Device);
         }
     }
 }

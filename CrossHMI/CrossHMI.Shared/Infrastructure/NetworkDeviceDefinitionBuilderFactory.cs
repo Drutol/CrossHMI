@@ -15,8 +15,7 @@ namespace CrossHMI.Shared.Infrastructure
 
         public INetworkDeviceDefinitionBuilder CreateBuilder<T>(INetworkDeviceUpdateSourceBase source) where T : INetworkDevice
         {
-            return _lifetimeScope.Resolve<NetworkDeviceDefinitionBuilder<T>>(
-                new TypedParameter(typeof(INetworkDeviceUpdateSourceBase), source));
+            return _lifetimeScope.Resolve<NetworkDeviceDefinitionBuilder<T>>().WithUpdateSource(source);
         }
     }
 }

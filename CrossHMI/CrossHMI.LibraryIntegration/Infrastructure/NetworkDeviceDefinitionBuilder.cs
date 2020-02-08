@@ -31,12 +31,10 @@ namespace CrossHMI.LibraryIntegration.Infrastructure
         /// </summary>
         /// <param name="networkEventsManager">Network events manager.</param>
         /// <param name="additionalRepositoryDescriptorProvider">Additional descriptor provider.</param>
-        /// <param name="deviceUpdateSource">The device update source.</param>
         /// <param name="logger">Logger.</param>
         public NetworkDeviceDefinitionBuilder(
             INetworkEventsManager networkEventsManager,
             IAdditionalRepositoryDescriptorProvider additionalRepositoryDescriptorProvider,
-            INetworkDeviceUpdateSourceBase deviceUpdateSource,
             ILogger<NetworkDeviceDefinitionBuilder<TDevice>> logger = null)
         {
             _builderLogger = logger;
