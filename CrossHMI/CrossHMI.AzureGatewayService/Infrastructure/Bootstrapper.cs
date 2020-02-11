@@ -5,6 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using CrossHMI.AzureGatewayService.Devices;
 using CrossHMI.AzureGatewayService.Interfaces;
+using CrossHMI.LibraryIntegration.AzureGateway.Interfaces;
 using CrossHMI.LibraryIntegration.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -32,6 +33,13 @@ namespace CrossHMI.AzureGatewayService.Infrastructure
             _networkEventsManager = networkEventsManager;
             _builderFactory = builderFactory;
             _serviceProvider = serviceProvider;
+
+            Task.Factory.StartNew(RunAzurePublisher);
+        }
+
+        private async void RunAzurePublisher()
+        {
+            await _azurePublisher.StartAsync(CancellationToken.None);
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -47,8 +55,8 @@ namespace CrossHMI.AzureGatewayService.Infrastructure
                     "BoilersArea_Boiler #2",
                     _serviceProvider.GetService<Boiler>);
 
-            _azurePublisher.RegisterDeviceForPublishing(boilerSource1.Device);
-            _azurePublisher.RegisterDeviceForPublishing(boilerSource2.Device);
+            await _azurePublisher.RegisterDeviceForPublishingAsync(boilerSource1.Device);
+            await _azurePublisher.RegisterDeviceForPublishingAsync(boilerSource2.Device);
         }
     }
 }

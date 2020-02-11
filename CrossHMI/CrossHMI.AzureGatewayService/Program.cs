@@ -4,9 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using CrossHMI.AzureGatewayService.Devices;
 using CrossHMI.AzureGatewayService.Infrastructure;
-using CrossHMI.AzureGatewayService.Infrastructure.Azure;
 using CrossHMI.AzureGatewayService.Infrastructure.Configuration;
 using CrossHMI.AzureGatewayService.Interfaces;
+using CrossHMI.LibraryIntegration.AzureGateway.Infrastructure;
+using CrossHMI.LibraryIntegration.AzureGateway.Interfaces;
 using CrossHMI.LibraryIntegration.Infrastructure;
 using CrossHMI.LibraryIntegration.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
@@ -35,7 +36,6 @@ namespace CrossHMI.AzureGatewayService
                     services.AddSingleton<IBootstrapper, Bootstrapper>();
 
                     services.AddHostedService(provider => (Bootstrapper)provider.GetRequiredService<IBootstrapper>());
-                    services.AddHostedService(provider => (AzurePublisher)provider.GetRequiredService<IAzurePublisher>());
 
                     //Library
                     services.AddSingleton<IMessageHandlerFactory, MessageHandlerFactory>();
@@ -50,11 +50,6 @@ namespace CrossHMI.AzureGatewayService
 
                     services.AddTransient(typeof(NetworkDeviceDefinitionBuilder<>));
                     services.AddTransient<Boiler>();
-                })
-                .ConfigureLogging(builder =>
-                {
-                    builder.ClearProviders();
-                    builder.AddConsole();
                 });
     }
 }
