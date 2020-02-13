@@ -90,14 +90,14 @@ namespace CrossHMI.LibraryIntegration.AzureGateway.Infrastructure
                 else
                 {
                     _logger?.LogError(
-                        $"Failed to register device {azureEnabledNetworkDevice?.AzureConnectionParameters?.AzureDeviceId}");
+                        $"Failed to register device {azureEnabledNetworkDevice?.AzureDeviceParameters?.AzureDeviceId}");
                     return false;
                 }
             }
             catch (Exception e)
             {
                 _logger?.LogError(e,
-                    $"Failed to register device {azureEnabledNetworkDevice?.AzureConnectionParameters?.AzureDeviceId}");
+                    $"Failed to register device {azureEnabledNetworkDevice?.AzureDeviceParameters?.AzureDeviceId}");
                 throw;
             }
             finally
@@ -106,6 +106,17 @@ namespace CrossHMI.LibraryIntegration.AzureGateway.Infrastructure
             }
 
             return true;
+        }
+
+        public void Dispose()
+        {
+            _loggerFactory?.Dispose();
+            _handlesSemaphore?.Dispose();
+
+            foreach (var handle in _deviceHandles)
+            {
+                handle.Dispose();
+            }
         }
     }
 }

@@ -56,7 +56,7 @@ namespace CrossHMI.AzureGatewayService.Infrastructure
                     _serviceProvider.GetService<Boiler>);
 
             await _azurePublisher.RegisterDeviceForPublishingAsync(boilerSource1.Device);
-            await _azurePublisher.RegisterDeviceForPublishingAsync(boilerSource2.Device);
+            //await _azurePublisher.RegisterDeviceForPublishingAsync(boilerSource2.Device);
         }
     }
 }

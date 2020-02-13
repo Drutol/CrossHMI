@@ -7,13 +7,11 @@ namespace CrossHMI.LibraryIntegration.AzureGateway.Util
 {
     internal static class Extensions
     {
-        internal static void AssertNotNull(this IAzureConnectionParameters parameters)
+        internal static void AssertNotNull(this IAzureDeviceParameters parameters)
         {
             if (parameters == null || 
                 string.IsNullOrEmpty(parameters.AzureDeviceId) ||
-                string.IsNullOrEmpty(parameters.AzureScopeId) ||
-                string.IsNullOrEmpty(parameters.AzurePrimaryKey) ||
-                string.IsNullOrEmpty(parameters.AzureSecondaryKey))
+                string.IsNullOrEmpty(parameters.AzureScopeId))
                 throw new ArgumentException("Provided device does not had valid Azure connection parameters.");
 
         }

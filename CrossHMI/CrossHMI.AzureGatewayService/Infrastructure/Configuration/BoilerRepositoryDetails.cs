@@ -1,9 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Runtime.Serialization;
+using System.Text;
+using System.Threading.Tasks;
 using CrossHMI.AzureGatewayService.Interfaces;
 using CrossHMI.LibraryIntegration.AzureGateway.Interfaces;
 using CrossHMI.LibraryIntegration.Interfaces;
 using Microsoft.Azure.Devices.Client;
+using Microsoft.Azure.Devices.Shared;
+using Newtonsoft.Json;
+using Optional;
 
 namespace CrossHMI.AzureGatewayService.Infrastructure.Configuration
 {
@@ -11,21 +16,26 @@ namespace CrossHMI.AzureGatewayService.Infrastructure.Configuration
     ///     Class with extra data about the repository.
     /// </summary>
     [DataContract]
-    public class BoilerRepositoryDetails : IAdditionalRepositoryDataDescriptor, IAzureConnectionParameters
+    public class BoilerRepositoryDetails :
+        IAdditionalRepositoryDataDescriptor,
+        IAzureDeviceParameters
     {
         public TransportType TransportType { get; } = TransportType.Amqp;
 
-        [DataMember]
-        public string AzureDeviceId { get; set; }
-        [DataMember]
-        public string AzureScopeId { get; set; }
-        [DataMember]
-        public string AzurePrimaryKey { get; set; }
-        [DataMember]
-        public string AzureSecondaryKey { get; set; }
+        [DataMember] public string AzureDeviceId { get; set; }
+        [DataMember] public string AzureScopeId { get; set; }
+
+        [DataMember] public string AzurePrimaryKey { get; set; }
+        [DataMember] public string AzureSecondaryKey { get; set; }
 
         /// <inheritdoc />
         [DataMember]
         public string Repository { get; set; }
+
+        public Task<SecurityProvider> GetSecurityProviderAsync() =>
+            Task.FromResult<SecurityProvider>(new SecurityProviderSymmetricKey(
+                AzureDeviceId,
+                AzurePrimaryKey,
+                AzureSecondaryKey));
     }
 }

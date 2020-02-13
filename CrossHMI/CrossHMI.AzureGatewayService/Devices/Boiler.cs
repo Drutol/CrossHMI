@@ -5,6 +5,7 @@ using CrossHMI.AzureGatewayService.Interfaces;
 using CrossHMI.LibraryIntegration.AzureGateway.Interfaces;
 using CrossHMI.LibraryIntegration.Infrastructure.Devices;
 using CrossHMI.LibraryIntegration.Interfaces;
+using Microsoft.Azure.Devices.Client;
 using Newtonsoft.Json;
 
 namespace CrossHMI.AzureGatewayService.Devices
@@ -16,11 +17,11 @@ namespace CrossHMI.AzureGatewayService.Devices
     [DataContract]
     public class Boiler : NetworkDeviceBase, IAzureEnabledNetworkDevice
     {
-        [JsonIgnore] public override string Repository { get; set; }
+        public DeviceClient DeviceClient { get; set; }
+        public override string Repository { get; set; }
 
-        [JsonIgnore] public BoilerRepositoryDetails ConfigurationData { get; private set; }
-
-        [JsonIgnore] public IAzureConnectionParameters AzureConnectionParameters => ConfigurationData;
+        public BoilerRepositoryDetails ConfigurationData { get; private set; }
+        public IAzureDeviceParameters AzureDeviceParameters => ConfigurationData;
 
         //InputPipe
         [DataMember] [ProcessVariable] public double PipeX001_FTX001_Output { get; private set; }
