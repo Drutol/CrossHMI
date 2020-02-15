@@ -5,7 +5,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using CrossHMI.LibraryIntegration.AzureGateway.Interfaces;
 using Microsoft.Extensions.Logging;
-using Optional;
 
 namespace CrossHMI.LibraryIntegration.AzureGateway.Infrastructure
 {
@@ -16,6 +15,7 @@ namespace CrossHMI.LibraryIntegration.AzureGateway.Infrastructure
         private readonly List<AzurePublisherDeviceHandle> _deviceHandles = new List<AzurePublisherDeviceHandle>();
         private readonly SemaphoreSlim _handlesSemaphore = new SemaphoreSlim(1);
 
+        ///<inheritdoc/>
         public TimeSpan PublishInterval { get; set; } = TimeSpan.FromSeconds(10);
 
         public AzurePublisher(
@@ -26,6 +26,7 @@ namespace CrossHMI.LibraryIntegration.AzureGateway.Infrastructure
             _logger = logger;
         }
 
+        ///<inheritdoc/>
         public async Task StartAsync(CancellationToken cancellationToken)
         {
             while (!cancellationToken.IsCancellationRequested)
@@ -57,6 +58,7 @@ namespace CrossHMI.LibraryIntegration.AzureGateway.Infrastructure
             }
         }
 
+        ///<inheritdoc/>
         public async Task CancelDevicePublishingAsync(IAzureEnabledNetworkDevice device)
         {
             await _handlesSemaphore.WaitAsync().ConfigureAwait(false);
@@ -77,6 +79,7 @@ namespace CrossHMI.LibraryIntegration.AzureGateway.Infrastructure
             }
         }
 
+        ///<inheritdoc/>
         public async Task<bool> RegisterDeviceForPublishingAsync(IAzureEnabledNetworkDevice azureEnabledNetworkDevice)
         {
             var handle = new AzurePublisherDeviceHandle(azureEnabledNetworkDevice, _loggerFactory);
@@ -108,6 +111,7 @@ namespace CrossHMI.LibraryIntegration.AzureGateway.Infrastructure
             return true;
         }
 
+        ///<inheritdoc/>
         public void Dispose()
         {
             _loggerFactory?.Dispose();

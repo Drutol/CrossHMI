@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.Azure.Devices.Client;
-using Optional;
 
 namespace CrossHMI.LibraryIntegration.AzureGateway.Interfaces
 {

@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using CrossHMI.AzureGatewayService.Devices;
@@ -55,7 +53,7 @@ namespace CrossHMI.AzureGatewayService.Infrastructure
                     "BoilersArea_Boiler #2",
                     _serviceProvider.GetService<Boiler>);
 
-            await _azurePublisher.RegisterDeviceForPublishingAsync(boilerSource1.Device);
+            await _azurePublisher.RegisterDeviceForPublishingAsync(boilerSource1.Device).ConfigureAwait(false);
             //await _azurePublisher.RegisterDeviceForPublishingAsync(boilerSource2.Device);
         }
     }

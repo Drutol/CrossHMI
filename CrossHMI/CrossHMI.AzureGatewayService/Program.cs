@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using CrossHMI.AzureGatewayService.Devices;
 using CrossHMI.AzureGatewayService.Infrastructure;
 using CrossHMI.AzureGatewayService.Infrastructure.Configuration;
@@ -12,7 +8,6 @@ using CrossHMI.LibraryIntegration.Infrastructure;
 using CrossHMI.LibraryIntegration.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using UAOOI.Configuration.Networking;
 using UAOOI.Networking.Core;
 using UAOOI.Networking.Encoding;

@@ -1,14 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Runtime.Serialization;
-using System.Text;
+﻿using System.Runtime.Serialization;
 using System.Threading.Tasks;
-using CrossHMI.AzureGatewayService.Interfaces;
 using CrossHMI.LibraryIntegration.AzureGateway.Interfaces;
 using CrossHMI.LibraryIntegration.Interfaces;
 using Microsoft.Azure.Devices.Client;
 using Microsoft.Azure.Devices.Shared;
-using Newtonsoft.Json;
-using Optional;
 
 namespace CrossHMI.AzureGatewayService.Infrastructure.Configuration
 {

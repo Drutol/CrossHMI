@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Runtime.Serialization;
 using CrossHMI.AzureGatewayService.Infrastructure.Configuration;
-using CrossHMI.AzureGatewayService.Interfaces;
 using CrossHMI.LibraryIntegration.AzureGateway.Interfaces;
 using CrossHMI.LibraryIntegration.Infrastructure.Devices;
 using CrossHMI.LibraryIntegration.Interfaces;

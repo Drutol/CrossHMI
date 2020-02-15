@@ -8,7 +8,6 @@ using Microsoft.Azure.Devices.Provisioning.Client;
 using Microsoft.Azure.Devices.Provisioning.Client.Transport;
 using Microsoft.Azure.Devices.Shared;
 using Microsoft.Extensions.Logging;
-using Optional.Async.Extensions;
 
 namespace CrossHMI.LibraryIntegration.AzureGateway.Infrastructure
 {
