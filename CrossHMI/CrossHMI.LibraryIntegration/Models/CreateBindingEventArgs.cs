@@ -2,6 +2,9 @@
 
 namespace CrossHMI.LibraryIntegration.Models
 {
+    /// <summary>
+    /// Model for passing binding notification parameters.
+    /// </summary>
     public class CreateBindingEventArgs
     {
         public string Repository { get; }

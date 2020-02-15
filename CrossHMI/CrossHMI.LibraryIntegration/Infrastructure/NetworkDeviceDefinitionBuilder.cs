@@ -67,7 +67,7 @@ namespace CrossHMI.LibraryIntegration.Infrastructure
             if (_deviceUpdateSource == null)
                 throw new InvalidOperationException("Unable to define variable without defining update source.");
 
-            _builderLogger.LogDebug($"Defining {variableName} of type {typeof(T).Name} for {_repository}.");
+            _builderLogger?.LogDebug($"Defining {variableName} of type {typeof(T).Name} for {_repository}.");
             _deviceUpdateSource.RegisterNetworkVariable(
                 _networkEventsManager.ObtainEventSourceForVariable<T>(_repository, variableName));
             return this;
@@ -78,7 +78,7 @@ namespace CrossHMI.LibraryIntegration.Infrastructure
             Action<TExtension> extenstionAssigned)
             where TExtension : class, IAdditionalRepositoryDataDescriptor
         {
-            _builderLogger.LogDebug(
+            _builderLogger?.LogDebug(
                 $"Defining configuration extension of type {typeof(TExtension).Name} for {_repository}.");
             _extensionDeclarations.Add(
                 new ExtensionDeclaration<TExtension>(this, _additionalRepositoryDescriptorProvider, extenstionAssigned));
@@ -88,7 +88,7 @@ namespace CrossHMI.LibraryIntegration.Infrastructure
         /// <inheritdoc />
         public INetworkDeviceDynamicLifetimeHandle DeclareDynamic()
         {
-            _dynamicHandle =  new NetworkDeviceDynamicLifetimeHandle(_networkEventsManager);
+            _dynamicHandle = new NetworkDeviceDynamicLifetimeHandle(_networkEventsManager);
             return _dynamicHandle;
         }
 
@@ -101,18 +101,18 @@ namespace CrossHMI.LibraryIntegration.Infrastructure
             if (_deviceUpdateSource == null)
                 throw new InvalidOperationException("Unable to build the device without defining update source.");
 
-            _builderLogger.LogDebug($"Commencing building event source for {_repository}");
+            _builderLogger?.LogDebug($"Commencing building event source for {_repository}");
             var device = (factory ?? _deviceInstanceFactory)();
-            _builderLogger.LogDebug("Instantiated device model.");
+            _builderLogger?.LogDebug("Instantiated device model.");
             device.Repository = _repository;
-            _builderLogger.LogDebug("Assigned repository.");
+            _builderLogger?.LogDebug("Assigned repository.");
 
             device.DefineDevice(this);
 
-            _builderLogger.LogDebug("Finished defining device.");
+            _builderLogger?.LogDebug("Finished defining device.");
             foreach (var extensionDeclaration in _extensionDeclarations)
             {
-                _builderLogger.LogDebug($"Assigning extension matched with {_repository} repository.");
+                _builderLogger?.LogDebug($"Assigning extension matched with {_repository} repository.");
                 extensionDeclaration.Assign();
             }
 
@@ -121,7 +121,7 @@ namespace CrossHMI.LibraryIntegration.Infrastructure
                 _dynamicHandle.DeviceUpdateSourceBase = _deviceUpdateSource;
             }
 
-            _builderLogger.LogDebug($"Finished building device for {_repository}");
+            _builderLogger?.LogDebug($"Finished building device for {_repository}");
             return device;
         }
 

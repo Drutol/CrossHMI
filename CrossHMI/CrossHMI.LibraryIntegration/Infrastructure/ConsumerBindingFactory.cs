@@ -43,8 +43,6 @@ namespace CrossHMI.LibraryIntegration.Infrastructure
             throw new NotImplementedException();
         }
 
-
-
         /// <inheritdoc />
         public Dictionary<string, IConsumerBinding> GetConsumerBindingsForRepository(string repository)
         {

@@ -33,13 +33,14 @@ namespace CrossHMI.LibraryIntegration.Infrastructure
         /// <param name="messageHandlerFactory">Message handler factory.</param>
         /// <param name="encodingFactory">Encoding factory.</param>
         /// <param name="deviceDefinitionBuilderFactory">Definition builder factory.</param>
+        /// <param name="logger">Optional logger instance.</param>
         public NetworkEventsManager(
             IRecordingBindingFactory bindingFactory,
             IConfigurationFactory configurationFactory,
             IMessageHandlerFactory messageHandlerFactory,
             IEncodingFactory encodingFactory,
-            ILogger<NetworkEventsManager> logger,
-            INetworkDeviceDefinitionBuilderFactory deviceDefinitionBuilderFactory)
+            INetworkDeviceDefinitionBuilderFactory deviceDefinitionBuilderFactory,
+            ILogger<NetworkEventsManager> logger = null)
         {
             _recordingBindingFactory = bindingFactory;
             _logger = logger;
@@ -60,12 +61,14 @@ namespace CrossHMI.LibraryIntegration.Infrastructure
             await Task.Run(Start);
         }
 
+        /// <inheritdoc />
         public void EnableAutomaticDeviceInstantiation<TDevice>() where TDevice : INetworkDynamicDevice, new()
         {
             _isDynamicInstantiationEnabled = true;
             _dynamicInstantiationDeviceType = typeof(TDevice);
         }
 
+        /// <inheritdoc />
         public void DisableAutomaticDeviceInstantiation()
         {
             _isDynamicInstantiationEnabled = false;
@@ -78,14 +81,14 @@ namespace CrossHMI.LibraryIntegration.Infrastructure
             Func<TDevice> factory)
             where TDevice : INetworkDevice
         {
-            _logger.LogDebug($"Creating event source for: {repository}");
+            _logger?.LogDebug($"Creating event source for: {repository}");
             var source = new NetworkDeviceUpdateSource<TDevice>();
             source.Device = ((NetworkDeviceDefinitionBuilder<TDevice>) _deviceDefinitionBuilderFactory
                 .CreateBuilder<TDevice>(source)
                 .WithRepository(repository)).Build(factory);
             
             _assignedRepositories[repository] = source.Device;
-            _logger.LogDebug($"Created event source for: {repository}");
+            _logger?.LogDebug($"Created event source for: {repository}");
             return source;
         }
 

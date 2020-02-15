@@ -19,7 +19,6 @@ namespace CrossHMI.LibraryIntegration.Infrastructure
             string processValue,
             Type bindingType)
         {
-
             var method = typeof(NetworkDeviceDynamicLifetimeHandle)
                 .GetMethod(nameof(RegisterVariable))?
                 .MakeGenericMethod(bindingType);
