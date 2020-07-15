@@ -30,13 +30,16 @@ The aplication itself is written incroprating cross-platform patterns and techni
 * Business logic which implements domain interfaces is contained within `CrossHMI.Shared` namespace and it includes both ViewModels used directly by user interface as well as logic for processing asynchnous data obtained through the OPC-UA-OOI library.
 * The actual platform project `CrossHMI.Android` implements Android user interface using previously created ViewModels and serves as an entry point for the whole end application.
 
+With this architecture it is easy to expand onto any other platform like Windows, Linux, iOS or even Web (Blazor WebAssembly).
+
 <p align="center">
   <img width="460" height="300" src="https://raw.githubusercontent.com/Drutol/CrossHMI/master/.github/images/arch.png">
 </p>
 
+
 #### OPC-UA-OOI library interfacing
 
-Unfortunately the library does not provide any easy way to map data onto properties which will be later used for displaying the data to the user. For this reason I had to build some sort of proxy which will allow to manage the process much more easily. The proxy part is easily detachable from the whole project and could be later provided as a separate Nuget package.
+As it's out of scope of the OPC-UA-OOI library it does not provide any easy way to map data onto properties within objects which could be later used for example to display some values to the user. For this reason CrossHMI offers a proxy which will allow to manage the process. The proxy part is easily detachable from the whole project and could be later provided as a separate NuGet package.
 
 Going from the very top level of "device" class definition. Let's assume boiler model we are dealing with:
 ```cs
@@ -66,7 +69,18 @@ There are also other aspects of library configuration that need to be handled, y
 
 ### Networking
 
-For obtaining asynchronous data the application is listening for UDP broadcast packets, as simple as it gets. 
+For obtaining asynchronous data the application is listening for UDP broadcast packets, as simple as it gets. It's possible to inject other transports from OPC-UA-OOI's SDK.
+
+### Comparison to original library scructure
+
+Underlying library proposes [following architecture](https://commsvr.gitbook.io/ooi/reactive-communication/semanticdata): ![](https://gblobscdn.gitbook.com/assets%2F-LC0CZRWqxXUp1c0m4su%2F-LhqLqzedKjqeUzWKWJu%2F-LEUl1qtjbZoS9c9Na_4%2FDataManagementExternalLibraries.png?alt=media)
+
+Here I'll compare how proposed architecture translates onto the original:
+
+1. The core of the OOI library architecture is `DataManagementSetup` which gathers all dependencies required and initializes them. Respective component which directly inherits from it is called `NetworkEventsManager`. Its purpose is the same as of `DataManagementSetup` plus managing the creation and binding process of device objects. It's part of the CrossHMI SDK.
+2. The `Configuration` component is to be injected via `NetworkEventsManager`'s constructor, given the nature of the configuration its form may vary hence actual implementation of `ConfigurationFactoryBase<TConfiguration>` is part of the startup project and is not part of the CrossHMI SDK.
+3. `MessageHandling` and `Encoding` components hiding behind `IMessageHandlerFactory` and `IEncodingFactory` interfaces respectively are to be injected to `NetworkEventsManager`, the OOI library provides various implemenations in its SDK.
+4. `DataRepository` describes what the final application is doing with the obtained data. The objects that are receiving it are created and bound by the `NetworkEventsManager` in accordance to passed `Configuration`. In case of Azure integration this is the part which then proceeds to funnel the state of the device to the Azure via `AzurePublisher` which is part of the plugin to the CrossHMI SDK. In case of Android it'd be the device classes which are ViewModel's on their own.
 
 ## Notes 
 

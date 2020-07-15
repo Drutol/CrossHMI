@@ -1,6 +1,6 @@
 # CrossHMI.LibraryIntegration.AzureGateway
 
-This component builds on top of `CrossHMI.LibraryIntegration` allowing easy routage of data to Azure IoT Hub, which can be later propagated to Azure IoT Central for example.
+This component builds on top of `CrossHMI.LibraryIntegration` allowing easy routage of data to Azure IoT Hub, which can be later propagated for example to Azure IoT Central.
 
 ## Data Publishing
 
@@ -51,3 +51,6 @@ await _azurePublisher.StartAsync(CancellationToken.None);
 ### Logging
 
 Optional logging is available with `Microsoft.Extensions.Logging.Abstractions` you can pass your implementations to `AzurePublisher` constructor. It will log ecountered errors and warnings as well as some debug data.
+
+
+
