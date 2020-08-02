@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -6,7 +6,6 @@
 
   <ItemGroup>
     <PackageReference Include="DotNetty.Codecs.Mqtt" Version="0.6.0" />
-    <PackageReference Include="EnterpriseLibrary.TransientFaultHandling" Version="6.0.1304" />
     <PackageReference Include="Microsoft.Azure.Amqp" Version="2.4.3" />
     <PackageReference Include="Microsoft.Azure.Devices.Client" Version="1.22.0" />
     <PackageReference Include="Microsoft.Azure.Devices.Provisioning.Client" Version="1.4.1" />
