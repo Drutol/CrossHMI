@@ -8,9 +8,11 @@
 
   <ItemGroup>
     <Content Remove="Configuration\LibraryConfiguration.json" />
+    <Content Remove="Configuration\LibraryConfigurationExample.json" />
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Configuration\LibraryConfigurationExample.json" />
     <None Include="Configuration\LibraryConfiguration.json" />
   </ItemGroup>
 

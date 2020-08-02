@@ -1,0 +1,756 @@
+﻿{
+  "DataSets": [
+    {
+      "AssociationRole": 0,
+      "AssociationName": "BoilersArea_Boiler #1",
+      "RepositoryGroup": "BoilersArea_Boiler #1",
+      "InformationModelURI": "http://commsvr.com/UA/Examples/BoilersSet",
+      "DataSymbolicName": "BoilersArea_Boiler #1",
+      "DataSet": [
+        {
+          "SymbolicName": "CCX001_ControlOut",
+          "ProcessValueName": "CCX001_ControlOut",
+          "TypeInformation": {
+            "BuiltInType": 11,
+            "ValueRank": -1,
+            "TypeName": null
+          }
+        },
+        {
+          "SymbolicName": "CCX001_Input1",
+          "ProcessValueName": "CCX001_Input1",
+          "TypeInformation": {
+            "BuiltInType": 11,
+            "ValueRank": -1,
+            "TypeName": null
+          }
+        },
+        {
+          "SymbolicName": "CCX001_Input2",
+          "ProcessValueName": "CCX001_Input2",
+          "TypeInformation": {
+            "BuiltInType": 11,
+            "ValueRank": -1,
+            "TypeName": null
+          }
+        },
+        {
+          "SymbolicName": "CCX001_Input3",
+          "ProcessValueName": "CCX001_Input3",
+          "TypeInformation": {
+            "BuiltInType": 11,
+            "ValueRank": -1,
+            "TypeName": null
+          }
+        },
+        {
+          "SymbolicName": "DrumX001_LIX001_Output",
+          "ProcessValueName": "DrumX001_LIX001_Output",
+          "TypeInformation": {
+            "BuiltInType": 11,
+            "ValueRank": -1,
+            "TypeName": null
+          }
+        },
+        {
+          "SymbolicName": "FCX001_ControlOut",
+          "ProcessValueName": "FCX001_ControlOut",
+          "TypeInformation": {
+            "BuiltInType": 11,
+            "ValueRank": -1,
+            "TypeName": null
+          }
+        },
+        {
+          "SymbolicName": "FCX001_Measurement",
+          "ProcessValueName": "FCX001_Measurement",
+          "TypeInformation": {
+            "BuiltInType": 11,
+            "ValueRank": -1,
+            "TypeName": null
+          }
+        },
+        {
+          "SymbolicName": "FCX001_SetPoint",
+          "ProcessValueName": "FCX001_SetPoint",
+          "TypeInformation": {
+            "BuiltInType": 11,
+            "ValueRank": -1,
+            "TypeName": null
+          }
+        },
+        {
+          "SymbolicName": "PipeX001_FTX001_Output",
+          "ProcessValueName": "PipeX001_FTX001_Output",
+          "TypeInformation": {
+            "BuiltInType": 11,
+            "ValueRank": -1,
+            "TypeName": null
+          }
+        },
+        {
+          "SymbolicName": "PipeX001_ValveX001_Input",
+          "ProcessValueName": "PipeX001_ValveX001_Input",
+          "TypeInformation": {
+            "BuiltInType": 11,
+            "ValueRank": -1,
+            "TypeName": null
+          }
+        },
+        {
+          "SymbolicName": "LCX001_ControlOut",
+          "ProcessValueName": "LCX001_ControlOut",
+          "TypeInformation": {
+            "BuiltInType": 11,
+            "ValueRank": -1,
+            "TypeName": null
+          }
+        },
+        {
+          "SymbolicName": "LCX001_Measurement",
+          "ProcessValueName": "LCX001_Measurement",
+          "TypeInformation": {
+            "BuiltInType": 11,
+            "ValueRank": -1,
+            "TypeName": null
+          }
+        },
+        {
+          "SymbolicName": "LCX001_SetPoint",
+          "ProcessValueName": "LCX001_SetPoint",
+          "TypeInformation": {
+            "BuiltInType": 11,
+            "ValueRank": -1,
+            "TypeName": null
+          }
+        },
+        {
+          "SymbolicName": "PipeX002_FTX002_Output",
+          "ProcessValueName": "PipeX002_FTX002_Output",
+          "TypeInformation": {
+            "BuiltInType": 11,
+            "ValueRank": -1,
+            "TypeName": null
+          }
+        },
+        {
+          "SymbolicName": "Simulation_UpdateRate",
+          "ProcessValueName": "Simulation_UpdateRate",
+          "TypeInformation": {
+            "BuiltInType": 7,
+            "ValueRank": -1,
+            "TypeName": null
+          }
+        }
+      ],
+      "Guid": "e669df1f-3670-4dd4-9ef6-acb0975bf4f8",
+      "Root": {
+        "BindingDescription": "Binding Description",
+        "DataType": {
+          "Namespace": "",
+          "Name": "BoilerType\r\n        ",
+          "IsEmpty": false
+        },
+        "NodeIdentifier": {
+          "Namespace": "",
+          "Name": "BoilersArea_BoilerAlpha\r\n        ",
+          "IsEmpty": false
+        }
+      },
+      "PublishingInterval": 100,
+      "MaxBufferTime": 1000,
+      "ConfigurationGuid": "ec1d3d5b-c988-45da-9b6e-8d7f7d5c6089",
+      "ConfigurationVersion": {
+        "MajorVersion": 1,
+        "MinorVersion": 0
+      }
+    },
+    {
+      "AssociationRole": 0,
+      "AssociationName": "BoilersArea_Boiler #2",
+      "RepositoryGroup": "BoilersArea_Boiler #2",
+      "InformationModelURI": "http://commsvr.com/UA/Examples/BoilersSet",
+      "DataSymbolicName": "BoilersArea_Boiler #2",
+      "DataSet": [
+        {
+          "SymbolicName": "CCX001_ControlOut",
+          "ProcessValueName": "CCX001_ControlOut",
+          "TypeInformation": {
+            "BuiltInType": 11,
+            "ValueRank": -1,
+            "TypeName": null
+          }
+        },
+        {
+          "SymbolicName": "CCX001_Input1",
+          "ProcessValueName": "CCX001_Input1",
+          "TypeInformation": {
+            "BuiltInType": 11,
+            "ValueRank": -1,
+            "TypeName": null
+          }
+        },
+        {
+          "SymbolicName": "CCX001_Input2",
+          "ProcessValueName": "CCX001_Input2",
+          "TypeInformation": {
+            "BuiltInType": 11,
+            "ValueRank": -1,
+            "TypeName": null
+          }
+        },
+        {
+          "SymbolicName": "CCX001_Input3",
+          "ProcessValueName": "CCX001_Input3",
+          "TypeInformation": {
+            "BuiltInType": 11,
+            "ValueRank": -1,
+            "TypeName": null
+          }
+        },
+        {
+          "SymbolicName": "DrumX001_LIX001_Output",
+          "ProcessValueName": "DrumX001_LIX001_Output",
+          "TypeInformation": {
+            "BuiltInType": 11,
+            "ValueRank": -1,
+            "TypeName": null
+          }
+        },
+        {
+          "SymbolicName": "FCX001_ControlOut",
+          "ProcessValueName": "FCX001_ControlOut",
+          "TypeInformation": {
+            "BuiltInType": 11,
+            "ValueRank": -1,
+            "TypeName": null
+          }
+        },
+        {
+          "SymbolicName": "FCX001_Measurement",
+          "ProcessValueName": "FCX001_Measurement",
+          "TypeInformation": {
+            "BuiltInType": 11,
+            "ValueRank": -1,
+            "TypeName": null
+          }
+        },
+        {
+          "SymbolicName": "FCX001_SetPoint",
+          "ProcessValueName": "FCX001_SetPoint",
+          "TypeInformation": {
+            "BuiltInType": 11,
+            "ValueRank": -1,
+            "TypeName": null
+          }
+        },
+        {
+          "SymbolicName": "PipeX001_FTX001_Output",
+          "ProcessValueName": "PipeX001_FTX001_Output",
+          "TypeInformation": {
+            "BuiltInType": 11,
+            "ValueRank": -1,
+            "TypeName": null
+          }
+        },
+        {
+          "SymbolicName": "PipeX001_ValveX001_Input",
+          "ProcessValueName": "PipeX001_ValveX001_Input",
+          "TypeInformation": {
+            "BuiltInType": 11,
+            "ValueRank": -1,
+            "TypeName": null
+          }
+        },
+        {
+          "SymbolicName": "LCX001_ControlOut",
+          "ProcessValueName": "LCX001_ControlOut",
+          "TypeInformation": {
+            "BuiltInType": 11,
+            "ValueRank": -1,
+            "TypeName": null
+          }
+        },
+        {
+          "SymbolicName": "LCX001_Measurement",
+          "ProcessValueName": "LCX001_Measurement",
+          "TypeInformation": {
+            "BuiltInType": 11,
+            "ValueRank": -1,
+            "TypeName": null
+          }
+        },
+        {
+          "SymbolicName": "LCX001_SetPoint",
+          "ProcessValueName": "LCX001_SetPoint",
+          "TypeInformation": {
+            "BuiltInType": 11,
+            "ValueRank": -1,
+            "TypeName": null
+          }
+        },
+        {
+          "SymbolicName": "PipeX002_FTX002_Output",
+          "ProcessValueName": "PipeX002_FTX002_Output",
+          "TypeInformation": {
+            "BuiltInType": 11,
+            "ValueRank": -1,
+            "TypeName": null
+          }
+        },
+        {
+          "SymbolicName": "Simulation_UpdateRate",
+          "ProcessValueName": "Simulation_UpdateRate",
+          "TypeInformation": {
+            "BuiltInType": 7,
+            "ValueRank": -1,
+            "TypeName": null
+          }
+        }
+      ],
+      "Guid": "1f5c2bba-b5a7-44d2-93fe-b8736470ee54",
+      "Root": {
+        "BindingDescription": "Binding Description",
+        "DataType": {
+          "Namespace": "",
+          "Name": "BoilerType\r\n        ",
+          "IsEmpty": false
+        },
+        "NodeIdentifier": {
+          "Namespace": "",
+          "Name": "BoilersArea_BoilerBravo\r\n        ",
+          "IsEmpty": false
+        }
+      },
+      "PublishingInterval": 100,
+      "MaxBufferTime": 1000,
+      "ConfigurationGuid": "33b3a9b8-595c-4dd6-8915-489cd6057b5b",
+      "ConfigurationVersion": {
+        "MajorVersion": 1,
+        "MinorVersion": 0
+      }
+    },
+    {
+      "AssociationRole": 0,
+      "AssociationName": "BoilersArea_Boiler #3",
+      "RepositoryGroup": "BoilersArea_Boiler #3",
+      "InformationModelURI": "http://commsvr.com/UA/Examples/BoilersSet",
+      "DataSymbolicName": "BoilersArea_Boiler #3",
+      "DataSet": [
+        {
+          "SymbolicName": "CCX001_ControlOut",
+          "ProcessValueName": "CCX001_ControlOut",
+          "TypeInformation": {
+            "BuiltInType": 11,
+            "ValueRank": -1,
+            "TypeName": null
+          }
+        },
+        {
+          "SymbolicName": "CCX001_Input1",
+          "ProcessValueName": "CCX001_Input1",
+          "TypeInformation": {
+            "BuiltInType": 11,
+            "ValueRank": -1,
+            "TypeName": null
+          }
+        },
+        {
+          "SymbolicName": "CCX001_Input2",
+          "ProcessValueName": "CCX001_Input2",
+          "TypeInformation": {
+            "BuiltInType": 11,
+            "ValueRank": -1,
+            "TypeName": null
+          }
+        },
+        {
+          "SymbolicName": "CCX001_Input3",
+          "ProcessValueName": "CCX001_Input3",
+          "TypeInformation": {
+            "BuiltInType": 11,
+            "ValueRank": -1,
+            "TypeName": null
+          }
+        },
+        {
+          "SymbolicName": "DrumX001_LIX001_Output",
+          "ProcessValueName": "DrumX001_LIX001_Output",
+          "TypeInformation": {
+            "BuiltInType": 11,
+            "ValueRank": -1,
+            "TypeName": null
+          }
+        },
+        {
+          "SymbolicName": "FCX001_ControlOut",
+          "ProcessValueName": "FCX001_ControlOut",
+          "TypeInformation": {
+            "BuiltInType": 11,
+            "ValueRank": -1,
+            "TypeName": null
+          }
+        },
+        {
+          "SymbolicName": "FCX001_Measurement",
+          "ProcessValueName": "FCX001_Measurement",
+          "TypeInformation": {
+            "BuiltInType": 11,
+            "ValueRank": -1,
+            "TypeName": null
+          }
+        },
+        {
+          "SymbolicName": "FCX001_SetPoint",
+          "ProcessValueName": "FCX001_SetPoint",
+          "TypeInformation": {
+            "BuiltInType": 11,
+            "ValueRank": -1,
+            "TypeName": null
+          }
+        },
+        {
+          "SymbolicName": "PipeX001_FTX001_Output",
+          "ProcessValueName": "PipeX001_FTX001_Output",
+          "TypeInformation": {
+            "BuiltInType": 11,
+            "ValueRank": -1,
+            "TypeName": null
+          }
+        },
+        {
+          "SymbolicName": "PipeX001_ValveX001_Input",
+          "ProcessValueName": "PipeX001_ValveX001_Input",
+          "TypeInformation": {
+            "BuiltInType": 11,
+            "ValueRank": -1,
+            "TypeName": null
+          }
+        },
+        {
+          "SymbolicName": "LCX001_ControlOut",
+          "ProcessValueName": "LCX001_ControlOut",
+          "TypeInformation": {
+            "BuiltInType": 11,
+            "ValueRank": -1,
+            "TypeName": null
+          }
+        },
+        {
+          "SymbolicName": "LCX001_Measurement",
+          "ProcessValueName": "LCX001_Measurement",
+          "TypeInformation": {
+            "BuiltInType": 11,
+            "ValueRank": -1,
+            "TypeName": null
+          }
+        },
+        {
+          "SymbolicName": "LCX001_SetPoint",
+          "ProcessValueName": "LCX001_SetPoint",
+          "TypeInformation": {
+            "BuiltInType": 11,
+            "ValueRank": -1,
+            "TypeName": null
+          }
+        },
+        {
+          "SymbolicName": "PipeX002_FTX002_Output",
+          "ProcessValueName": "PipeX002_FTX002_Output",
+          "TypeInformation": {
+            "BuiltInType": 11,
+            "ValueRank": -1,
+            "TypeName": null
+          }
+        },
+        {
+          "SymbolicName": "Simulation_UpdateRate",
+          "ProcessValueName": "Simulation_UpdateRate",
+          "TypeInformation": {
+            "BuiltInType": 7,
+            "ValueRank": -1,
+            "TypeName": null
+          }
+        }
+      ],
+      "Guid": "096d553e-c1da-4ca4-9fcc-9d524fa3ca20",
+      "Root": {
+        "BindingDescription": "Binding Description",
+        "DataType": {
+          "Namespace": "",
+          "Name": "BoilerType\r\n        ",
+          "IsEmpty": false
+        },
+        "NodeIdentifier": {
+          "Namespace": "",
+          "Name": "BoilersArea_BoilerBravo\r\n        ",
+          "IsEmpty": false
+        }
+      },
+      "PublishingInterval": 100,
+      "MaxBufferTime": 1000,
+      "ConfigurationGuid": "ef63fda7-bb4a-400d-a5e9-517fae8e4ff6",
+      "ConfigurationVersion": {
+        "MajorVersion": 1,
+        "MinorVersion": 0
+      }
+    },
+    {
+      "AssociationRole": 0,
+      "AssociationName": "BoilersArea_Boiler #4",
+      "RepositoryGroup": "BoilersArea_Boiler #4",
+      "InformationModelURI": "http://commsvr.com/UA/Examples/BoilersSet",
+      "DataSymbolicName": "BoilersArea_Boiler #4",
+      "DataSet": [
+        {
+          "SymbolicName": "CCX001_ControlOut",
+          "ProcessValueName": "CCX001_ControlOut",
+          "TypeInformation": {
+            "BuiltInType": 11,
+            "ValueRank": -1,
+            "TypeName": null
+          }
+        },
+        {
+          "SymbolicName": "CCX001_Input1",
+          "ProcessValueName": "CCX001_Input1",
+          "TypeInformation": {
+            "BuiltInType": 11,
+            "ValueRank": -1,
+            "TypeName": null
+          }
+        },
+        {
+          "SymbolicName": "CCX001_Input2",
+          "ProcessValueName": "CCX001_Input2",
+          "TypeInformation": {
+            "BuiltInType": 11,
+            "ValueRank": -1,
+            "TypeName": null
+          }
+        },
+        {
+          "SymbolicName": "CCX001_Input3",
+          "ProcessValueName": "CCX001_Input3",
+          "TypeInformation": {
+            "BuiltInType": 11,
+            "ValueRank": -1,
+            "TypeName": null
+          }
+        },
+        {
+          "SymbolicName": "DrumX001_LIX001_Output",
+          "ProcessValueName": "DrumX001_LIX001_Output",
+          "TypeInformation": {
+            "BuiltInType": 11,
+            "ValueRank": -1,
+            "TypeName": null
+          }
+        },
+        {
+          "SymbolicName": "FCX001_ControlOut",
+          "ProcessValueName": "FCX001_ControlOut",
+          "TypeInformation": {
+            "BuiltInType": 11,
+            "ValueRank": -1,
+            "TypeName": null
+          }
+        },
+        {
+          "SymbolicName": "FCX001_Measurement",
+          "ProcessValueName": "FCX001_Measurement",
+          "TypeInformation": {
+            "BuiltInType": 11,
+            "ValueRank": -1,
+            "TypeName": null
+          }
+        },
+        {
+          "SymbolicName": "FCX001_SetPoint",
+          "ProcessValueName": "FCX001_SetPoint",
+          "TypeInformation": {
+            "BuiltInType": 11,
+            "ValueRank": -1,
+            "TypeName": null
+          }
+        },
+        {
+          "SymbolicName": "PipeX001_FTX001_Output",
+          "ProcessValueName": "PipeX001_FTX001_Output",
+          "TypeInformation": {
+            "BuiltInType": 11,
+            "ValueRank": -1,
+            "TypeName": null
+          }
+        },
+        {
+          "SymbolicName": "PipeX001_ValveX001_Input",
+          "ProcessValueName": "PipeX001_ValveX001_Input",
+          "TypeInformation": {
+            "BuiltInType": 11,
+            "ValueRank": -1,
+            "TypeName": null
+          }
+        },
+        {
+          "SymbolicName": "LCX001_ControlOut",
+          "ProcessValueName": "LCX001_ControlOut",
+          "TypeInformation": {
+            "BuiltInType": 11,
+            "ValueRank": -1,
+            "TypeName": null
+          }
+        },
+        {
+          "SymbolicName": "LCX001_Measurement",
+          "ProcessValueName": "LCX001_Measurement",
+          "TypeInformation": {
+            "BuiltInType": 11,
+            "ValueRank": -1,
+            "TypeName": null
+          }
+        },
+        {
+          "SymbolicName": "LCX001_SetPoint",
+          "ProcessValueName": "LCX001_SetPoint",
+          "TypeInformation": {
+            "BuiltInType": 11,
+            "ValueRank": -1,
+            "TypeName": null
+          }
+        },
+        {
+          "SymbolicName": "PipeX002_FTX002_Output",
+          "ProcessValueName": "PipeX002_FTX002_Output",
+          "TypeInformation": {
+            "BuiltInType": 11,
+            "ValueRank": -1,
+            "TypeName": null
+          }
+        },
+        {
+          "SymbolicName": "Simulation_UpdateRate",
+          "ProcessValueName": "Simulation_UpdateRate",
+          "TypeInformation": {
+            "BuiltInType": 7,
+            "ValueRank": -1,
+            "TypeName": null
+          }
+        }
+      ],
+      "Guid": "78e83ea4-aa0c-43e3-9449-3f2f195f2844",
+      "Root": {
+        "BindingDescription": "Binding Description",
+        "DataType": {
+          "Namespace": "",
+          "Name": "BoilerType\r\n        ",
+          "IsEmpty": false
+        },
+        "NodeIdentifier": {
+          "Namespace": "",
+          "Name": "BoilersArea_BoilerBravo\r\n        ",
+          "IsEmpty": false
+        }
+      },
+      "PublishingInterval": 100,
+      "MaxBufferTime": 1000,
+      "ConfigurationGuid": "3b3273c2-c5bc-468d-9c6b-97c6e2a5042d",
+      "ConfigurationVersion": {
+        "MajorVersion": 1,
+        "MinorVersion": 0
+      }
+    }
+  ],
+  "MessageHandlers": [
+    {
+      "$type": "UAOOI.Configuration.Networking.Serialization.MessageReaderConfiguration, UAOOI.Configuration.Networking",
+      "ConsumerAssociationConfigurations": [
+        {
+          "AssociationName": "BoilersArea_Boiler #1",
+          "DataSetWriterId": 100,
+          "PublisherId": "d80d81dd-96e6-4560-850e-154f9181307c"
+        }
+      ],
+      "Name": "UDP1",
+      "Configuration": {
+        "ChannelConfiguration": "55556,False,255.255.255.255,True"
+      },
+      "TransportRole": 0
+    },
+    {
+      "$type": "UAOOI.Configuration.Networking.Serialization.MessageReaderConfiguration, UAOOI.Configuration.Networking",
+      "ConsumerAssociationConfigurations": [
+        {
+          "AssociationName": "BoilersArea_Boiler #2",
+          "DataSetWriterId": 1202,
+          "PublisherId": "d80d81dd-96e6-4560-850e-154f9181307c"
+        }
+      ],
+      "Name": "UDP2",
+      "Configuration": {
+        "ChannelConfiguration": "55557,False,255.255.255.255,True"
+      },
+      "TransportRole": 0
+    },
+    {
+      "$type": "UAOOI.Configuration.Networking.Serialization.MessageReaderConfiguration, UAOOI.Configuration.Networking",
+      "ConsumerAssociationConfigurations": [
+        {
+          "AssociationName": "BoilersArea_Boiler #3",
+          "DataSetWriterId": 130,
+          "PublisherId": "d80d81dd-96e6-4560-850e-154f9181307c"
+        }
+      ],
+      "Name": "UDP3",
+      "Configuration": {
+        "ChannelConfiguration": "55558,False,255.255.255.255,True"
+      },
+      "TransportRole": 0
+    },
+    {
+      "$type": "UAOOI.Configuration.Networking.Serialization.MessageReaderConfiguration, UAOOI.Configuration.Networking",
+      "ConsumerAssociationConfigurations": [
+        {
+          "AssociationName": "BoilersArea_Boiler #4",
+          "DataSetWriterId": 140,
+          "PublisherId": "d80d81dd-96e6-4560-850e-154f9181307c"
+        }
+      ],
+      "Name": "UDP4",
+      "Configuration": {
+        "ChannelConfiguration": "55559,False,255.255.255.255,True"
+      },
+      "TransportRole": 0
+    }
+  ],
+  "AdditionalRepositoryData": [
+    {
+      "Repository": "BoilersArea_Boiler #1",
+      "AzureDeviceId": "",
+      "AzureScopeId": "",
+      "AzurePrimaryKey": "",
+      "AzureSecondaryKey": ""
+    },
+    {
+      "Repository": "BoilersArea_Boiler #2",
+      "AzureDeviceId": "",
+      "AzureScopeId": "",
+      "AzurePrimaryKey": "",
+      "AzureSecondaryKey": ""
+    },
+    {
+      "Repository": "BoilersArea_Boiler #4",
+      "AzureDeviceId": "",
+      "AzureScopeId": "",
+      "AzurePrimaryKey": "",
+      "AzureSecondaryKey": ""
+    },
+    {
+      "Repository": "BoilersArea_Boiler #3",
+      "AzureDeviceId": "",
+      "AzureScopeId": "",
+      "AzurePrimaryKey": "",
+      "AzureSecondaryKey": ""
+    }
+  ]
+}
