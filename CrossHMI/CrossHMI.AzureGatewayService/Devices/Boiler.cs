@@ -5,6 +5,7 @@ using CrossHMI.LibraryIntegration.AzureGateway.Interfaces;
 using CrossHMI.LibraryIntegration.Infrastructure.Devices;
 using CrossHMI.LibraryIntegration.Interfaces;
 using Microsoft.Azure.Devices.Client;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
 namespace CrossHMI.AzureGatewayService.Devices
@@ -16,11 +17,27 @@ namespace CrossHMI.AzureGatewayService.Devices
     [DataContract]
     public class Boiler : NetworkDeviceBase, IAzureEnabledNetworkDevice
     {
+        private readonly ILogger<Boiler> _logger;
+        private string _repository;
         public DeviceClient DeviceClient { get; set; }
-        public override string Repository { get; set; }
+
+        public override string Repository
+        {
+            get => _repository;
+            set
+            {
+                _repository = value;
+                _logger.BeginScope(value);
+            }
+        }
 
         public BoilerRepositoryDetails ConfigurationData { get; private set; }
         public IAzureDeviceParameters AzureDeviceParameters => ConfigurationData;
+
+        public Boiler(ILogger<Boiler> logger)
+        {
+            _logger = logger;
+        }
 
         //InputPipe
         [DataMember] [ProcessVariable] public double PipeX001_FTX001_Output { get; private set; }
@@ -61,6 +78,7 @@ namespace CrossHMI.AzureGatewayService.Devices
 
         public string CreateMessagePayload()
         {
+            _logger.LogTrace("Building payload.");
             return JsonConvert.SerializeObject(this);
         }
     }

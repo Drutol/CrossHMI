@@ -55,7 +55,7 @@ namespace CrossHMI.Shared.Statics
             builder.RegisterGeneric(typeof(NetworkDeviceDefinitionBuilder<>));
             builder.RegisterType<NetworkDeviceDefinitionBuilderFactory>()
                 .As<INetworkDeviceDefinitionBuilderFactory>();
-            builder.RegisterBuildCallback(BuildCallback);
+            builder.RegisterBuildCallback(scope => _appLifetimeScope = scope);
 
             builder.Register(context => new LoggerFactory(context.Resolve<IEnumerable<ILoggerProvider>>())).As<ILoggerFactory>().SingleInstance();
             builder.RegisterGeneric(typeof(Logger<>)).As(typeof(ILogger<>));

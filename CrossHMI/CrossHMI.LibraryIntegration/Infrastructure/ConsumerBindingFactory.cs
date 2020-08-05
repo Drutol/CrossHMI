@@ -13,7 +13,7 @@ namespace CrossHMI.LibraryIntegration.Infrastructure
     /// </summary>
     public class ConsumerBindingFactory : IRecordingBindingFactory
     {
-        private Dictionary<string, Dictionary<string, IConsumerBinding>> ConsumerBindings { get; } =
+        private readonly Dictionary<string, Dictionary<string, IConsumerBinding>> _consumerBindings =
             new Dictionary<string, Dictionary<string, IConsumerBinding>>();
 
         /// <inheritdoc />
@@ -46,8 +46,8 @@ namespace CrossHMI.LibraryIntegration.Infrastructure
         /// <inheritdoc />
         public Dictionary<string, IConsumerBinding> GetConsumerBindingsForRepository(string repository)
         {
-            if (ConsumerBindings.ContainsKey(repository))
-                return ConsumerBindings[repository];
+            if (_consumerBindings.ContainsKey(repository))
+                return _consumerBindings[repository];
 
             throw new ArgumentOutOfRangeException(nameof(repository), $"Unknown repository \"{repository}\"");
         }
@@ -101,9 +101,9 @@ namespace CrossHMI.LibraryIntegration.Infrastructure
         private IConsumerBinding AddBinding<T>(string repositoryGroup, string variableName, UATypeInfo typeInfo)
         {
             var monitoredValue = new ConsumerBindingMonitoredValue<T>(typeInfo);
-            if (!ConsumerBindings.ContainsKey(repositoryGroup))
-                ConsumerBindings[repositoryGroup] = new Dictionary<string, IConsumerBinding>();
-            ConsumerBindings[repositoryGroup][variableName] = monitoredValue;
+            if (!_consumerBindings.ContainsKey(repositoryGroup))
+                _consumerBindings[repositoryGroup] = new Dictionary<string, IConsumerBinding>();
+            _consumerBindings[repositoryGroup][variableName] = monitoredValue;
             return monitoredValue;
         }
     }

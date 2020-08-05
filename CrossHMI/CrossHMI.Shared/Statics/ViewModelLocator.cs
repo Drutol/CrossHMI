@@ -22,7 +22,7 @@ namespace CrossHMI.Shared.Statics
         /// <param name="builder"></param>
         internal static void RegisterViewModels(this ContainerBuilder builder)
         {
-            builder.RegisterBuildCallback(BuildCallback);
+            builder.RegisterBuildCallback(scope => _appLifetimeScope = scope);
 
             builder.RegisterType<MainViewModel>().SingleInstance();
             builder.RegisterType<DashboardViewModel>().SingleInstance();
@@ -30,11 +30,6 @@ namespace CrossHMI.Shared.Statics
             builder.RegisterType<GenericDetailsViewModel>().SingleInstance();
 
             builder.RegisterType<Boiler>();
-        }
-
-        private static void BuildCallback(IContainer container)
-        {
-            _appLifetimeScope = container.BeginLifetimeScope();
         }
     }
 }

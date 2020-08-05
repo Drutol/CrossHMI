@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 
 namespace CrossHMI.LibraryIntegration.AzureGateway.Infrastructure
 {
+    ///<inheritdoc/>
     public class AzurePublisher : IAzurePublisher
     {
         private readonly ILoggerFactory _loggerFactory;

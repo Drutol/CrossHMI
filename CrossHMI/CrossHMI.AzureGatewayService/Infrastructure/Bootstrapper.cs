@@ -13,14 +13,15 @@ namespace CrossHMI.AzureGatewayService.Infrastructure
 {
     public class Bootstrapper : BackgroundService, IBootstrapper
     {
-        private readonly ILogger<Bootstrapper> _logger;
         private readonly IAzurePublisher _azurePublisher;
-        private readonly INetworkEventsManager _networkEventsManager;
         private readonly INetworkDeviceDefinitionBuilderFactory _builderFactory;
+        private readonly ILogger<Bootstrapper> _logger;
+        private readonly INetworkEventsManager _networkEventsManager;
         private readonly IServiceProvider _serviceProvider;
 
         public Bootstrapper(
             ILogger<Bootstrapper> logger,
+            ILibraryLogger libraryLogger,
             IAzurePublisher azurePublisher,
             INetworkEventsManager networkEventsManager,
             INetworkDeviceDefinitionBuilderFactory builderFactory,
