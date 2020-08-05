@@ -22,8 +22,8 @@
     <PackageReference Include="AoLibs.Adapters.Core" Version="0.6.9" />
     <PackageReference Include="AoLibs.Navigation.Core" Version="0.6.9" />
     <PackageReference Include="AoLibs.Utilities.Shared" Version="0.6.9" />
-    <PackageReference Include="Autofac" Version="4.9.4" />
-    <PackageReference Include="Microsoft.Extensions.Logging" Version="3.1.0" />
+    <PackageReference Include="Autofac" Version="5.2.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="3.1.6" />
     <PackageReference Include="MvvmLightLibsStd10" Version="5.4.1.1" />
     <PackageReference Include="UAOOI.Networking.Encoding" Version="4.0.1" />
     <PackageReference Include="UAOOI.Networking.SemanticData" Version="4.0.1" />
