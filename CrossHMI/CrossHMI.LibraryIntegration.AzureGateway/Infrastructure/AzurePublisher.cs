@@ -11,20 +11,20 @@ namespace CrossHMI.LibraryIntegration.AzureGateway.Infrastructure
     ///<inheritdoc/>
     public class AzurePublisher : IAzurePublisher
     {
-        private readonly ILoggerFactory _loggerFactory;
         private readonly ILogger<AzurePublisher> _logger;
         private readonly List<AzurePublisherDeviceHandle> _deviceHandles = new List<AzurePublisherDeviceHandle>();
         private readonly SemaphoreSlim _handlesSemaphore = new SemaphoreSlim(1);
+        private Func<IAzureEnabledNetworkDevice, AzurePublisherDeviceHandle> _handleFactory;
 
         ///<inheritdoc/>
         public TimeSpan PublishInterval { get; set; } = TimeSpan.FromSeconds(10);
 
         public AzurePublisher(
-            ILoggerFactory loggerFactory = null,
+            Func<IAzureEnabledNetworkDevice, AzurePublisherDeviceHandle> handleFactory,
             ILogger<AzurePublisher> logger = null)
         {
-            _loggerFactory = loggerFactory;
             _logger = logger;
+            _handleFactory = handleFactory;
         }
 
         ///<inheritdoc/>
@@ -72,7 +72,7 @@ namespace CrossHMI.LibraryIntegration.AzureGateway.Infrastructure
                         $"Provided {nameof(device)} parameter has not been registered for publishing.");
 
                 _deviceHandles.Remove(existingHandle);
-                existingHandle.Dispose();
+                await existingHandle.DisposeAsync();
             }
             finally
             {
@@ -83,7 +83,7 @@ namespace CrossHMI.LibraryIntegration.AzureGateway.Infrastructure
         ///<inheritdoc/>
         public async Task<bool> RegisterDeviceForPublishingAsync(IAzureEnabledNetworkDevice azureEnabledNetworkDevice)
         {
-            var handle = new AzurePublisherDeviceHandle(azureEnabledNetworkDevice, _loggerFactory);
+            var handle = _handleFactory(azureEnabledNetworkDevice);
             await _handlesSemaphore.WaitAsync().ConfigureAwait(false);
             try
             {
@@ -112,16 +112,9 @@ namespace CrossHMI.LibraryIntegration.AzureGateway.Infrastructure
             return true;
         }
 
-        ///<inheritdoc/>
-        public void Dispose()
+        public async ValueTask DisposeAsync()
         {
-            _loggerFactory?.Dispose();
             _handlesSemaphore?.Dispose();
-
-            foreach (var handle in _deviceHandles)
-            {
-                handle.Dispose();
-            }
         }
     }
 }

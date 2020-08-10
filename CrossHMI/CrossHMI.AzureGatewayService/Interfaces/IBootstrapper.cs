@@ -1,6 +1,8 @@
-﻿namespace CrossHMI.AzureGatewayService.Interfaces
+﻿using System;
+
+namespace CrossHMI.AzureGatewayService.Interfaces
 {
-    interface IBootstrapper
+    interface IBootstrapper : IDisposable
     {
     }
 }

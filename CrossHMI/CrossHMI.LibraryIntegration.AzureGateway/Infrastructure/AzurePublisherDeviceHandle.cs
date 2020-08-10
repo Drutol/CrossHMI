@@ -11,7 +11,7 @@ using Microsoft.Extensions.Logging;
 
 namespace CrossHMI.LibraryIntegration.AzureGateway.Infrastructure
 {
-    internal class AzurePublisherDeviceHandle : IDisposable
+    public class AzurePublisherDeviceHandle : IAsyncDisposable
     {
         private const string GlobalDeviceEndpoint = "global.azure-devices-provisioning.net";
 
@@ -22,17 +22,15 @@ namespace CrossHMI.LibraryIntegration.AzureGateway.Infrastructure
 
         public IAzureEnabledNetworkDevice Device { get; }
 
-
         public AzurePublisherDeviceHandle(
             IAzureEnabledNetworkDevice device,
-            ILoggerFactory loggerFactory)
+            ILogger<AzurePublisherDeviceHandle> logger)
         {
+            _logger = logger;
             device.AzureDeviceParameters.AssertNotNull();
 
             Device = device;
-
-            _logger = loggerFactory?.CreateLogger<AzurePublisherDeviceHandle>();
-            _logger?.BeginScope($"Device:{Device.AzureDeviceParameters.AzureDeviceId}");
+            _logger.BeginScope($"Device:{Device.AzureDeviceParameters.AzureDeviceId}");
         }
 
         public async Task<bool> Initialize()
@@ -116,7 +114,7 @@ namespace CrossHMI.LibraryIntegration.AzureGateway.Infrastructure
 
             _logger.LogWarning(
                 $"Failed to provision the device. {provisioningResult.Status} - {provisioningResult.ErrorMessage}. Disposing.");
-            Dispose();
+            await DisposeAsync();
             return false;
         }
 
@@ -125,9 +123,15 @@ namespace CrossHMI.LibraryIntegration.AzureGateway.Infrastructure
             await _deviceClient
                 .SendEventAsync(new Message(Encoding.UTF8.GetBytes(Device.CreateMessagePayload())))
                 .ConfigureAwait(false);
+            _logger.LogDebug("Successfully published device state to Azure.");
         }
 
-        public async void Dispose()
+        public override string ToString()
+        {
+            return $"{nameof(AzurePublisherDeviceHandle)} - {Device.AzureDeviceParameters.AzureDeviceId}";
+        }
+
+        public async ValueTask DisposeAsync()
         {
             _security?.Dispose();
             _transport?.Dispose();
@@ -135,14 +139,18 @@ namespace CrossHMI.LibraryIntegration.AzureGateway.Infrastructure
             if (_deviceClient != null)
             {
                 Device.DeviceClient = null;
-                await _deviceClient.CloseAsync().ConfigureAwait(false);
+                try
+                {
+                    await _deviceClient.CloseAsync().ConfigureAwait(false);
+                    _logger.LogInformation($"Disposed azure connection.");
+                }
+                catch (Exception e)
+                {
+                    _logger.LogInformation($"Azure connection already disposed.");
+                }
+
                 _deviceClient.Dispose();
             }
-        }
-
-        public override string ToString()
-        {
-            return $"{nameof(AzurePublisherDeviceHandle)} - {Device.AzureDeviceParameters.AzureDeviceId}";
         }
     }
 }

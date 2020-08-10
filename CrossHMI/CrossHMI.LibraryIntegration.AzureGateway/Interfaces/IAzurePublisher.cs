@@ -7,7 +7,7 @@ namespace CrossHMI.LibraryIntegration.AzureGateway.Interfaces
     /// <summary>
     /// Component which manages azure gateway. Allows adding and removing specific devices.
     /// </summary>
-    public interface IAzurePublisher : IDisposable
+    public interface IAzurePublisher : IAsyncDisposable
     {
         /// <summary>
         /// Gets or sets the time between data publish to Azure.
