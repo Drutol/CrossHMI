@@ -3,18 +3,18 @@
 namespace CrossHMI.LibraryIntegration.Interfaces
 {
     /// <summary>
-    ///     Component meant to wrap <see cref="IConsumerBinding" /> exposing an event with update information.
+    /// Component meant to wrap <see cref="IConsumerBinding" /> exposing an event with update information.
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public interface INetworkVariableUpdateSource<T>
     {
         /// <summary>
-        ///     The name of the process variable that propagates updates.
+        /// The name of the process variable that propagates updates.
         /// </summary>
         string Name { get; }
 
         /// <summary>
-        ///     Event for when the new value is received.
+        /// Event for when the new value is received.
         /// </summary>
         event NetworkVariableUpdateEventHandler<T> Updated;
     }

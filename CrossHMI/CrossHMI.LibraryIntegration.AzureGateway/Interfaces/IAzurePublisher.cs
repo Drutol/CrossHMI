@@ -7,13 +7,8 @@ namespace CrossHMI.LibraryIntegration.AzureGateway.Interfaces
     /// <summary>
     /// Component which manages azure gateway. Allows adding and removing specific devices.
     /// </summary>
-    public interface IAzurePublisher : IAsyncDisposable
+    public interface IAzurePublisher 
     {
-        /// <summary>
-        /// Gets or sets the time between data publish to Azure.
-        /// </summary>
-        TimeSpan PublishInterval { get; set; }
-
         /// <summary>
         /// Cancels publishing of the device and severs the connection.
         /// </summary>
@@ -25,12 +20,5 @@ namespace CrossHMI.LibraryIntegration.AzureGateway.Interfaces
         /// </summary>
         /// <param name="device">The device to register.</param>
         Task<bool> RegisterDeviceForPublishingAsync(IAzureEnabledNetworkDevice device);
-
-
-        /// <summary>
-        /// Begins operation of the publisher. It will be awaited till the <param name="cancellationToken"/> won't be cancelled.
-        /// </summary>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        Task StartAsync(CancellationToken cancellationToken);
     }
 }

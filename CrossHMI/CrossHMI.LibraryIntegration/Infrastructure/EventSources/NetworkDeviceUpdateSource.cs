@@ -1,4 +1,5 @@
-﻿using CrossHMI.LibraryIntegration.Interfaces;
+﻿using System.Collections.Generic;
+using CrossHMI.LibraryIntegration.Interfaces;
 
 namespace CrossHMI.LibraryIntegration.Infrastructure.EventSources
 {

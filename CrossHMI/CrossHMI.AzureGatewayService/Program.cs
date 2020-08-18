@@ -59,8 +59,8 @@ namespace CrossHMI.AzureGatewayService
 
                     services.AddTransient(typeof(NetworkDeviceDefinitionBuilder<>));
                     services.AddTransient<Boiler>();
+                    services.AddTransient<DynamicAzureDevice>();
                     services.AddTransient<AzurePublisherDeviceHandle>();
-
 
                     services.Remove(ServiceDescriptor.Singleton(typeof(ILogger<>), typeof(Logger<>)));
                     services.AddTransient(typeof(ILogger<>), typeof(ScopedLogger<>));

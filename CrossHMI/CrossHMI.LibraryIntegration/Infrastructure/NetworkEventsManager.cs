@@ -15,6 +15,8 @@ namespace CrossHMI.LibraryIntegration.Infrastructure
     /// <inheritdoc cref="INetworkEventsManager" />
     public class NetworkEventsManager : DataManagementSetup, INetworkEventsManager
     {
+        public event EventHandler<INetworkDeviceUpdateSource<INetworkDynamicDevice>> NewDeviceCreated;
+
         private readonly ILogger<NetworkEventsManager> _logger;
         private readonly INetworkDeviceDefinitionBuilderFactory _deviceDefinitionBuilderFactory;
         private readonly IRecordingBindingFactory _recordingBindingFactory;
@@ -23,10 +25,10 @@ namespace CrossHMI.LibraryIntegration.Infrastructure
             = new Dictionary<string, INetworkDevice>();
 
         private bool _isDynamicInstantiationEnabled;
-        private Type _dynamicInstantiationDeviceType;
+        private Func<INetworkDynamicDevice> _dynamicDeviceFactory;
 
         /// <summary>
-        ///     Creates new instance of <see cref="NetworkEventsManager" />
+        /// Creates new instance of <see cref="NetworkEventsManager" />
         /// </summary>
         /// <param name="bindingFactory">Binding factory.</param>
         /// <param name="configurationFactory">Configuration factory.</param>
@@ -62,17 +64,17 @@ namespace CrossHMI.LibraryIntegration.Infrastructure
         }
 
         /// <inheritdoc />
-        public void EnableAutomaticDeviceInstantiation<TDevice>() where TDevice : INetworkDynamicDevice, new()
+        public void EnableAutomaticDeviceInstantiation(Func<INetworkDynamicDevice> deviceFactory)
         {
             _isDynamicInstantiationEnabled = true;
-            _dynamicInstantiationDeviceType = typeof(TDevice);
+            _dynamicDeviceFactory = deviceFactory;
         }
 
         /// <inheritdoc />
         public void DisableAutomaticDeviceInstantiation()
         {
             _isDynamicInstantiationEnabled = false;
-            _dynamicInstantiationDeviceType = null;
+            _dynamicDeviceFactory = null;
         }
 
         /// <inheritdoc />
@@ -118,7 +120,7 @@ namespace CrossHMI.LibraryIntegration.Infrastructure
         {
             if (_isDynamicInstantiationEnabled && !_assignedRepositories.ContainsKey(repository))
             {
-                ObtainEventSourceForDevice(repository, () => (INetworkDynamicDevice)Activator.CreateInstance(_dynamicInstantiationDeviceType));
+                NewDeviceCreated?.Invoke(this, ObtainEventSourceForDevice(repository, () => _dynamicDeviceFactory()));
             }
         }
     }

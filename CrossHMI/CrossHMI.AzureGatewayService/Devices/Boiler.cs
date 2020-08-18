@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Runtime.Serialization;
 using CrossHMI.AzureGatewayService.Infrastructure.Configuration;
 using CrossHMI.LibraryIntegration.AzureGateway.Interfaces;
@@ -20,6 +21,8 @@ namespace CrossHMI.AzureGatewayService.Devices
         private readonly ILogger<Boiler> _logger;
         private string _repository;
         public DeviceClient DeviceClient { get; set; }
+
+        public TimeSpan PublishingInterval => ConfigurationData.PublishingInterval;
 
         public override string Repository
         {
@@ -75,6 +78,8 @@ namespace CrossHMI.AzureGatewayService.Devices
 
             builder.RequestConfigurationExtenstion<BoilerRepositoryDetails>(data => { ConfigurationData = data; });
         }
+
+
 
         public string CreateMessagePayload()
         {

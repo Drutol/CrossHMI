@@ -13,11 +13,7 @@ namespace CrossHMI.LibraryIntegration.AzureGateway.Infrastructure
     {
         private readonly ILogger<AzurePublisher> _logger;
         private readonly List<AzurePublisherDeviceHandle> _deviceHandles = new List<AzurePublisherDeviceHandle>();
-        private readonly SemaphoreSlim _handlesSemaphore = new SemaphoreSlim(1);
         private Func<IAzureEnabledNetworkDevice, AzurePublisherDeviceHandle> _handleFactory;
-
-        ///<inheritdoc/>
-        public TimeSpan PublishInterval { get; set; } = TimeSpan.FromSeconds(10);
 
         public AzurePublisher(
             Func<IAzureEnabledNetworkDevice, AzurePublisherDeviceHandle> handleFactory,
@@ -28,68 +24,27 @@ namespace CrossHMI.LibraryIntegration.AzureGateway.Infrastructure
         }
 
         ///<inheritdoc/>
-        public async Task StartAsync(CancellationToken cancellationToken)
-        {
-            while (!cancellationToken.IsCancellationRequested)
-            {
-                await _handlesSemaphore.WaitAsync(cancellationToken).ConfigureAwait(false);
-                try
-                {
-                    _logger?.LogDebug($"AzurePublisher running.");
-
-                    foreach (var deviceHandle in _deviceHandles)
-                    {
-                        try
-                        {
-                            await deviceHandle.PublishSelf();
-                        }
-                        catch (Exception e)
-                        {
-                            _logger?.LogError(e, $"Failed to publish data for device {deviceHandle}");
-                        }
-                    }
-
-                    _logger?.LogDebug($"AzurePublisher finished processing {_deviceHandles.Count} devices.");
-                }
-                finally
-                {
-                    _handlesSemaphore.Release();
-                }
-                await Task.Delay(PublishInterval, cancellationToken);
-            }
-        }
-
-        ///<inheritdoc/>
         public async Task CancelDevicePublishingAsync(IAzureEnabledNetworkDevice device)
         {
-            await _handlesSemaphore.WaitAsync().ConfigureAwait(false);
-            try
-            {
-                var existingHandle = _deviceHandles.FirstOrDefault(handle => handle.Device == device);
+            var existingHandle = _deviceHandles.FirstOrDefault(handle => handle.Device == device);
 
-                if (existingHandle is null)
-                    throw new ArgumentException(
-                        $"Provided {nameof(device)} parameter has not been registered for publishing.");
+            if (existingHandle is null)
+                throw new ArgumentException(
+                    $"Provided {nameof(device)} parameter has not been registered for publishing.");
 
-                _deviceHandles.Remove(existingHandle);
-                await existingHandle.DisposeAsync();
-            }
-            finally
-            {
-                _handlesSemaphore.Release();
-            }
+            _deviceHandles.Remove(existingHandle);
+            await existingHandle.DisposeAsync();
         }
 
         ///<inheritdoc/>
         public async Task<bool> RegisterDeviceForPublishingAsync(IAzureEnabledNetworkDevice azureEnabledNetworkDevice)
         {
-            var handle = _handleFactory(azureEnabledNetworkDevice);
-            await _handlesSemaphore.WaitAsync().ConfigureAwait(false);
             try
             {
+                var handle = _handleFactory(azureEnabledNetworkDevice);
                 if (await handle.Initialize().ConfigureAwait(false))
                 {
-                    _deviceHandles.Add(handle);
+                    handle.StartPublishing();
                 }
                 else
                 {
@@ -104,17 +59,8 @@ namespace CrossHMI.LibraryIntegration.AzureGateway.Infrastructure
                     $"Failed to register device {azureEnabledNetworkDevice?.AzureDeviceParameters?.AzureDeviceId}");
                 throw;
             }
-            finally
-            {
-                _handlesSemaphore.Release();
-            }
 
             return true;
-        }
-
-        public async ValueTask DisposeAsync()
-        {
-            _handlesSemaphore?.Dispose();
         }
     }
 }

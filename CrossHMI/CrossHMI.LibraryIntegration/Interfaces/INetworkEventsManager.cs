@@ -10,7 +10,12 @@ namespace CrossHMI.LibraryIntegration.Interfaces
     public interface INetworkEventsManager
     {
         /// <summary>
-        ///     Initializes the underlying library.
+        /// Called whenever the library reports new repository.
+        /// </summary>
+        event EventHandler<INetworkDeviceUpdateSource<INetworkDynamicDevice>> NewDeviceCreated;
+
+        /// <summary>
+        /// Initializes the underlying library.
         /// </summary>
         Task Initialize();
 
@@ -18,8 +23,8 @@ namespace CrossHMI.LibraryIntegration.Interfaces
         /// Enables automatic creation of new devices if unknown repository manifests itself
         /// after for example providing new configuration to the library.
         /// </summary>
-        /// <typeparam name="TDevice">Type used to create the instance.</typeparam>
-        void EnableAutomaticDeviceInstantiation<TDevice>() where TDevice : INetworkDynamicDevice, new();
+        /// <param name="deviceFactory">Factory used to instantiate device.</param>
+        void EnableAutomaticDeviceInstantiation(Func<INetworkDynamicDevice> deviceFactory);
 
         /// <summary>
         /// Disables automatic creation of new devices.

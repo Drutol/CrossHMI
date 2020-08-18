@@ -1,4 +1,5 @@
-﻿using System.Runtime.Serialization;
+﻿using System;
+using System.Runtime.Serialization;
 using System.Threading.Tasks;
 using CrossHMI.LibraryIntegration.AzureGateway.Interfaces;
 using CrossHMI.LibraryIntegration.Interfaces;
@@ -26,6 +27,9 @@ namespace CrossHMI.AzureGatewayService.Infrastructure.Configuration
         /// <inheritdoc />
         [DataMember]
         public string Repository { get; set; }
+
+        [DataMember]
+        public TimeSpan PublishingInterval { get; set; }
 
         public Task<SecurityProvider> GetSecurityProviderAsync() =>
             Task.FromResult<SecurityProvider>(new SecurityProviderSymmetricKey(

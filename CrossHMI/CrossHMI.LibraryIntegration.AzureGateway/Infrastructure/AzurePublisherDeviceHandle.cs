@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using CrossHMI.LibraryIntegration.AzureGateway.Interfaces;
 using CrossHMI.LibraryIntegration.AzureGateway.Util;
@@ -19,6 +20,7 @@ namespace CrossHMI.LibraryIntegration.AzureGateway.Infrastructure
         private ProvisioningTransportHandler _transport;
         private DeviceClient _deviceClient;
         private readonly ILogger<AzurePublisherDeviceHandle> _logger;
+        private Timer _timer;
 
         public IAzureEnabledNetworkDevice Device { get; }
 
@@ -118,6 +120,23 @@ namespace CrossHMI.LibraryIntegration.AzureGateway.Infrastructure
             return false;
         }
 
+        public void StartPublishing()
+        {
+            _timer = new Timer(Callback, null, TimeSpan.Zero, Device.PublishingInterval);
+        }
+
+        private async void Callback(object state)
+        {
+            try
+            {
+                await PublishSelf();
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, "Failed to publish device state.");
+            }
+        }
+
         public async Task PublishSelf()
         {
             await _deviceClient
@@ -135,6 +154,7 @@ namespace CrossHMI.LibraryIntegration.AzureGateway.Infrastructure
         {
             _security?.Dispose();
             _transport?.Dispose();
+            _timer?.DisposeAsync();
 
             if (_deviceClient != null)
             {
