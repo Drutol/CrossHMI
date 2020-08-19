@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Azure.IoT.DigitalTwin.Parser" Version="1.0.12-preview" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="3.1.6" />
     <PackageReference Include="DotNetty.Codecs.Mqtt" Version="0.6.0" />
     <PackageReference Include="Microsoft.Extensions.Logging" Version="3.1.7" />

@@ -1,0 +1,194 @@
+{
+  "@id": "urn:crossHmi:CrossHmiBoiler_4jt:3",
+  "@type": "CapabilityModel",
+  "implements": [
+    {
+      "@id": "urn:crossHmi:CrossHmiBoiler_4jt:ek4clmsx:1",
+      "@type": "InterfaceInstance",
+      "displayName": {
+        "en": "Interface"
+      },
+      "name": "CrossHmiBoiler_7f9",
+      "schema": {
+        "@id": "urn:crossHmi:CrossHmiBoiler_7f9:3",
+        "@type": "Interface",
+        "displayName": {
+          "en": "Interface"
+        },
+        "contents": [
+          {
+            "@id": "urn:crossHmi:CrossHmiBoiler_7f9:PipeX001_FTX001_Output:1",
+            "@type": [
+              "Telemetry",
+              "SemanticType/Pressure"
+            ],
+            "displayName": {
+              "en": "PipeX001_FTX001_Output"
+            },
+            "name": "PipeX001_FTX001_Output",
+            "schema": "double"
+          },
+          {
+            "@id": "urn:crossHmi:CrossHmiBoiler_7f9:PipeX001_ValveX001_Input:1",
+            "@type": [
+              "Telemetry",
+              "SemanticType/Pressure"
+            ],
+            "displayName": {
+              "en": "PipeX001_ValveX001_Input"
+            },
+            "name": "PipeX001_ValveX001_Input",
+            "schema": "double"
+          },
+          {
+            "@id": "urn:crossHmi:CrossHmiBoiler_7f9:DrumX001_LIX001_Output:1",
+            "@type": [
+              "Telemetry",
+              "SemanticType/Pressure"
+            ],
+            "displayName": {
+              "en": "DrumX001_LIX001_Output"
+            },
+            "name": "DrumX001_LIX001_Output",
+            "schema": "double"
+          },
+          {
+            "@id": "urn:crossHmi:CrossHmiBoiler_7f9:PipeX002_FTX002_Output:1",
+            "@type": [
+              "Telemetry",
+              "SemanticType/Pressure"
+            ],
+            "displayName": {
+              "en": "PipeX002_FTX002_Output"
+            },
+            "name": "PipeX002_FTX002_Output",
+            "schema": "double"
+          },
+          {
+            "@id": "urn:crossHmi:CrossHmiBoiler_7f9:FCX001_ControlOut:1",
+            "@type": "Telemetry",
+            "displayName": {
+              "en": "FCX001_ControlOut"
+            },
+            "name": "FCX001_ControlOut",
+            "schema": "double"
+          },
+          {
+            "@id": "urn:crossHmi:CrossHmiBoiler_7f9:FCX001_Measurement:1",
+            "@type": "Telemetry",
+            "displayName": {
+              "en": "FCX001_Measurement"
+            },
+            "name": "FCX001_Measurement",
+            "schema": "double"
+          },
+          {
+            "@id": "urn:crossHmi:CrossHmiBoiler_7f9:FCX001_SetPoint:1",
+            "@type": "Telemetry",
+            "displayName": {
+              "en": "FCX001_SetPoint"
+            },
+            "name": "FCX001_SetPoint",
+            "schema": "double"
+          },
+          {
+            "@id": "urn:crossHmi:CrossHmiBoiler_7f9:LCX001_ControlOut:1",
+            "@type": "Telemetry",
+            "displayName": {
+              "en": "LCX001_ControlOut"
+            },
+            "name": "LCX001_ControlOut",
+            "schema": "double"
+          },
+          {
+            "@id": "urn:crossHmi:CrossHmiBoiler_7f9:LCX001_Measurement:1",
+            "@type": "Telemetry",
+            "displayName": {
+              "en": "LCX001_Measurement"
+            },
+            "name": "LCX001_Measurement",
+            "schema": "double"
+          },
+          {
+            "@id": "urn:crossHmi:CrossHmiBoiler_7f9:LCX001_SetPoint:1",
+            "@type": "Telemetry",
+            "displayName": {
+              "en": "LCX001_SetPoint"
+            },
+            "name": "LCX001_SetPoint",
+            "schema": "double"
+          },
+          {
+            "@id": "urn:crossHmi:CrossHmiBoiler_7f9:CCX001_ControlOut:1",
+            "@type": "Telemetry",
+            "displayName": {
+              "en": "CCX001_ControlOut"
+            },
+            "name": "CCX001_ControlOut",
+            "schema": "double"
+          },
+          {
+            "@id": "urn:crossHmi:CrossHmiBoiler_7f9:CCX001_Input1:1",
+            "@type": "Telemetry",
+            "displayName": {
+              "en": "CCX001_Input1"
+            },
+            "name": "CCX001_Input1",
+            "schema": "double"
+          },
+          {
+            "@id": "urn:crossHmi:CrossHmiBoiler_7f9:CCX001_Input2:1",
+            "@type": "Telemetry",
+            "displayName": {
+              "en": "CCX001_Input2"
+            },
+            "name": "CCX001_Input2",
+            "schema": "double"
+          },
+          {
+            "@id": "urn:crossHmi:CrossHmiBoiler_7f9:CCX001_Input3:1",
+            "@type": "Telemetry",
+            "displayName": {
+              "en": "CCX001_Input3"
+            },
+            "name": "CCX001_Input3",
+            "schema": "double"
+          },
+          {
+            "@id": "urn:crossHmi:CrossHmiBoiler_7f9:TestCommand:2",
+            "@type": "Command",
+            "commandType": "asynchronous",
+            "request": {
+              "@id": "urn:crossHmi:CrossHmiBoiler_7f9:TestCommand:TestRequest:2",
+              "@type": "SchemaField",
+              "displayName": {
+                "en": "TestRequest"
+              },
+              "name": "TestRequest",
+              "schema": "string"
+            },
+            "response": {
+              "@id": "urn:crossHmi:CrossHmiBoiler_7f9:TestCommand:TestResponse:2",
+              "@type": "SchemaField",
+              "displayName": {
+                "en": "TestResponse"
+              },
+              "name": "TestResponse",
+              "schema": "string"
+            },
+            "displayName": {
+              "en": "TestCommand"
+            },
+            "name": "TestCommand"
+          }
+        ]
+      }
+    }
+  ],
+  "displayName": {
+    "en": "CrossHmi Boiler"
+  },
+  "@context": [
+    "http://azureiot.com/v1/contexts/IoTModel.json"
+  ]
+}

@@ -30,6 +30,9 @@ namespace CrossHMI.AzureGatewayService.Infrastructure.Configuration
 
         [DataMember]
         public TimeSpan PublishingInterval { get; set; }
+        
+        [DataMember]
+        public string CapabilityModelPath { get; set; }
 
         public Task<SecurityProvider> GetSecurityProviderAsync() =>
             Task.FromResult<SecurityProvider>(new SecurityProviderSymmetricKey(

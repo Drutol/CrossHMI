@@ -4,8 +4,8 @@ using System.Threading.Tasks;
 namespace CrossHMI.LibraryIntegration.Interfaces
 {
     /// <summary>
-    ///     Root class that initializes the library and abstraction layer of itself.
-    ///     Allows to create <see cref="INetworkDevice" /> instances.
+    /// Root class that initializes the library and abstraction layer of itself.
+    /// Allows to create <see cref="INetworkDevice" /> instances.
     /// </summary>
     public interface INetworkEventsManager
     {
@@ -43,7 +43,6 @@ namespace CrossHMI.LibraryIntegration.Interfaces
             string repository,
             Func<TDevice> factory)
             where TDevice : INetworkDevice;
-
 
         /// <summary>
         /// Obtains update source associated with given value within repository.

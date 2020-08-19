@@ -86,10 +86,11 @@ namespace CrossHMI.LibraryIntegration.Infrastructure
         }
 
         /// <inheritdoc />
-        public INetworkDeviceDynamicLifetimeHandle DeclareDynamic()
+        public INetworkDeviceDefinitionBuilder DeclareDynamic(Action<INetworkDeviceDynamicLifetimeHandle> handleAssigned)
         {
             _dynamicHandle = new NetworkDeviceDynamicLifetimeHandle(_networkEventsManager);
-            return _dynamicHandle;
+            handleAssigned(_dynamicHandle);
+            return this;
         }
 
         /// <summary>

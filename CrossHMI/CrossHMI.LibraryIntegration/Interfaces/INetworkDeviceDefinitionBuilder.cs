@@ -44,6 +44,6 @@ namespace CrossHMI.LibraryIntegration.Interfaces
         /// <summary>
         /// Declares the device dynamic meaning that any newly discovered bindings will be added at runtime.
         /// </summary>
-        INetworkDeviceDynamicLifetimeHandle DeclareDynamic();
+        INetworkDeviceDefinitionBuilder DeclareDynamic(Action<INetworkDeviceDynamicLifetimeHandle> handleAssigned);
     }
 }
