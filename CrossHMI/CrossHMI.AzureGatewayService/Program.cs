@@ -50,10 +50,8 @@ namespace CrossHMI.AzureGatewayService
                     services.AddSingleton<IAdditionalRepositoryDescriptorProvider>(provider =>
                         (ConfigurationFactory) provider.GetRequiredService<IConfigurationFactory>());
                     services.AddSingleton<IEncodingFactory, EncodingFactoryBinarySimple>();
-                    services.AddSingleton<IRecordingBindingFactory, ConsumerBindingFactory>();
                     services.AddSingleton<INetworkEventsManager, NetworkEventsManager>();
-                    services
-                        .AddSingleton<INetworkDeviceDefinitionBuilderFactory, NetworkDeviceDefinitionBuilderFactory>();
+                    services.AddSingleton<INetworkDeviceDefinitionBuilderFactory, NetworkDeviceDefinitionBuilderFactory>();
 
                     services.AddSingleton<ILibraryLogger, LibraryLogger>();
 
@@ -78,6 +76,14 @@ namespace CrossHMI.AzureGatewayService
 
         private static void ConfigurationContainer(ContainerBuilder builder)
         {
+            builder.RegisterType<ConsumerBindingFactory>()
+                .AsImplementedInterfaces()
+                .SingleInstance();
+
+            builder.RegisterType<AutoWiredDataManagementSetup>()
+                .PropertiesAutowired()
+                .SingleInstance();
+
             builder
                 .RegisterAssemblyTypes(AppDomain.CurrentDomain.GetAssemblies())
                 .As(typeof(INetworkingEventSourceProvider));

@@ -13,12 +13,14 @@ using UAOOI.Networking.SemanticData;
 namespace CrossHMI.LibraryIntegration.Infrastructure
 {
     /// <inheritdoc cref="INetworkEventsManager" />
-    public class NetworkEventsManager : DataManagementSetup, INetworkEventsManager
+    public class NetworkEventsManager : INetworkEventsManager
     {
         public event EventHandler<INetworkDeviceUpdateSource<INetworkDynamicDevice>> NewDeviceCreated;
 
         private readonly ILogger<NetworkEventsManager> _logger;
         private readonly INetworkDeviceDefinitionBuilderFactory _deviceDefinitionBuilderFactory;
+        private readonly AutoWiredDataManagementSetup _dataManagementSetup;
+
         private readonly IRecordingBindingFactory _recordingBindingFactory;
 
         private readonly Dictionary<string, INetworkDevice> _assignedRepositories 
@@ -35,23 +37,18 @@ namespace CrossHMI.LibraryIntegration.Infrastructure
         /// <param name="messageHandlerFactory">Message handler factory.</param>
         /// <param name="encodingFactory">Encoding factory.</param>
         /// <param name="deviceDefinitionBuilderFactory">Definition builder factory.</param>
+        /// <param name="dataManagementSetup">UAOOI's DataManagementSetup setup.</param>
         /// <param name="logger">Optional logger instance.</param>
         public NetworkEventsManager(
             IRecordingBindingFactory bindingFactory,
-            IConfigurationFactory configurationFactory,
-            IMessageHandlerFactory messageHandlerFactory,
-            IEncodingFactory encodingFactory,
             INetworkDeviceDefinitionBuilderFactory deviceDefinitionBuilderFactory,
+            AutoWiredDataManagementSetup dataManagementSetup,
             ILogger<NetworkEventsManager> logger = null)
         {
             _recordingBindingFactory = bindingFactory;
             _logger = logger;
             _deviceDefinitionBuilderFactory = deviceDefinitionBuilderFactory;
-
-            BindingFactory = bindingFactory;
-            ConfigurationFactory = configurationFactory;
-            MessageHandlerFactory = messageHandlerFactory;
-            EncodingFactory = encodingFactory;
+            _dataManagementSetup = dataManagementSetup;
 
             bindingFactory.NewRepositoryReceived += BindingFactoryOnNewBindingCreatedForRepository;
             bindingFactory.NewBindingCreated += BindingFactoryOnNewBindingCreated;
@@ -60,7 +57,7 @@ namespace CrossHMI.LibraryIntegration.Infrastructure
         /// <inheritdoc />
         public async Task Initialize()
         {
-            await Task.Run(Start);
+            await Task.Run(_dataManagementSetup.Run);
         }
 
         /// <inheritdoc />
