@@ -90,7 +90,6 @@ namespace CrossHMI.Shared.ViewModels
         private async void Initialize()
         {
             _logger.LogDebug("Initializing network events manager.");
-            _networkEventsManager.EnableAutomaticDeviceInstantiation<DynamicDevice>();
             await _networkEventsManager.Initialize();
 
             _logger.LogDebug("Network events manager initialized. Creating event sources for repositories.");

@@ -31,30 +31,33 @@ namespace CrossHMI.Shared.Statics
         {
             //Library
             builder.RegisterType<MessageHandlerFactory>()
-                .As<IMessageHandlerFactory>()
+                .AsImplementedInterfaces()
                 .SingleInstance();
 
             builder.RegisterType<ConfigurationFactory>()
-                .As<IConfigurationFactory>()
-                .As<IAdditionalRepositoryDescriptorProvider>()
+                .AsImplementedInterfaces()
                 .SingleInstance();
 
             builder.RegisterType<EncodingFactoryBinarySimple>()
-                .As<IEncodingFactory>()
+                .AsImplementedInterfaces()
                 .SingleInstance();
 
             builder.RegisterType<ConsumerBindingFactory>()
-                .As<IRecordingBindingFactory>()
+                .AsImplementedInterfaces()
+                .SingleInstance();
+
+            builder.RegisterType<AutoWiredDataManagementSetup>()
+                .PropertiesAutowired()
                 .SingleInstance();
 
             //Library Orchestration
             builder.RegisterType<NetworkEventsManager>()
-                .As<INetworkEventsManager>()
+                .AsImplementedInterfaces()
                 .SingleInstance();
 
             builder.RegisterGeneric(typeof(NetworkDeviceDefinitionBuilder<>));
             builder.RegisterType<NetworkDeviceDefinitionBuilderFactory>()
-                .As<INetworkDeviceDefinitionBuilderFactory>();
+                .AsImplementedInterfaces();
             builder.RegisterBuildCallback(scope => _appLifetimeScope = scope);
 
             builder.Register(context => new LoggerFactory(context.Resolve<IEnumerable<ILoggerProvider>>())).As<ILoggerFactory>().SingleInstance();
